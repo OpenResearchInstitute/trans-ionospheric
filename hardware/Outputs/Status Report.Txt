@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [phase-4-badge.PrjPcb]
+   Generated File[phase-4-badge.TXT]
+   Generated File[phase-4-badge.LDP]
+   Generated File[phase-4-badge.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 19:42:16 On 05-Mar-18
