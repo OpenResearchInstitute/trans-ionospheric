@@ -111,7 +111,6 @@ Generating : Top Overlay
 Used DCodes :
     D10
     D14
-    D15
     D74
     D75
     D76
@@ -414,5 +413,16 @@ Generating : Keep-Out Layer
 Used DCodes :
     D10
     D14
+*************************************************************
+
+*************************************************************
+Generating : Outline
+      File : phase-4-badge.Outline
+
+    Adding Layer      : Outline
+
+
+Used DCodes :
+    D10
 *************************************************************
 

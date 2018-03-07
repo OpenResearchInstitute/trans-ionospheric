@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: phase-4-badge.GBR   05-Mar-18  19:42:08
+Gerber File Extension Report For: phase-4-badge.GBR   06-Mar-18  21:14:50
 ------------------------------------------------------------------------------------------
 
 
@@ -15,4 +15,5 @@ Layer Extension     Layer Description
 .GBP                Bottom Paste                            
 .GBO                Bottom Overlay                          
 .GKO                Keep-Out Layer                          
+.Outline            Outline                                 
 ------------------------------------------------------------------------------------------

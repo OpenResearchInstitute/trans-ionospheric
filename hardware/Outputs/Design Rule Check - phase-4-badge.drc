@@ -1,0 +1,1049 @@
+Protel Design System Design Rule Check
+PCB File : E:\Users\KMW\TechProjects\phase-4-badge\phase-4-badge.CSPcbDoc
+Date     : 06-Mar-18
+Time     : 21:18:31
+
+ERROR : More than 500 violations detected, DRC was stopped
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+Rule Violations :18
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2253.561mil,2195.646mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2253.561mil,2195.646mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+Rule Violations :20
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=18mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (All),(All)
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Arc (1748.175mil,5653.442mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1748.175mil,5653.442mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1748.175mil,5653.442mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1746.105mil,5656.415mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1753.835mil,5644.193mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1746.105mil,5656.415mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1753.835mil,5644.193mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1746.105mil,5656.415mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1748.175mil,5653.442mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1748.175mil,5653.442mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1746.105mil,5656.415mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1746.105mil,5656.415mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Track (1598.03mil,5965.248mil)(1603.49mil,5967.85mil)  Top Solder and 
+                     Arc (1755.639mil,5640.934mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Track (1592.581mil,5962.54mil)(1598.03mil,5965.248mil)  Top Solder and 
+                     Arc (1753.835mil,5644.193mil)  Top Solder
+   Violation between Arc (1748.175mil,5653.442mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1748.175mil,5653.442mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Track (1587.146mil,5959.726mil)(1592.581mil,5962.54mil)  Top Solder and 
+                     Arc (1752.045mil,5647.282mil)  Top Solder
+   Violation between Arc (1746.105mil,5656.415mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1753.835mil,5644.193mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1755.639mil,5640.934mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1746.105mil,5656.415mil)  Top Solder and 
+                     Arc (1750.144mil,5650.399mil)  Top Solder
+   Violation between Arc (1752.045mil,5647.282mil)  Top Solder and 
+                     Arc (1748.175mil,5653.442mil)  Top Solder
+   Violation between Arc (1750.144mil,5650.399mil)  Top Solder and 
+                     Arc (1746.105mil,5656.415mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1398.173mil,2153.994mil)(1399.476mil,2150.236mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1385.028mil,2197.721mil)(1386.053mil,2193.829mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1384.303mil,2200.539mil)(1385.028mil,2197.721mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1383.728mil,2202.82mil)(1384.303mil,2200.539mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1396.811mil,2158.012mil)(1398.173mil,2153.994mil)  Top Solder and 
+                     Arc (1970.866mil,2349.936mil)  Top Solder
+   Violation between Track (1481.093mil,6586.528mil)(1484.918mil,6586.9mil)  Top Solder and 
+                     Arc (1524.6mil,6160.743mil)  Top Solder
+   Violation between Track (1484.918mil,6586.9mil)(1488.175mil,6587.188mil)  Top Solder and 
+                     Arc (1524.6mil,6160.743mil)  Top Solder
+   Violation between Track (1471.078mil,6585.387mil)(1476.665mil,6586.054mil)  Top Solder and 
+                     Arc (1525.609mil,6154.124mil)  Top Solder
+   Violation between Track (1476.665mil,6586.054mil)(1481.093mil,6586.528mil)  Top Solder and 
+                     Arc (1525.609mil,6154.124mil)  Top Solder
+   Violation between Arc (1525.354mil,6166.986mil)  Top Solder and 
+                     Arc (1519.605mil,6173.396mil)  Top Solder
+   Violation between Arc (1528.443mil,6163.828mil)  Top Solder and 
+                     Arc (1522.395mil,6170.181mil)  Top Solder
+   Violation between Arc (1531.585mil,6160.76mil)  Top Solder and 
+                     Arc (1525.354mil,6166.986mil)  Top Solder
+   Violation between Arc (1534.797mil,6157.751mil)  Top Solder and 
+                     Arc (1528.443mil,6163.828mil)  Top Solder
+   Violation between Arc (1538.191mil,6154.689mil)  Top Solder and 
+                     Arc (1531.585mil,6160.76mil)  Top Solder
+   Violation between Track (1196.005mil,6433.043mil)(1200.643mil,6438.646mil)  Top Solder and 
+                     Arc (1534.797mil,6157.751mil)  Top Solder
+   Violation between Track (1200.643mil,6438.646mil)(1205.321mil,6444.115mil)  Top Solder and 
+                     Arc (1534.797mil,6157.751mil)  Top Solder
+   Violation between Track (1191.407mil,6427.303mil)(1196.005mil,6433.043mil)  Top Solder and 
+                     Arc (1538.191mil,6154.689mil)  Top Solder
+   Violation between Track (1196.005mil,6433.043mil)(1200.643mil,6438.646mil)  Top Solder and 
+                     Arc (1538.191mil,6154.689mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1377.024mil,5525.661mil)(1377.117mil,5530.484mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Track (1376.952mil,5520.806mil)(1377.024mil,5525.661mil)  Top Solder and 
+                     Arc (2449.782mil,5507.703mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Arc (5447.04mil,5652.288mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5447.04mil,5652.288mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5447.04mil,5652.288mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5449.11mil,5655.261mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5441.38mil,5643.039mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5449.11mil,5655.261mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5441.38mil,5643.039mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5449.11mil,5655.261mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5447.04mil,5652.288mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5447.04mil,5652.288mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5449.11mil,5655.261mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5449.11mil,5655.261mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5450.321mil,5656.873mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5450.321mil,5656.873mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5450.321mil,5656.873mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5446.105mil,5652.769mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5446.105mil,5652.769mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5446.105mil,5652.769mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5450.321mil,5656.873mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5450.321mil,5656.873mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5446.105mil,5652.769mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5446.105mil,5652.769mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Track (5591.725mil,5966.697mil)(5597.185mil,5964.095mil)  Top Solder and 
+                     Arc (5439.576mil,5639.78mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Track (5597.185mil,5964.095mil)(5602.634mil,5961.387mil)  Top Solder and 
+                     Arc (5441.38mil,5643.039mil)  Top Solder
+   Violation between Arc (5447.04mil,5652.288mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5447.04mil,5652.288mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Track (5602.634mil,5961.387mil)(5608.069mil,5958.573mil)  Top Solder and 
+                     Arc (5443.169mil,5646.128mil)  Top Solder
+   Violation between Arc (5449.11mil,5655.261mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5441.38mil,5643.039mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5439.576mil,5639.78mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5449.11mil,5655.261mil)  Top Solder and 
+                     Arc (5445.071mil,5649.245mil)  Top Solder
+   Violation between Arc (5443.169mil,5646.128mil)  Top Solder and 
+                     Arc (5447.04mil,5652.288mil)  Top Solder
+   Violation between Arc (5445.071mil,5649.245mil)  Top Solder and 
+                     Arc (5449.11mil,5655.261mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5450.321mil,5656.873mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5450.321mil,5656.873mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5446.105mil,5652.769mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5446.105mil,5652.769mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5450.321mil,5656.873mil)  Top Solder and 
+                     Arc (5443.348mil,5650.316mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5446.105mil,5652.769mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5434.453mil,5643.137mil)  Top Solder and 
+                     Arc (5440.502mil,5647.913mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5431.273mil,5640.77mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5437.493mil,5645.487mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5443.348mil,5650.316mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5731.385mil,5849.115mil)(5734.584mil,5844.434mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Track (5728.145mil,5853.706mil)(5731.385mil,5849.115mil)  Top Solder and 
+                     Arc (5434.453mil,5643.137mil)  Top Solder
+   Violation between Arc (5437.493mil,5645.487mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Arc (5440.502mil,5647.913mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5734.584mil,5844.434mil)(5737.738mil,5839.663mil)  Top Solder and 
+                     Arc (5431.273mil,5640.77mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5793.277mil,2143.195mil)(5794.681mil,2147.011mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5794.681mil,2147.011mil)(5796.149mil,2151.095mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5796.149mil,2151.095mil)(5797.775mil,2155.739mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5808.769mil,2191.354mil)(5809.761mil,2195.03mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5809.761mil,2195.03mil)(5810.509mil,2197.875mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5810.509mil,2197.875mil)(5811.104mil,2200.18mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Track (5811.104mil,2200.18mil)(5811.617mil,2202.201mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Area Fill (5815mil,1990mil) (6137.788mil,2233.339mil)  Top Solder and 
+                     Arc (5256.867mil,2342.215mil)  Top Solder
+   Violation between Arc (5661.13mil,6158.94mil)  Top Solder and 
+                     Arc (5654.087mil,6152.471mil)  Top Solder
+   Violation between Track (5992.008mil,6436.015mil)(5996.62mil,6430.429mil)  Top Solder and 
+                     Arc (5654.087mil,6152.471mil)  Top Solder
+   Violation between Track (5996.62mil,6430.429mil)(6001.193mil,6424.707mil)  Top Solder and 
+                     Arc (5654.087mil,6152.471mil)  Top Solder
+   Violation between Arc (5664.274mil,6162.013mil)  Top Solder and 
+                     Arc (5657.719mil,6155.742mil)  Top Solder
+   Violation between Track (5987.356mil,6441.467mil)(5992.008mil,6436.015mil)  Top Solder and 
+                     Arc (5657.719mil,6155.742mil)  Top Solder
+   Violation between Track (5992.008mil,6436.015mil)(5996.62mil,6430.429mil)  Top Solder and 
+                     Arc (5657.719mil,6155.742mil)  Top Solder
+   Violation between Arc (5667.37mil,6165.183mil)  Top Solder and 
+                     Arc (5661.13mil,6158.94mil)  Top Solder
+   Violation between Arc (5670.346mil,6168.399mil)  Top Solder and 
+                     Arc (5664.274mil,6162.013mil)  Top Solder
+   Violation between Arc (5676.194mil,6175.428mil)  Top Solder and 
+                     Arc (5667.37mil,6165.183mil)  Top Solder
+   Violation between Track (5722.547mil,6582.748mil)(5729.284mil,6581.841mil)  Top Solder and 
+                     Arc (5668.345mil,6155.655mil)  Top Solder
+   Violation between Track (5712.695mil,6583.875mil)(5717.049mil,6583.406mil)  Top Solder and 
+                     Arc (5668.866mil,6158.878mil)  Top Solder
+   Violation between Track (5717.049mil,6583.406mil)(5722.547mil,6582.748mil)  Top Solder and 
+                     Arc (5668.866mil,6158.878mil)  Top Solder
+   Violation between Track (5076.085mil,1801.709mil)(5083.53mil,1803.407mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Track (5083.53mil,1803.407mil)(5090.08mil,1805.011mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Track (5076.085mil,1801.709mil)(5083.53mil,1803.407mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Track (5083.53mil,1803.407mil)(5090.08mil,1805.011mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Arc (4984.076mil,2219.448mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Arc (4984.076mil,2219.448mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Area Fill (4975mil,1399.995mil) (5185mil,1789.995mil)  Top Solder and 
+                     Arc (4982.558mil,2228.374mil)  Top Solder
+   Violation between Track (5076.085mil,1801.709mil)(5083.53mil,1803.407mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Track (5076.085mil,1801.709mil)(5083.53mil,1803.407mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Track (5068.682mil,1800.154mil)(5076.085mil,1801.709mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Track (5068.682mil,1800.154mil)(5076.085mil,1801.709mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Arc (4984.654mil,2215.151mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Arc (4984.654mil,2215.151mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Area Fill (4975mil,1399.995mil) (5185mil,1789.995mil)  Top Solder and 
+                     Arc (4983.376mil,2223.855mil)  Top Solder
+   Violation between Arc (4985.109mil,2210.854mil)  Top Solder and 
+                     Arc (4984.076mil,2219.448mil)  Top Solder
+   Violation between Arc (4985.109mil,2210.854mil)  Top Solder and 
+                     Arc (4984.076mil,2219.448mil)  Top Solder
+   Violation between Arc (4982.558mil,2228.374mil)  Top Solder and 
+                     Arc (4984.076mil,2219.448mil)  Top Solder
+   Violation between Area Fill (4975mil,1399.995mil) (5185mil,1789.995mil)  Top Solder and 
+                     Arc (4984.076mil,2219.448mil)  Top Solder
+   Violation between Arc (4985.414mil,2206.327mil)  Top Solder and 
+                     Arc (4984.654mil,2215.151mil)  Top Solder
+   Violation between Arc (4985.414mil,2206.327mil)  Top Solder and 
+                     Arc (4984.654mil,2215.151mil)  Top Solder
+   Violation between Arc (4983.376mil,2223.855mil)  Top Solder and 
+                     Arc (4984.654mil,2215.151mil)  Top Solder
+   Violation between Area Fill (4975mil,1399.995mil) (5185mil,1789.995mil)  Top Solder and 
+                     Arc (4984.654mil,2215.151mil)  Top Solder
+   Violation between Arc (4984.076mil,2219.448mil)  Top Solder and 
+                     Arc (4985.109mil,2210.854mil)  Top Solder
+   Violation between Arc (4984.654mil,2215.151mil)  Top Solder and 
+                     Arc (4985.414mil,2206.327mil)  Top Solder
+   Violation between Region (0 hole(s)) Top Solder and 
+                     Arc (4985.414mil,2206.327mil)  Top Solder
+   Violation between Arc (4987.64mil,2220.037mil)  Top Solder and 
+                     Arc (4986.088mil,2211.042mil)  Top Solder
+   Violation between Arc (4987.64mil,2220.037mil)  Top Solder and 
+                     Arc (4986.088mil,2211.042mil)  Top Solder
+   Violation between Arc (4988.59mil,2224.456mil)  Top Solder and 
+                     Arc (4986.792mil,2215.53mil)  Top Solder
+   Violation between Arc (4988.59mil,2224.456mil)  Top Solder and 
+                     Arc (4986.792mil,2215.53mil)  Top Solder
+   Violation between Arc (4986.088mil,2211.042mil)  Top Solder and 
+                     Arc (4987.64mil,2220.037mil)  Top Solder
+   Violation between Arc (4989.655mil,2228.923mil)  Top Solder and 
+                     Arc (4987.64mil,2220.037mil)  Top Solder
+   Violation between Arc (4989.655mil,2228.923mil)  Top Solder and 
+                     Arc (4987.64mil,2220.037mil)  Top Solder
+   Violation between Arc (4986.792mil,2215.53mil)  Top Solder and 
+                     Arc (4988.59mil,2224.456mil)  Top Solder
+   Violation between Arc (4990.853mil,2233.523mil)  Top Solder and 
+                     Arc (4988.59mil,2224.456mil)  Top Solder
+   Violation between Arc (4990.853mil,2233.523mil)  Top Solder and 
+                     Arc (4988.59mil,2224.456mil)  Top Solder
+   Violation between Track (4863.719mil,1809.899mil)(4871.048mil,1807.769mil)  Top Solder and 
+                     Arc (4989.655mil,2228.923mil)  Top Solder
+   Violation between Track (4863.719mil,1809.899mil)(4871.048mil,1807.769mil)  Top Solder and 
+                     Arc (4989.655mil,2228.923mil)  Top Solder
+   Violation between Arc (4987.64mil,2220.037mil)  Top Solder and 
+                     Arc (4989.655mil,2228.923mil)  Top Solder
+   Violation between Track (4849.329mil,1814.477mil)(4856.479mil,1812.136mil)  Top Solder and 
+                     Arc (4990.853mil,2233.523mil)  Top Solder
+   Violation between Track (4856.479mil,1812.136mil)(4863.719mil,1809.899mil)  Top Solder and 
+                     Arc (4990.853mil,2233.523mil)  Top Solder
+   Violation between Track (4849.329mil,1814.477mil)(4856.479mil,1812.136mil)  Top Solder and 
+                     Arc (4990.853mil,2233.523mil)  Top Solder
+   Violation between Track (4856.479mil,1812.136mil)(4863.719mil,1809.899mil)  Top Solder and 
+                     Arc (4990.853mil,2233.523mil)  Top Solder
+   Violation between Arc (4988.59mil,2224.456mil)  Top Solder and 
+                     Arc (4990.853mil,2233.523mil)  Top Solder
+   Violation between Arc (5058.394mil,2365.962mil)  Top Solder and 
+                     Arc (5052.412mil,2358.018mil)  Top Solder
+   Violation between Arc (5058.394mil,2365.962mil)  Top Solder and 
+                     Arc (5052.412mil,2358.018mil)  Top Solder
+   Violation between Track (4722.435mil,1878.779mil)(4729.591mil,1873.934mil)  Top Solder and 
+                     Arc (5052.412mil,2358.018mil)  Top Solder
+   Violation between Track (4722.435mil,1878.779mil)(4729.591mil,1873.934mil)  Top Solder and 
+                     Arc (5052.412mil,2358.018mil)  Top Solder
+   Violation between Track (4715.004mil,1883.981mil)(4722.435mil,1878.779mil)  Top Solder and 
+                     Arc (5056.058mil,2362.941mil)  Top Solder
+   Violation between Track (4715.004mil,1883.981mil)(4722.435mil,1878.779mil)  Top Solder and 
+                     Arc (5056.058mil,2362.941mil)  Top Solder
+   Violation between Arc (5052.412mil,2358.018mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4651.349mil,1936.391mil)(4653.787mil,1934.089mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4653.787mil,1934.089mil)(4656.624mil,1931.446mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4656.624mil,1931.446mil)(4660.225mil,1928.141mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4651.349mil,1936.391mil)(4653.787mil,1934.089mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4653.787mil,1934.089mil)(4656.624mil,1931.446mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (4656.624mil,1931.446mil)(4660.225mil,1928.141mil)  Top Solder and 
+                     Arc (5058.394mil,2365.962mil)  Top Solder
+   Violation between Track (2569.707mil,1923.99mil)(2573.242mil,1927.984mil)  Top Solder and 
+                     Arc (2229.863mil,2228.513mil)  Top Solder
+   Violation between Track (2573.242mil,1927.984mil)(2576.095mil,1931.279mil)  Top Solder and 
+                     Arc (2229.863mil,2228.513mil)  Top Solder
+   Violation between Track (2569.707mil,1923.99mil)(2573.242mil,1927.984mil)  Top Solder and 
+                     Arc (2229.863mil,2228.513mil)  Top Solder
+   Violation between Track (2573.242mil,1927.984mil)(2576.095mil,1931.279mil)  Top Solder and 
+                     Arc (2229.863mil,2228.513mil)  Top Solder
+   Violation between Arc (2236.272mil,2220.9mil)  Top Solder and 
+                     Arc (2229.381mil,2228.95mil)  Top Solder
+   Violation between Arc (2236.272mil,2220.9mil)  Top Solder and 
+                     Arc (2229.381mil,2228.95mil)  Top Solder
+   Violation between Arc (2239.023mil,2217.393mil)  Top Solder and 
+                     Arc (2233.318mil,2224.484mil)  Top Solder
+   Violation between Arc (2239.023mil,2217.393mil)  Top Solder and 
+                     Arc (2233.318mil,2224.484mil)  Top Solder
+   Violation between Arc (2241.668mil,2213.863mil)  Top Solder and 
+                     Arc (2236.272mil,2220.9mil)  Top Solder
+   Violation between Arc (2229.381mil,2228.95mil)  Top Solder and 
+                     Arc (2236.272mil,2220.9mil)  Top Solder
+   Violation between Arc (2241.668mil,2213.863mil)  Top Solder and 
+                     Arc (2236.272mil,2220.9mil)  Top Solder
+   Violation between Arc (2244.273mil,2210.225mil)  Top Solder and 
+                     Arc (2239.023mil,2217.393mil)  Top Solder
+   Violation between Arc (2233.318mil,2224.484mil)  Top Solder and 
+                     Arc (2239.023mil,2217.393mil)  Top Solder
+   Violation between Arc (2244.273mil,2210.225mil)  Top Solder and 
+                     Arc (2239.023mil,2217.393mil)  Top Solder
+   Violation between Arc (2236.272mil,2220.9mil)  Top Solder and 
+                     Arc (2241.668mil,2213.863mil)  Top Solder
+   Violation between Arc (2246.774mil,2206.565mil)  Top Solder and 
+                     Arc (2241.668mil,2213.863mil)  Top Solder
+   Violation between Arc (2246.774mil,2206.565mil)  Top Solder and 
+                     Arc (2241.668mil,2213.863mil)  Top Solder
+   Violation between Arc (2239.023mil,2217.393mil)  Top Solder and 
+                     Arc (2244.273mil,2210.225mil)  Top Solder
+   Violation between Arc (2249.129mil,2202.955mil)  Top Solder and 
+                     Arc (2244.273mil,2210.225mil)  Top Solder
+   Violation between Arc (2249.129mil,2202.955mil)  Top Solder and 
+                     Arc (2244.273mil,2210.225mil)  Top Solder
+   Violation between Arc (2241.668mil,2213.863mil)  Top Solder and 
+                     Arc (2246.774mil,2206.565mil)  Top Solder
+   Violation between Arc (2251.38mil,2199.333mil)  Top Solder and 
+                     Arc (2246.774mil,2206.565mil)  Top Solder
+   Violation between Arc (2251.38mil,2199.333mil)  Top Solder and 
+                     Arc (2246.774mil,2206.565mil)  Top Solder
+   Violation between Arc (2244.273mil,2210.225mil)  Top Solder and 
+                     Arc (2249.129mil,2202.955mil)  Top Solder
+   Violation between Arc (2253.561mil,2195.64mil)  Top Solder and 
+                     Arc (2249.129mil,2202.955mil)  Top Solder
+   Violation between Arc (2253.561mil,2195.64mil)  Top Solder and 
+                     Arc (2249.129mil,2202.955mil)  Top Solder
+   Violation between Arc (2255.623mil,2191.946mil)  Top Solder and 
+                     Arc (2251.38mil,2199.333mil)  Top Solder
+   Violation between Arc (2255.623mil,2191.946mil)  Top Solder and 
+                     Arc (2251.38mil,2199.333mil)  Top Solder
+   Violation between Arc (2246.774mil,2206.565mil)  Top Solder and 
+                     Arc (2251.38mil,2199.333mil)  Top Solder
+   Violation between Arc (2257.574mil,2188.229mil)  Top Solder and 
+                     Arc (2253.561mil,2195.64mil)  Top Solder
+   Violation between Arc (2257.574mil,2188.229mil)  Top Solder and 
+                     Arc (2253.561mil,2195.64mil)  Top Solder
+   Violation between Arc (2249.129mil,2202.955mil)  Top Solder and 
+                     Arc (2253.561mil,2195.64mil)  Top Solder
+   Violation between Arc (2259.43mil,2184.426mil)  Top Solder and 
+                     Arc (2255.623mil,2191.946mil)  Top Solder
+   Violation between Arc (2259.43mil,2184.426mil)  Top Solder and 
+                     Arc (2255.623mil,2191.946mil)  Top Solder
+   Violation between Arc (2251.38mil,2199.333mil)  Top Solder and 
+                     Arc (2255.623mil,2191.946mil)  Top Solder
+   Violation between Arc (2261.123mil,2180.639mil)  Top Solder and 
+                     Arc (2257.574mil,2188.229mil)  Top Solder
+   Violation between Arc (2261.123mil,2180.639mil)  Top Solder and 
+                     Arc (2257.574mil,2188.229mil)  Top Solder
+   Violation between Arc (2253.561mil,2195.64mil)  Top Solder and 
+                     Arc (2257.574mil,2188.229mil)  Top Solder
+   Violation between Arc (2255.623mil,2191.946mil)  Top Solder and 
+                     Arc (2259.43mil,2184.426mil)  Top Solder
+   Violation between Arc (2257.574mil,2188.229mil)  Top Solder and 
+                     Arc (2261.123mil,2180.639mil)  Top Solder
+   Violation between Region (0 hole(s)) Top Solder and 
+                     Arc (2261.123mil,2180.639mil)  Top Solder
+   Violation between Arc (2261.446mil,2185.13mil)  Top Solder and 
+                     Arc (2263.035mil,2175.741mil)  Top Solder
+   Violation between Arc (2261.446mil,2185.13mil)  Top Solder and 
+                     Arc (2263.035mil,2175.741mil)  Top Solder
+   Violation between Region (0 hole(s)) Top Solder and 
+                     Arc (2263.035mil,2175.741mil)  Top Solder
+   Violation between Arc (2260.963mil,2189.429mil)  Top Solder and 
+                     Arc (2262.033mil,2181.018mil)  Top Solder
+   Violation between Arc (2260.963mil,2189.429mil)  Top Solder and 
+                     Arc (2262.033mil,2181.018mil)  Top Solder
+   Violation between Arc (2260.586mil,2193.805mil)  Top Solder and 
+                     Arc (2261.446mil,2185.13mil)  Top Solder
+   Violation between Arc (2260.586mil,2193.805mil)  Top Solder and 
+                     Arc (2261.446mil,2185.13mil)  Top Solder
+   Violation between Arc (2263.035mil,2175.741mil)  Top Solder and 
+                     Arc (2261.446mil,2185.13mil)  Top Solder
+   Violation between Arc (2260.306mil,2198.184mil)  Top Solder and 
+                     Arc (2260.963mil,2189.429mil)  Top Solder
+   Violation between Arc (2260.306mil,2198.184mil)  Top Solder and 
+                     Arc (2260.963mil,2189.429mil)  Top Solder
+   Violation between Arc (2262.033mil,2181.018mil)  Top Solder and 
+                     Arc (2260.963mil,2189.429mil)  Top Solder
+   Violation between Arc (2259.995mil,2207.211mil)  Top Solder and 
+                     Arc (2260.586mil,2193.805mil)  Top Solder
+   Violation between Arc (2260.113mil,2202.605mil)  Top Solder and 
+                     Arc (2260.586mil,2193.805mil)  Top Solder
+   Violation between Arc (2259.995mil,2207.211mil)  Top Solder and 
+                     Arc (2260.586mil,2193.805mil)  Top Solder
+   Violation between Arc (2260.113mil,2202.605mil)  Top Solder and 
+                     Arc (2260.586mil,2193.805mil)  Top Solder
+   Violation between Arc (2261.446mil,2185.13mil)  Top Solder and 
+                     Arc (2260.586mil,2193.805mil)  Top Solder
+   Violation between Arc (2259.995mil,2207.211mil)  Top Solder and 
+                     Arc (2260.306mil,2198.184mil)  Top Solder
+   Violation between Arc (2260.963mil,2189.429mil)  Top Solder and 
+                     Arc (2260.306mil,2198.184mil)  Top Solder
+   Violation between Arc (2259.995mil,2207.211mil)  Top Solder and 
+                     Arc (2260.306mil,2198.184mil)  Top Solder
+   Violation between Track (2256.328mil,1781.894mil)(2263.214mil,1781.891mil)  Top Solder and 
+                     Arc (2260.306mil,2198.184mil)  Top Solder
+   Violation between Track (2256.328mil,1781.894mil)(2263.214mil,1781.891mil)  Top Solder and 
+                     Arc (2260.306mil,2198.184mil)  Top Solder
+   Violation between Arc (2260.586mil,2193.805mil)  Top Solder and 
+                     Arc (2260.113mil,2202.605mil)  Top Solder
+   Violation between Track (2249.372mil,1782.008mil)(2256.328mil,1781.894mil)  Top Solder and 
+                     Arc (2260.113mil,2202.605mil)  Top Solder
+   Violation between Track (2256.328mil,1781.894mil)(2263.214mil,1781.891mil)  Top Solder and 
+                     Arc (2260.113mil,2202.605mil)  Top Solder
+   Violation between Track (2249.372mil,1782.008mil)(2256.328mil,1781.894mil)  Top Solder and 
+                     Arc (2260.113mil,2202.605mil)  Top Solder
+   Violation between Track (2256.328mil,1781.894mil)(2263.214mil,1781.891mil)  Top Solder and 
+                     Arc (2260.113mil,2202.605mil)  Top Solder
+   Violation between Arc (2260.306mil,2198.184mil)  Top Solder and 
+                     Arc (2259.995mil,2207.211mil)  Top Solder
+   Violation between Arc (2260.586mil,2193.805mil)  Top Solder and 
+                     Arc (2259.995mil,2207.211mil)  Top Solder
+   Violation between Track (2243.229mil,1782.201mil)(2249.372mil,1782.008mil)  Top Solder and 
+                     Arc (2259.995mil,2207.211mil)  Top Solder
+   Violation between Track (2249.372mil,1782.008mil)(2256.328mil,1781.894mil)  Top Solder and 
+                     Arc (2259.995mil,2207.211mil)  Top Solder
+Rule Violations :462
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk primitive without silk layer
+Rule Violations :0
+
+Processing Rule : Unpoured Polygon (Allow unpoured: False)
+Rule Violations :0
+
+
+Violations Detected : 500
+Time Elapsed        : 00:00:01
