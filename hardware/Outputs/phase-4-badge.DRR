@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: phase-4-badge.CSPcbDoc   06-Mar-18  21:33:16
+NCDrill File Report For: phase-4-badge.CSPcbDoc   07-Mar-18  20:56:07
 ---------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,14 +7,15 @@ ASCII RoundHoles File : phase-4-badge.TXT
 
 Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
 ---------------------------------------------------------------------------
-T1        16mil (0.4064mm)         Round          100              37.39 Inch (949.71 mm)
+T1        16mil (0.4064mm)         Round          100              37.60 Inch (955.15 mm)
 T2        20mil (0.508mm)          Round          10               0.51 Inch (13.00 mm)
 T3        23.62mil (0.59995mm)     Round          2                0.50 Inch (12.70 mm)
-T4        35.43mil (0.89992mm)     Round          14               5.98 Inch (151.79 mm)
-T5        50mil (1.27mm)           Round          4                5.03 Inch (127.79 mm)
-T6        196mil (4.9784mm)        Round          4                13.60 Inch (345.31 mm)
-T7        35.43mil (0.89992mm)     Round          2         NPTH   0.12 Inch (3.00 mm)
+T4        28mil (0.7112mm)         Round          2                1.28 Inch (32.64 mm)
+T5        35.43mil (0.89992mm)     Round          14               5.98 Inch (151.79 mm)
+T6        50mil (1.27mm)           Round          4                5.03 Inch (127.79 mm)
+T7        196mil (4.9784mm)        Round          4                13.60 Inch (345.31 mm)
+T8        35.43mil (0.89992mm)     Round          2         NPTH   0.12 Inch (3.00 mm)
 ---------------------------------------------------------------------------
-Totals                                            136              63.12 Inch (1603.30 mm)
+Totals                                            138              64.62 Inch (1641.38 mm)
 
 Total Processing Time (hh:mm:ss) : 00:00:00
