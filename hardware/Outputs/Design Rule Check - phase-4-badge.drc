@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : E:\Users\KMW\TechProjects\phase-4-badge\phase-4-badge.CSPcbDoc
 Date     : 10-Mar-18
-Time     : 10:52:02
+Time     : 13:16:23
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
    Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
@@ -138,11 +138,13 @@ Processing Rule : Silk to Silk (Clearance=6mil) (All),(All)
 Rule Violations :0
 
 Processing Rule : Silk primitive without silk layer
-Rule Violations :0
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Arc (28766.647mil,3563.913mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Arc (8707.834mil,3647.458mil)  Bottom Overlay
+Rule Violations :2
 
 Processing Rule : Unpoured Polygon (Allow unpoured: False)
 Rule Violations :0
 
 
-Violations Detected : 51
-Time Elapsed        : 00:00:11
+Violations Detected : 53
+Time Elapsed        : 00:00:43

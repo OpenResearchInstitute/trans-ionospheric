@@ -220,7 +220,8 @@ D228  RECTANGULAR        59.181      67.055       0.000 FLASH     270.000
 D229  RECTANGULAR        55.181      63.055       0.000 FLASH     270.000
 D230  RECTANGULAR        31.559      72.898       0.000 FLASH     270.000
 D231  RECTANGULAR        39.496      67.055       0.000 FLASH     270.000
-D232  RECTANGULAR        27.690      27.690       0.000 FLASH     180.000
+D232  RECTANGULAR        23.690      23.690       0.000 FLASH     180.000
 D233  RECTANGULAR        86.740      59.180       0.000 FLASH     180.000
-D234  ROUNDED             9.842       9.842       0.000  LINE       0.000
-D235  ROUNDED             7.874       7.874       0.000  LINE       0.000
+D234  ROUNDED             6.000       6.000       0.000 FLASH       0.000
+D235  ROUNDED             9.842       9.842       0.000  LINE       0.000
+D236  ROUNDED             7.874       7.874       0.000  LINE       0.000

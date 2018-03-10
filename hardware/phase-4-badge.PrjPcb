@@ -222,66 +222,70 @@ DocumentPath=P4G_layers.LOG
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=Outputs\phase-4-badge.DRR
+DocumentPath=Outputs\phase-4-badge.Dimensions Top
 DItemRevisionGUID=
 
 [GeneratedDocument5]
-DocumentPath=Outputs\phase-4-badge.EXTREP
+DocumentPath=Outputs\phase-4-badge.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument6]
-DocumentPath=Outputs\phase-4-badge.GBL
+DocumentPath=Outputs\phase-4-badge.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument7]
-DocumentPath=Outputs\phase-4-badge.GBO
+DocumentPath=Outputs\phase-4-badge.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument8]
-DocumentPath=Outputs\phase-4-badge.GBP
+DocumentPath=Outputs\phase-4-badge.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument9]
-DocumentPath=Outputs\phase-4-badge.GBS
+DocumentPath=Outputs\phase-4-badge.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument10]
-DocumentPath=Outputs\phase-4-badge.GKO
+DocumentPath=Outputs\phase-4-badge.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument11]
-DocumentPath=Outputs\phase-4-badge.GTL
+DocumentPath=Outputs\phase-4-badge.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=Outputs\phase-4-badge.GTO
+DocumentPath=Outputs\phase-4-badge.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=Outputs\phase-4-badge.GTP
+DocumentPath=Outputs\phase-4-badge.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=Outputs\phase-4-badge.GTS
+DocumentPath=Outputs\phase-4-badge.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument15]
-DocumentPath=Outputs\phase-4-badge.LDP
+DocumentPath=Outputs\phase-4-badge.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument16]
-DocumentPath=Outputs\phase-4-badge.Outline
+DocumentPath=Outputs\phase-4-badge.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument17]
-DocumentPath=Outputs\phase-4-badge.REP
+DocumentPath=Outputs\phase-4-badge.Outline
 DItemRevisionGUID=
 
 [GeneratedDocument18]
-DocumentPath=Outputs\phase-4-badge.RUL
+DocumentPath=Outputs\phase-4-badge.REP
 DItemRevisionGUID=
 
 [GeneratedDocument19]
+DocumentPath=Outputs\phase-4-badge.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument20]
 DocumentPath=Outputs\phase-4-badge.TXT
 DItemRevisionGUID=
 
@@ -961,7 +965,7 @@ OutputDocumentPath9=
 OutputVariantName9=[No Variations]
 OutputDefault9=0
 Configuration9_Name1=OutputConfigurationParameter1
-Configuration9_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=500000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Absolute|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean,16973830~1,16973832~1,16973834~1,16777217~1,16842751~1,16973835~1,16973833~1,16973831~1,16908289~1,16973837~1|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False|Sorted=False
+Configuration9_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=500000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Absolute|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean,16973830~1,16973832~1,16973834~1,16777217~1,16842751~1,16973835~1,16973833~1,16973831~1,16908289~1,16908299~1,16973837~1|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False|Sorted=False
 
 [OutputGroup6]
 Name=Report Outputs
