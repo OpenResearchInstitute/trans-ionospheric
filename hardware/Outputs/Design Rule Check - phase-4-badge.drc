@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : E:\Users\KMW\TechProjects\phase-4-badge\phase-4-badge.CSPcbDoc
 Date     : 10-Mar-18
-Time     : 13:16:23
+Time     : 23:40:01
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
    Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
@@ -147,4 +147,4 @@ Rule Violations :0
 
 
 Violations Detected : 53
-Time Elapsed        : 00:00:43
+Time Elapsed        : 00:00:55
