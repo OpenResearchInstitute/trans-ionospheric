@@ -53,10 +53,15 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
 !/board/kicad-libs/*.lib
 !/board/kicad-libs/*.mod
 !/board/proto1/*.lib
 .DS_Store
+.Makefile.swp
 
 #Badgelife
 _build/
+.settings/
+.cproject
+.project
