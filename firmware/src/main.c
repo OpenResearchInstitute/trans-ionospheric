@@ -128,7 +128,7 @@ int main(void) {
 	}
 
 	if (!mbp_state_load()) {
-		mbp_ui_popup("Trans-IO", "Welcome to the Trans-Ionospheric Badge and Radio Peripheral! Select a name. You can change your name later from settings.");
+		mbp_ui_popup("Trans-IO", "Welcome to the TransIonospheric Badge and Radio Peripheral! Select a name. You can change your name later from settings.");
 		mbp_state_new();
 		mbp_system_name_select();
 		mbp_state_save();
