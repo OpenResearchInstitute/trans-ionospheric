@@ -1,6 +1,7 @@
 # Trans-Ionospheric Radio Peripheral and Badge Firmware
 
-Code and documentation for the unofficial electronic badge for the JoCo Cruise 2018.
+Code for the Trans-Ionospheric electronic badge and
+radio peripheral from Phase 4 Ground and [Open Research Institute](https://openresearch.institute/badge/).
 
 This is based on the unofficial JoCo Cruise 2018 pirate monkey badge,
 which was in turn based on the excellent work that the AND!XOR team
