@@ -15,8 +15,11 @@ superceded by notices in individual files or directories.
 Some resources must be installed outside of this source tree.
 One of these is the Nordic SDK.
 
+NOTE: If you're already set up for JoCo firmware builds, you don't need
+to do any of this setup over again.
+
 Choose a place to install these on your file system. For example,
-we'll use "/src/joco-support/".
+we'll use "/src/badge-support/".
 
 Download the version 12.3 of the Nordic SDK
 [from here](https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v12.x.x/nRF5_SDK_12.3.0_d7731ad.zip)
@@ -30,7 +33,7 @@ Now edit your shell init or rc file to set the following environment
 variable when you create a shell, substituting your chosen path:
 
 ```
-export SDK_ROOT=/src/joco-support/nRF5_SDK_12.3.0_d7731ad
+export SDK_ROOT=/src/badge-support/nRF5_SDK_12.3.0_d7731ad
 ```
 
 ### Ubuntu Installation (non-ARM host)
@@ -60,19 +63,19 @@ on an Intel PC, you can just:
 
 You'll also need a couple of command line tools. Install these in a
 location outside this project, like the Nordic SDK. For example using
-the location "/src/joco-support", you can do the following:
+the location "/src/badge-support", you can do the following:
 
 ```
-mkdir -p /src/joco-support/bin
-cd /src/joco-support/bin
-tar xvf <path-to-joco-project>/ubuntu-dependencies/nRF5x-Command-Line-Tools_9_7_0_Linux-x86_64.tar
+mkdir -p /src/badge-support/bin
+cd /src/badge-support/bin
+tar xvf <path-to-badge-project>/ubuntu-dependencies/nRF5x-Command-Line-Tools_9_7_0_Linux-x86_64.tar
 ```
 
 Now edit your shell init or rc file to set the following environment
 variable when you create a shell, substituting your chosen path:
 
 ```
-export NRFJ_BIN=/src/joco-support/bin
+export NRFJ_BIN=/src/badge-support/bin
 ```
 
 #### Ubuntu on an ARM Host
