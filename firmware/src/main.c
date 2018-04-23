@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute/badge).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,16 +60,16 @@ void __boot() {
 	util_gfx_set_font(FONT_SMALL);
 	util_gfx_set_cursor(0, 4);
 	util_gfx_set_color(COLOR_WHITE);
-	util_gfx_print("JOCO Cruise 2018\n");
+	util_gfx_print("Trans-Ionospheric\n");
 	nrf_delay_ms(400);
-	util_gfx_print("64K RAM SYSTEM 38911 BYTES FREE\n");
+	util_gfx_print("Filament voltage ON\n");
 	nrf_delay_ms(1000);
 
-	util_gfx_print("READY\n");
+	util_gfx_print("Warmed up!\n");
 	nrf_delay_ms(400);
-	util_gfx_print("# /bin/joco --gui\n");
+	util_gfx_print("# /bin/transio --gui\n");
 	nrf_delay_ms(400);
-	util_gfx_print("Launching...");
+	util_gfx_print("ON THE AIR");
 	nrf_delay_ms(1000);
 
 	//Loop the intro animation. Loop=true allows user to quit
@@ -129,7 +128,7 @@ int main(void) {
 	}
 
 	if (!mbp_state_load()) {
-		mbp_ui_popup("JOCO2018", "Welcome to the JoCo Cruise 2018 Badge! Select a name. You can change your name later from settings.");
+		mbp_ui_popup("Trans-IO", "Welcome to the Trans-Ionospheric Badge and Radio Peripheral! Select a name. You can change your name later from settings.");
 		mbp_state_new();
 		mbp_system_name_select();
 		mbp_state_save();
