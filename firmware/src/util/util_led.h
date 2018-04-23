@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute/badge).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +21,7 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
@@ -31,7 +30,7 @@
 #ifndef UTIL_LED_H_
 #define UTIL_LED_H_
 
-#define LED_COUNT					14
+#define LED_COUNT					16
 #define LED_RGB_COUNT				20
 #define LED_TOOTH_INDEX				13
 #define LED_MATRIX_W				4
@@ -60,7 +59,7 @@
 #define LED_COLOR_GOLD				0xCCAD00
 #define LED_COLOR_INDIGO			0xc100e6
 #define LED_COLOR_LIGHTBLUE			0x3399FF
-#define LED_COLOR_LIGHTGREEN			0x58D68D
+#define LED_COLOR_LIGHTGREEN		0x58D68D
 #define LED_COLOR_ORANGE			0xFFA500
 #define LED_COLOR_PURPLE			0xb000b0
 #define LED_COLOR_YELLOW			0xDCDC00
