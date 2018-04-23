@@ -741,8 +741,7 @@ static int __cmd_uname(int argc, char **argv) {
 	mbp_term_print(message);
 
 	//Display Firmware Version
-	char version[32] = VERSION;
-	sprintf(message, "Firmware: %s", version);
+	sprintf(message, "Firmware: %s", build_timestamp);
 	mbp_term_print(message);
 
 	//Display Soft Device

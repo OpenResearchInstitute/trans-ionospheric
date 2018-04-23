@@ -35,14 +35,13 @@
 static bool m_interuptable = true;
 
 void mbp_system_about() {
-	char version[32] = VERSION;
 	char about[64];
 	uint16_t serial = util_get_device_id();
 	ble_version_t ble;
 	sd_ble_version_get(&ble);
 	memset(about, '\0', 64);
-	sprintf(about, "Firmware:\n%s\nSoft Device:\n%#X\nDevice ID:\n%#X", version, ble.subversion_number, serial);
-	mbp_ui_popup("JOCO2018", about);
+	sprintf(about, "Firmware:\n%s\nSoft Device:\n%#X\nDevice ID:\n%#X", build_timestamp, ble.subversion_number, serial);
+	mbp_ui_popup("TRANS-IO", about);
 }
 
 void mbp_system_airplane_mode_select() {

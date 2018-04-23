@@ -1,4 +1,4 @@
-PROJECT_NAME     := man_bear_pig_dc25
+PROJECT_NAME     := trans_ionospheric
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := _build
 
@@ -36,7 +36,7 @@ SRC_FILES += \
 	$(SDK_ROOT)/components/drivers_nrf/hal/nrf_saadc.c \
 	$(SDK_ROOT)/components/drivers_nrf/ppi/nrf_drv_ppi.c \
 	$(SDK_ROOT)/components/drivers_nrf/rng/nrf_drv_rng.c \
-	${SDK_ROOT}/components/drivers_nrf/rtc/nrf_drv_rtc.c \
+	$(SDK_ROOT)/components/drivers_nrf/rtc/nrf_drv_rtc.c \
 	$(SDK_ROOT)/components/drivers_nrf/saadc/nrf_drv_saadc.c \
 	$(SDK_ROOT)/components/drivers_nrf/spi_master/nrf_drv_spi.c \
 	$(SDK_ROOT)/components/drivers_nrf/timer/nrf_drv_timer.c \
@@ -83,24 +83,23 @@ SRC_FILES += \
 	partcl/tcl.c \
 	util/util.c \
 	util/util_ble.c \
-	util/util_hello.c \
 	util/util_ble_lists.c \
-	util/util_nfc.c \
 	util/util_button.c \
+	util/util_crypto.c \
 	util/util_gfx.c \
+	util/util_hello.c \
 	util/util_led.c \
 	util/util_math.c \
+	util/util_nfc.c \
 	util/util_sd.c \
 	util/util_tilt.c \
-	util/util_crypto.c \
 	beacon_ble.c \
 	chip8.c \
 	drv_apa102.c \
 	drv_st7735.c \
 	drv_ws2812b.c \
-	joco_gameplay.c \
 	joco_db.c \
-	score_ble.c \
+	joco_gameplay.c \
 	main.c \
 	mbp_medea.c \
 	mbp_menu.c \
@@ -109,7 +108,9 @@ SRC_FILES += \
 	mbp_tcl.c \
 	mbp_term.c \
 	mbp_ui.c \
-	skifree.c
+	score_ble.c \
+	skifree.c \
+	version.c
 
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -309,9 +310,9 @@ LDFLAGS += --specs=nano.specs -lc -lnosys
 # Enable printf float support
 LDFLAGS += -u _printf_float
 
-.PHONY: $(TARGETS) default all clean help flash  flash_softdevice
+.PHONY: $(TARGETS) default all clean help flash  flash_softdevice timestamp
 # Default target - first one defined
-default: nrf52832_xxaa
+default: timestamp nrf52832_xxaa
 
 # Print all targets that can be built
 help:
@@ -339,3 +340,8 @@ flash_softdevice:
 full_erase:
 	@echo ***Erasing NRF52! Soft Device will need to be reflashed!***
 	$(NRFJ_BIN)/nrfjprog/nrfjprog -e -f nrf52
+
+# This timestamp target runs on every default build.
+timestamp:
+	@echo Updating the build timestamp.
+	$(NO_ECHO)$(CC) -DBUILD_TIME=\"`date +"TI%y%m%d%H%M%S"`\" -MP -MD -std=c99 $(CFLAGS) -c -o $(OUTPUT_DIRECTORY)/nrf52832_xxaa_version.c.o version.c

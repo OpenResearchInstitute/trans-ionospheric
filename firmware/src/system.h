@@ -162,5 +162,6 @@
 #include "util_sd.h"
 #include "util_tilt.h"
 #include "util_crypto.h"
+#include "version.h"
 
 #endif /* SYSTEM_H_ */
