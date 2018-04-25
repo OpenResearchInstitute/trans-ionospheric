@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: phase-4-badge.GBR   10-Mar-18  23:37:11
+Gerber File Extension Report For: phase-4-badge.GBR   25-Apr-18  08:09:02
 ------------------------------------------------------------------------------------------
 
 
@@ -8,6 +8,8 @@ Layer Extension     Layer Description
 ------------------------------------------------------------------------------------------
 .GTL                Top Layer                               
 .GBL                Bottom Layer                            
+.GPB                Bottom Pad Master                       
+.GPT                Top Pad Master                          
 .GTO                Top Overlay                             
 .GTP                Top Paste                               
 .GTS                Top Solder                              

@@ -1,132 +1,15 @@
 Protel Design System Design Rule Check
 PCB File : E:\Users\KMW\TechProjects\phase-4-badge\phase-4-badge.CSPcbDoc
-Date     : 10-Mar-18
-Time     : 23:40:01
+Date     : 25-Apr-18
+Time     : 08:05:06
 
-Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2251.38mil,2199.338mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2249.129mil,2202.96mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2246.774mil,2206.57mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2244.273mil,2210.23mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2241.668mil,2213.868mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2239.023mil,2217.398mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2236.272mil,2220.905mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2233.318mil,2224.489mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2229.381mil,2228.954mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2251.38mil,2199.338mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2249.129mil,2202.96mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2246.774mil,2206.57mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2244.273mil,2210.23mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2241.668mil,2213.868mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2239.023mil,2217.398mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2236.272mil,2220.905mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2233.318mil,2224.489mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2229.381mil,2228.954mil)  Top Layer
-   Violation between Region (0 hole(s)) Top Layer and 
-                     Pad B1-2(2495mil,1880mil)  Multi-Layer
-   Violation between Track (1560mil,5595mil)(1560.668mil,4400mil)  Top Layer and 
-                     Via (1560mil,4400mil) Top Layer to Bottom Layer
-   Violation between Track (1625mil,4480mil)(1643.44mil,4461.56mil)  Top Layer and 
-                     Via (1625mil,4480mil) Top Layer to Bottom Layer
-Rule Violations :21
-
-Processing Rule : Un-Routed Net Constraint ( (All) )
-   Violation between Un-Routed Net Constraint: Net GND Between Track on layer Bottom Layer (2495,1880mil) And Track on layer Bottom Layer (2502.92,1522.01mil)
-Rule Violations :1
-
-Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2253.561mil,2195.646mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2251.38mil,2199.338mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2249.129mil,2202.96mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2246.774mil,2206.57mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2244.273mil,2210.23mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2241.668mil,2213.868mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2239.023mil,2217.398mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2236.272mil,2220.905mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2233.318mil,2224.489mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2229.381mil,2228.954mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2253.561mil,2195.646mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2251.38mil,2199.338mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2249.129mil,2202.96mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2246.774mil,2206.57mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2244.273mil,2210.23mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2241.668mil,2213.868mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2239.023mil,2217.398mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2236.272mil,2220.905mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2233.318mil,2224.489mil)  Top Layer
-   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
-                     Arc (2229.381mil,2228.954mil)  Top Layer
-   Violation between Region (0 hole(s)) Top Layer and 
-                     Pad B1-2(2495mil,1880mil)  Multi-Layer
-   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
-                     Via (2420mil,5265mil) Top Layer to Bottom Layer
-   Violation between Track (1560mil,5595mil)(1560.668mil,4400mil)  Top Layer and 
-                     Via (1560mil,4400mil) Top Layer to Bottom Layer
-   Violation between Track (1625mil,4480mil)(1643.44mil,4461.56mil)  Top Layer and 
-                     Via (1625mil,4480mil) Top Layer to Bottom Layer
-   Violation between Track (2050mil,4395mil)(2420mil,4395mil)  Bottom Layer and 
-                     Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer
-   Violation between Track (1760mil,4315mil)(2455mil,4315mil)  Bottom Layer and 
-                     Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer
-   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
-                     Track (1760mil,4315mil)(2455mil,4315mil)  Bottom Layer
-   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
-                     Track (2050mil,4395mil)(2420mil,4395mil)  Bottom Layer
-Rule Violations :28
-
-Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Processing Rule : Unpoured Polygon (Allow unpoured: False)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=6mil) (Max=18mil) (Preferred=10mil) (All)
+Processing Rule : Silk primitive without silk layer
 Rule Violations :0
 
-Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
-Rule Violations :0
-
-Processing Rule : Hole Size Constraint (Min=1mil) (Max=200mil) (All)
-Rule Violations :0
-
-Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
-Rule Violations :0
-
-Processing Rule : Minimum Solder Mask Sliver (Gap=0mil) (All),(All)
+Processing Rule : Silk to Silk (Clearance=6mil) (Disabled)(All),(All)
 Rule Violations :0
 
 Processing Rule : Silk To Solder Mask (Clearance=4mil) (IsPad),(All)
@@ -134,17 +17,550 @@ Processing Rule : Silk To Solder Mask (Clearance=4mil) (IsPad),(All)
                      Pad B2-1(4631.18mil,2610.55mil)  Multi-Layer
 Rule Violations :1
 
-Processing Rule : Silk to Silk (Clearance=6mil) (All),(All)
+Processing Rule : Minimum Solder Mask Sliver (Gap=0mil) (All),(All)
 Rule Violations :0
 
-Processing Rule : Silk primitive without silk layer
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Arc (28766.647mil,3563.913mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Arc (8707.834mil,3647.458mil)  Bottom Overlay
-Rule Violations :2
-
-Processing Rule : Unpoured Polygon (Allow unpoured: False)
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
 Rule Violations :0
 
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=200mil) (All)
+Rule Violations :0
 
-Violations Detected : 53
-Time Elapsed        : 00:00:55
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=18mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2253.561mil,2195.646mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2253.561mil,2195.646mil)  Top Layer
+   Violation between Track (1989.995mil,1400.005mil)(5218.301mil,1400.005mil)  Top Layer and 
+                     Pad B1-1(2495mil,1350mil)  Multi-Layer
+   Violation between Region (0 hole(s)) Top Layer and 
+                     Pad B1-2(2495mil,1880mil)  Multi-Layer
+   Violation between Pad J1-4(3560.47mil,4687mil)  Bottom Layer and 
+                     Pad J1-5(3580.16mil,4687mil)  Bottom Layer
+   Violation between Track (3540.79mil,4687mil)(3560.47mil,4687mil)  Bottom Layer and 
+                     Pad J1-5(3580.16mil,4687mil)  Bottom Layer
+   Violation between Pad J1-6(3599.84mil,4687mil)  Bottom Layer and 
+                     Pad J1-5(3580.16mil,4687mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Pad J1-5(3580.16mil,4687mil)  Bottom Layer
+   Violation between Track (3580.16mil,4620.16mil)(3580.16mil,4687mil)  Bottom Layer and 
+                     Pad J1-4(3560.47mil,4687mil)  Bottom Layer
+   Violation between Track (3580.16mil,4687mil)(3580.16mil,4934.84mil)  Bottom Layer and 
+                     Pad J1-4(3560.47mil,4687mil)  Bottom Layer
+   Violation between Pad J1-2(3521.1mil,4687mil)  Bottom Layer and 
+                     Pad J1-3(3540.79mil,4687mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Pad J1-3(3540.79mil,4687mil)  Bottom Layer
+   Violation between Pad J1-1(3501.42mil,4687mil)  Bottom Layer and 
+                     Pad J1-2(3521.1mil,4687mil)  Bottom Layer
+   Violation between Track (3501.42mil,4687mil)(3501.42mil,4713.58mil)  Bottom Layer and 
+                     Pad J1-2(3521.1mil,4687mil)  Bottom Layer
+   Violation between Track (3540.79mil,4687mil)(3560.47mil,4687mil)  Bottom Layer and 
+                     Pad J1-2(3521.1mil,4687mil)  Bottom Layer
+   Violation between Track (3540mil,4415mil)(3540mil,4686.21mil)  Bottom Layer and 
+                     Pad J1-2(3521.1mil,4687mil)  Bottom Layer
+   Violation between Track (3540.79mil,4687mil)(3540.79mil,4899.21mil)  Bottom Layer and 
+                     Pad J1-2(3521.1mil,4687mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Pad J1-1(3501.42mil,4687mil)  Bottom Layer
+   Violation between Pad J1-9(3658.9mil,4687mil)  Bottom Layer and 
+                     Pad J1-10(3678.58mil,4687mil)  Bottom Layer
+   Violation between Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer and 
+                     Pad J1-10(3678.58mil,4687mil)  Bottom Layer
+   Violation between Pad J1-8(3639.21mil,4687mil)  Bottom Layer and 
+                     Pad J1-9(3658.9mil,4687mil)  Bottom Layer
+   Violation between Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer and 
+                     Pad J1-9(3658.9mil,4687mil)  Bottom Layer
+   Violation between Track (3678.58mil,4687mil)(3678.58mil,4888.58mil)  Bottom Layer and 
+                     Pad J1-9(3658.9mil,4687mil)  Bottom Layer
+   Violation between Pad J1-7(3619.53mil,4687mil)  Bottom Layer and 
+                     Pad J1-8(3639.21mil,4687mil)  Bottom Layer
+   Violation between Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer and 
+                     Pad J1-8(3639.21mil,4687mil)  Bottom Layer
+   Violation between Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer and 
+                     Pad J1-8(3639.21mil,4687mil)  Bottom Layer
+   Violation between Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer and 
+                     Pad J1-7(3619.53mil,4687mil)  Bottom Layer
+   Violation between Pad J1-6(3599.84mil,4687mil)  Bottom Layer and 
+                     Pad J1-7(3619.53mil,4687mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Pad J1-7(3619.53mil,4687mil)  Bottom Layer
+   Violation between Track (3580.16mil,4620.16mil)(3580.16mil,4687mil)  Bottom Layer and 
+                     Pad J1-6(3599.84mil,4687mil)  Bottom Layer
+   Violation between Track (3580.16mil,4687mil)(3580.16mil,4934.84mil)  Bottom Layer and 
+                     Pad J1-6(3599.84mil,4687mil)  Bottom Layer
+   Violation between Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer and 
+                     Pad J1-6(3599.84mil,4687mil)  Bottom Layer
+   Violation between Track (3030mil,6230mil)(4195mil,6230mil)  Keep-Out Layer and 
+                     Pad U1-P1(3785.31mil,6208.11mil)  Bottom Layer
+   Violation between Track (3749.88mil,6099.84mil)(5100.16mil,6099.84mil)  Bottom Layer and 
+                     Pad U1-P5(3785.31mil,6121.5mil)  Bottom Layer
+   Violation between Track (3749.88mil,6056.54mil)(5053.46mil,6056.54mil)  Bottom Layer and 
+                     Pad U1-P7(3785.31mil,6078.19mil)  Bottom Layer
+   Violation between Track (3749.88mil,6099.84mil)(5100.16mil,6099.84mil)  Bottom Layer and 
+                     Pad U1-P7(3785.31mil,6078.19mil)  Bottom Layer
+   Violation between Track (3749.88mil,6056.54mil)(5053.46mil,6056.54mil)  Bottom Layer and 
+                     Pad U1-P9(3785.31mil,6034.88mil)  Bottom Layer
+   Violation between Track (3749.88mil,5969.92mil)(4260.08mil,5969.92mil)  Bottom Layer and 
+                     Pad U1-P11(3785.31mil,5991.57mil)  Bottom Layer
+   Violation between Track (3749.88mil,5926.61mil)(4223.39mil,5926.61mil)  Bottom Layer and 
+                     Pad U1-P13(3785.31mil,5948.27mil)  Bottom Layer
+   Violation between Track (3749.88mil,5969.92mil)(4260.08mil,5969.92mil)  Bottom Layer and 
+                     Pad U1-P13(3785.31mil,5948.27mil)  Bottom Layer
+   Violation between Track (3749.88mil,5926.61mil)(4223.39mil,5926.61mil)  Bottom Layer and 
+                     Pad U1-P15(3785.31mil,5904.96mil)  Bottom Layer
+   Violation between Track (3590.43mil,5709.57mil)(3590.43mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P23(3612.09mil,5861.65mil)  Bottom Layer
+   Violation between Track (3547.13mil,5657.87mil)(3547.13mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P25(3568.78mil,5861.65mil)  Bottom Layer
+   Violation between Track (3590.43mil,5709.57mil)(3590.43mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P25(3568.78mil,5861.65mil)  Bottom Layer
+   Violation between Track (3503.82mil,5636.18mil)(3503.82mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P27(3525.47mil,5861.65mil)  Bottom Layer
+   Violation between Track (3547.13mil,5657.87mil)(3547.13mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P27(3525.47mil,5861.65mil)  Bottom Layer
+   Violation between Track (3503.82mil,5636.18mil)(3503.82mil,5897.09mil)  Bottom Layer and 
+                     Pad U1-P29(3482.17mil,5861.65mil)  Bottom Layer
+   Violation between Track (3417.12mil,5926.61mil)(3474.29mil,5926.61mil)  Bottom Layer and 
+                     Pad U1-P31(3438.86mil,5904.96mil)  Bottom Layer
+   Violation between Track (3415.175mil,5969.92mil)(3474.29mil,5969.92mil)  Bottom Layer and 
+                     Pad U1-P33(3438.86mil,5948.27mil)  Bottom Layer
+   Violation between Track (3417.12mil,5926.61mil)(3474.29mil,5926.61mil)  Bottom Layer and 
+                     Pad U1-P33(3438.86mil,5948.27mil)  Bottom Layer
+   Violation between Track (3415.175mil,5969.92mil)(3474.29mil,5969.92mil)  Bottom Layer and 
+                     Pad U1-P35(3438.86mil,5991.57mil)  Bottom Layer
+   Violation between Track (3413.23mil,6013.23mil)(3474.29mil,6013.23mil)  Bottom Layer and 
+                     Pad U1-P35(3438.86mil,5991.57mil)  Bottom Layer
+   Violation between Track (3381.54mil,6056.54mil)(3474.29mil,6056.54mil)  Bottom Layer and 
+                     Pad U1-P37(3438.86mil,6034.88mil)  Bottom Layer
+   Violation between Track (3413.23mil,6013.23mil)(3474.29mil,6013.23mil)  Bottom Layer and 
+                     Pad U1-P37(3438.86mil,6034.88mil)  Bottom Layer
+   Violation between Track (3381.54mil,6056.54mil)(3474.29mil,6056.54mil)  Bottom Layer and 
+                     Pad U1-P39(3438.86mil,6078.19mil)  Bottom Layer
+   Violation between Track (3239.84mil,6099.84mil)(3474.29mil,6099.84mil)  Bottom Layer and 
+                     Pad U1-P39(3438.86mil,6078.19mil)  Bottom Layer
+   Violation between Track (3118.15mil,6143.15mil)(3474.29mil,6143.15mil)  Bottom Layer and 
+                     Pad U1-P41(3438.86mil,6121.5mil)  Bottom Layer
+   Violation between Track (3239.84mil,6099.84mil)(3474.29mil,6099.84mil)  Bottom Layer and 
+                     Pad U1-P41(3438.86mil,6121.5mil)  Bottom Layer
+   Violation between Track (3118.15mil,6143.15mil)(3474.29mil,6143.15mil)  Bottom Layer and 
+                     Pad U1-P43(3438.86mil,6164.8mil)  Bottom Layer
+   Violation between Track (3046.46mil,6186.46mil)(3474.29mil,6186.46mil)  Bottom Layer and 
+                     Pad U1-P43(3438.86mil,6164.8mil)  Bottom Layer
+   Violation between Track (3438.86mil,6208.11mil)(3547.13mil,6208.11mil)  Bottom Layer and 
+                     Pad U1-P44(3474.29mil,6186.46mil)  Bottom Layer
+   Violation between Track (3030mil,6230mil)(4195mil,6230mil)  Keep-Out Layer and 
+                     Pad U1-P45(3438.86mil,6208.11mil)  Bottom Layer
+   Violation between Track (3046.46mil,6186.46mil)(3474.29mil,6186.46mil)  Bottom Layer and 
+                     Pad U1-P45(3438.86mil,6208.11mil)  Bottom Layer
+   Violation between Track (3030mil,6230mil)(4195mil,6230mil)  Keep-Out Layer and 
+                     Pad U1-P46(3547.13mil,6208.11mil)  Bottom Layer
+   Violation between Track (3030mil,6230mil)(4195mil,6230mil)  Keep-Out Layer and 
+                     Pad U1-P47(3677.05mil,6208.11mil)  Bottom Layer
+   Violation between Pad J2-9(5531.26mil,5945mil)  Bottom Layer and 
+                     Pad J2-0(5590.315mil,5960mil)  Bottom Layer
+   Violation between Pad J2-0(5890mil,5952.244mil)  Bottom Layer and 
+                     Pad J2-8(5895mil,5905mil)  Bottom Layer
+   Violation between Track (1520mil,4285mil)(2390mil,4285mil)  Keep-Out Layer and 
+                     Pad C25-1(1690mil,4315mil)  Bottom Layer
+   Violation between Track (1520mil,4285mil)(2390mil,4285mil)  Keep-Out Layer and 
+                     Pad C24-1(1760mil,4315mil)  Bottom Layer
+   Violation between Track (3075mil,5915mil)(3190mil,5915mil)  Bottom Layer and 
+                     Via (3095mil,5885mil) Top Layer to Bottom Layer
+   Violation between Track (1643.44mil,4461.56mil)(1644.999mil,4461.56mil)  Top Layer and 
+                     Via (1625mil,4480mil) Top Layer to Bottom Layer
+   Violation between Track (1625mil,4480mil)(1643.44mil,4461.56mil)  Top Layer and 
+                     Via (1625mil,4480mil) Top Layer to Bottom Layer
+   Violation between Track (1644.999mil,4461.56mil)(2299.723mil,4461.847mil)  Top Layer and 
+                     Via (1625mil,4480mil) Top Layer to Bottom Layer
+   Violation between Track (1560mil,5595mil)(1560.668mil,4400mil)  Top Layer and 
+                     Via (1560mil,4400mil) Top Layer to Bottom Layer
+   Violation between Track (5818.344mil,2218.38mil)(5818.344mil,5506.547mil)  Top Layer and 
+                     Via (5795mil,5000mil) Top Layer to Bottom Layer
+   Violation between Area Fill (5818.344mil,2233.339mil) (6134.817mil,5950.134mil)  Top Layer and 
+                     Via (5795mil,5000mil) Top Layer to Bottom Layer
+   Violation between Track (5765mil,4910mil)(5765mil,5105mil)  Bottom Layer and 
+                     Via (5795mil,5000mil) Top Layer to Bottom Layer
+   Violation between Track (3734mil,5716mil)(4086mil,5716mil)  Bottom Layer and 
+                     Via (3940mil,5745mil) Top Layer to Bottom Layer
+   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
+                     Via (2420mil,5265mil) Top Layer to Bottom Layer
+   Violation between Track (1760mil,4315mil)(2455mil,4315mil)  Bottom Layer and 
+                     Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer
+   Violation between Track (2050mil,4395mil)(2420mil,4395mil)  Bottom Layer and 
+                     Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer
+   Violation between Track (1918.537mil,6586.346mil)(3013.654mil,6586.346mil)  Top Layer and 
+                     Track (3030mil,6230mil)(3030mil,6620mil)  Keep-Out Layer
+   Violation between Track (4211.346mil,6586.346mil)(5284.273mil,6586.346mil)  Top Layer and 
+                     Track (4195mil,6230mil)(4195mil,6625mil)  Keep-Out Layer
+   Violation between Track (4195mil,6230mil)(4195mil,6625mil)  Keep-Out Layer and 
+                     Track (4211.346mil,6586.346mil)(5284.273mil,6586.346mil)  Top Layer
+   Violation between Track (3030mil,6230mil)(3030mil,6620mil)  Keep-Out Layer and 
+                     Track (1918.537mil,6586.346mil)(3013.654mil,6586.346mil)  Top Layer
+   Violation between Track (3540.79mil,4687mil)(3560.47mil,4687mil)  Bottom Layer and 
+                     Track (3580.16mil,4620.16mil)(3580.16mil,4687mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Track (3580.16mil,4620.16mil)(3580.16mil,4687mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Track (3550mil,4965mil)(3580.16mil,4934.84mil)  Bottom Layer
+   Violation between Track (3540.79mil,4687mil)(3560.47mil,4687mil)  Bottom Layer and 
+                     Track (3580.16mil,4687mil)(3580.16mil,4934.84mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Track (3580.16mil,4687mil)(3580.16mil,4934.84mil)  Bottom Layer
+   Violation between Track (3896.5mil,5191.5mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3574mil,5566mil)(3749mil,5566mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3604mil,5601mil)(3759.255mil,5601mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3752.627mil,5585mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3832.5mil,5277.5mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3816.5mil,5296.033mil)(3816.5mil,5420.873mil)  Bottom Layer
+   Violation between Track (3735mil,5525mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3816.5mil,5296.033mil)(3816.5mil,5420.873mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Track (3501.42mil,4687mil)(3501.42mil,4713.58mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Track (3540.79mil,4687mil)(3540.79mil,4899.21mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Track (3540.79mil,4687mil)(3560.47mil,4687mil)  Bottom Layer
+   Violation between Track (3344mil,5566mil)(3344mil,5876.118mil)  Bottom Layer and 
+                     Track (3360mil,5585mil)(3420mil,5525mil)  Bottom Layer
+   Violation between Track (3401mil,5509mil)(3728.373mil,5509mil)  Bottom Layer and 
+                     Track (3360mil,5585mil)(3420mil,5525mil)  Bottom Layer
+   Violation between Track (3344mil,5566mil)(3344mil,5876.118mil)  Bottom Layer and 
+                     Track (3360mil,5585mil)(3360mil,5869.49mil)  Bottom Layer
+   Violation between Track (3344mil,5876.118mil)(3416.152mil,5948.27mil)  Bottom Layer and 
+                     Track (3360mil,5585mil)(3360mil,5869.49mil)  Bottom Layer
+   Violation between Track (3360mil,5869.49mil)(3417.12mil,5926.61mil)  Bottom Layer and 
+                     Track (3380mil,5595mil)(3380mil,5866.863mil)  Bottom Layer
+   Violation between Track (3360mil,5869.49mil)(3417.12mil,5926.61mil)  Bottom Layer and 
+                     Track (3380mil,5866.863mil)(3418.097mil,5904.96mil)  Bottom Layer
+   Violation between Track (3360mil,5869.49mil)(3417.12mil,5926.61mil)  Bottom Layer and 
+                     Track (3418.097mil,5904.96mil)(3438.86mil,5904.96mil)  Bottom Layer
+   Violation between Track (3320mil,5874.745mil)(3415.175mil,5969.92mil)  Bottom Layer and 
+                     Track (3344mil,5566mil)(3344mil,5876.118mil)  Bottom Layer
+   Violation between Track (3360mil,5869.49mil)(3417.12mil,5926.61mil)  Bottom Layer and 
+                     Track (3344mil,5566mil)(3344mil,5876.118mil)  Bottom Layer
+   Violation between Track (5784mil,5746mil)(5784mil,5976mil)  Bottom Layer and 
+                     Track (5800mil,5770mil)(5838.228mil,5731.772mil)  Bottom Layer
+   Violation between Track (5790mil,6065mil)(5843.307mil,6011.693mil)  Bottom Layer and 
+                     Track (5820mil,5795mil)(5820mil,6010mil)  Bottom Layer
+   Violation between Track (5768mil,5707mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5784mil,5746mil)(5841.535mil,5688.465mil)  Bottom Layer
+   Violation between Track (5784mil,5746mil)(5784mil,5976mil)  Bottom Layer and 
+                     Track (5800mil,5770mil)(5800mil,5990mil)  Bottom Layer
+   Violation between Track (5745mil,6015mil)(5784mil,5976mil)  Bottom Layer and 
+                     Track (5800mil,5770mil)(5800mil,5990mil)  Bottom Layer
+   Violation between Track (5768mil,5707mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5784mil,5746mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5736mil,5999mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5784mil,5746mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5781mil,6049mil)(5820mil,6010mil)  Bottom Layer and 
+                     Track (5790mil,6065mil)(5843.307mil,6011.693mil)  Bottom Layer
+   Violation between Track (5391.627mil,6049mil)(5781mil,6049mil)  Bottom Layer and 
+                     Track (5790mil,6065mil)(5843.307mil,6011.693mil)  Bottom Layer
+   Violation between Track (5375mil,6065mil)(5790mil,6065mil)  Bottom Layer and 
+                     Track (5781mil,6049mil)(5820mil,6010mil)  Bottom Layer
+   Violation between Track (5323mil,5893mil)(5323mil,6013mil)  Bottom Layer and 
+                     Track (5339mil,5996.373mil)(5391.627mil,6049mil)  Bottom Layer
+   Violation between Track (5375mil,6065mil)(5790mil,6065mil)  Bottom Layer and 
+                     Track (5339mil,5996.373mil)(5391.627mil,6049mil)  Bottom Layer
+   Violation between Track (5391.627mil,6049mil)(5781mil,6049mil)  Bottom Layer and 
+                     Track (5757mil,6033mil)(5800mil,5990mil)  Bottom Layer
+   Violation between Track (5339mil,5886.373mil)(5339mil,5996.373mil)  Bottom Layer and 
+                     Track (5355mil,5980mil)(5408mil,6033mil)  Bottom Layer
+   Violation between Track (5391.627mil,6049mil)(5781mil,6049mil)  Bottom Layer and 
+                     Track (5355mil,5980mil)(5408mil,6033mil)  Bottom Layer
+   Violation between Track (5768mil,5707mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5745mil,6015mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5736mil,5999mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5745mil,6015mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5408mil,6033mil)(5757mil,6033mil)  Bottom Layer and 
+                     Track (5745mil,6015mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5449mil,5999mil)(5736mil,5999mil)  Bottom Layer and 
+                     Track (5745mil,6015mil)(5784mil,5976mil)  Bottom Layer
+   Violation between Track (5391.627mil,6049mil)(5781mil,6049mil)  Bottom Layer and 
+                     Track (5375mil,6065mil)(5790mil,6065mil)  Bottom Layer
+   Violation between Track (5408mil,6033mil)(5757mil,6033mil)  Bottom Layer and 
+                     Track (5391.627mil,6049mil)(5781mil,6049mil)  Bottom Layer
+   Violation between Track (5390mil,5975mil)(5430mil,6015mil)  Bottom Layer and 
+                     Track (5408mil,6033mil)(5757mil,6033mil)  Bottom Layer
+   Violation between Track (5430mil,6015mil)(5745mil,6015mil)  Bottom Layer and 
+                     Track (5408mil,6033mil)(5757mil,6033mil)  Bottom Layer
+   Violation between Track (5415mil,5965mil)(5449mil,5999mil)  Bottom Layer and 
+                     Track (5430mil,6015mil)(5745mil,6015mil)  Bottom Layer
+   Violation between Track (5736mil,5999mil)(5768mil,5967mil)  Bottom Layer and 
+                     Track (5430mil,6015mil)(5745mil,6015mil)  Bottom Layer
+   Violation between Track (5449mil,5999mil)(5736mil,5999mil)  Bottom Layer and 
+                     Track (5430mil,6015mil)(5745mil,6015mil)  Bottom Layer
+   Violation between Track (3205mil,5805mil)(3413.23mil,6013.23mil)  Bottom Layer and 
+                     Track (3414.197mil,5991.57mil)(3438.86mil,5991.57mil)  Bottom Layer
+   Violation between Track (3320mil,5475mil)(3320mil,5874.745mil)  Bottom Layer and 
+                     Track (3295mil,5872.373mil)(3414.197mil,5991.57mil)  Bottom Layer
+   Violation between Track (3415.175mil,5969.92mil)(3474.29mil,5969.92mil)  Bottom Layer and 
+                     Track (3295mil,5872.373mil)(3414.197mil,5991.57mil)  Bottom Layer
+   Violation between Track (3320mil,5874.745mil)(3415.175mil,5969.92mil)  Bottom Layer and 
+                     Track (3295mil,5872.373mil)(3414.197mil,5991.57mil)  Bottom Layer
+   Violation between Track (3205mil,5805mil)(3413.23mil,6013.23mil)  Bottom Layer and 
+                     Track (3295mil,5872.373mil)(3414.197mil,5991.57mil)  Bottom Layer
+   Violation between Track (3205mil,5805mil)(3413.23mil,6013.23mil)  Bottom Layer and 
+                     Track (3295mil,5450mil)(3295mil,5872.373mil)  Bottom Layer
+   Violation between Track (3417.12mil,5926.61mil)(3474.29mil,5926.61mil)  Bottom Layer and 
+                     Track (3344mil,5876.118mil)(3416.152mil,5948.27mil)  Bottom Layer
+   Violation between Track (3320mil,5874.745mil)(3415.175mil,5969.92mil)  Bottom Layer and 
+                     Track (3344mil,5876.118mil)(3416.152mil,5948.27mil)  Bottom Layer
+   Violation between Track (3360mil,5869.49mil)(3417.12mil,5926.61mil)  Bottom Layer and 
+                     Track (3344mil,5876.118mil)(3416.152mil,5948.27mil)  Bottom Layer
+   Violation between Track (3320mil,5874.745mil)(3415.175mil,5969.92mil)  Bottom Layer and 
+                     Track (3416.152mil,5948.27mil)(3438.86mil,5948.27mil)  Bottom Layer
+   Violation between Track (3896.5mil,5191.5mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3880.5mil,5257.618mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3880.5mil,5257.618mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer and 
+                     Track (3880.5mil,5257.618mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3880.5mil,5257.618mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3880.5mil,5257.618mil)(3880.5mil,5457.127mil)  Bottom Layer
+   Violation between Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer and 
+                     Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer
+   Violation between Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer and 
+                     Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer
+   Violation between Track (3740mil,5550mil)(3848.5mil,5441.5mil)  Bottom Layer and 
+                     Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer
+   Violation between Track (3658.9mil,5036.018mil)(3880.5mil,5257.618mil)  Bottom Layer and 
+                     Track (3864.5mil,5264.245mil)(3864.5mil,5450.5mil)  Bottom Layer
+   Violation between Track (3832.5mil,5277.5mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3599.84mil,5044.84mil)(3832.5mil,5277.5mil)  Bottom Layer and 
+                     Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer and 
+                     Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3735mil,5525mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3848.5mil,5270.873mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer and 
+                     Track (3832.5mil,5277.5mil)(3832.5mil,5427.5mil)  Bottom Layer
+   Violation between Track (3728.373mil,5509mil)(3816.5mil,5420.873mil)  Bottom Layer and 
+                     Track (3832.5mil,5277.5mil)(3832.5mil,5427.5mil)  Bottom Layer
+   Violation between Track (3530.467mil,5010mil)(3816.5mil,5296.033mil)  Bottom Layer and 
+                     Track (3832.5mil,5277.5mil)(3832.5mil,5427.5mil)  Bottom Layer
+   Violation between Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer and 
+                     Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer
+   Violation between Track (3599.84mil,5044.84mil)(3832.5mil,5277.5mil)  Bottom Layer and 
+                     Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer
+   Violation between Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer and 
+                     Track (3619.53mil,4687mil)(3619.53mil,5041.903mil)  Bottom Layer
+   Violation between Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer and 
+                     Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer
+   Violation between Track (3599.84mil,5044.84mil)(3832.5mil,5277.5mil)  Bottom Layer and 
+                     Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer
+   Violation between Track (3599.84mil,4687mil)(3599.84mil,5044.84mil)  Bottom Layer and 
+                     Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer
+   Violation between Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer and 
+                     Track (3619.53mil,5041.903mil)(3848.5mil,5270.873mil)  Bottom Layer
+   Violation between Track (3574mil,5566mil)(3749mil,5566mil)  Bottom Layer and 
+                     Track (3525.47mil,5649.53mil)(3590mil,5585mil)  Bottom Layer
+   Violation between Track (3574mil,5566mil)(3749mil,5566mil)  Bottom Layer and 
+                     Track (3590mil,5585mil)(3752.627mil,5585mil)  Bottom Layer
+   Violation between Track (3604mil,5601mil)(3759.255mil,5601mil)  Bottom Layer and 
+                     Track (3590mil,5585mil)(3752.627mil,5585mil)  Bottom Layer
+   Violation between Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3590mil,5585mil)(3752.627mil,5585mil)  Bottom Layer
+   Violation between Track (3547.13mil,5657.87mil)(3604mil,5601mil)  Bottom Layer and 
+                     Track (3590mil,5585mil)(3752.627mil,5585mil)  Bottom Layer
+   Violation between Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3590mil,5585mil)(3752.627mil,5585mil)  Bottom Layer
+   Violation between Track (3735mil,5525mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3728.373mil,5509mil)(3816.5mil,5420.873mil)  Bottom Layer
+   Violation between Track (3420mil,5525mil)(3735mil,5525mil)  Bottom Layer and 
+                     Track (3728.373mil,5509mil)(3816.5mil,5420.873mil)  Bottom Layer
+   Violation between Track (3735mil,5525mil)(3832.5mil,5427.5mil)  Bottom Layer and 
+                     Track (3401mil,5509mil)(3728.373mil,5509mil)  Bottom Layer
+   Violation between Track (3420mil,5525mil)(3735mil,5525mil)  Bottom Layer and 
+                     Track (3401mil,5509mil)(3728.373mil,5509mil)  Bottom Layer
+   Violation between Track (3574mil,5566mil)(3749mil,5566mil)  Bottom Layer and 
+                     Track (3740mil,5550mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer and 
+                     Track (3740mil,5550mil)(3848.5mil,5441.5mil)  Bottom Layer
+   Violation between Track (3425mil,5550mil)(3740mil,5550mil)  Bottom Layer and 
+                     Track (3749mil,5566mil)(3864.5mil,5450.5mil)  Bottom Layer
+   Violation between Track (3574mil,5566mil)(3749mil,5566mil)  Bottom Layer and 
+                     Track (3425mil,5550mil)(3740mil,5550mil)  Bottom Layer
+   Violation between Track (3503.82mil,5636.18mil)(3574mil,5566mil)  Bottom Layer and 
+                     Track (3425mil,5550mil)(3740mil,5550mil)  Bottom Layer
+   Violation between Track (3604mil,5601mil)(3759.255mil,5601mil)  Bottom Layer and 
+                     Track (3568.78mil,5666.22mil)(3618mil,5617mil)  Bottom Layer
+   Violation between Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer and 
+                     Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer
+   Violation between Track (3658.9mil,5036.018mil)(3880.5mil,5257.618mil)  Bottom Layer and 
+                     Track (3639.21mil,5038.955mil)(3864.5mil,5264.245mil)  Bottom Layer
+   Violation between Track (3896.5mil,5191.5mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3658.9mil,5036.018mil)(3880.5mil,5257.618mil)  Bottom Layer
+   Violation between Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer and 
+                     Track (3658.9mil,5036.018mil)(3880.5mil,5257.618mil)  Bottom Layer
+   Violation between Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer and 
+                     Track (3639.21mil,4687mil)(3639.21mil,5038.955mil)  Bottom Layer
+   Violation between Track (3678.58mil,4888.58mil)(3720mil,4930mil)  Bottom Layer and 
+                     Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer
+   Violation between Track (3678.58mil,4687mil)(3678.58mil,4888.58mil)  Bottom Layer and 
+                     Track (3658.9mil,4687mil)(3658.9mil,5036.018mil)  Bottom Layer
+   Violation between Track (3705mil,5700mil)(4225mil,5700mil)  Bottom Layer and 
+                     Track (3655.39mil,5794.61mil)(3734mil,5716mil)  Bottom Layer
+   Violation between Track (4086mil,5716mil)(4170mil,5800mil)  Bottom Layer and 
+                     Track (3705mil,5700mil)(4225mil,5700mil)  Bottom Layer
+   Violation between Track (3734mil,5716mil)(4086mil,5716mil)  Bottom Layer and 
+                     Track (3705mil,5700mil)(4225mil,5700mil)  Bottom Layer
+   Violation between Track (3618mil,5617mil)(3765.882mil,5617mil)  Bottom Layer and 
+                     Track (3604mil,5601mil)(3759.255mil,5601mil)  Bottom Layer
+   Violation between Track (3765.882mil,5617mil)(3912.5mil,5470.382mil)  Bottom Layer and 
+                     Track (3604mil,5601mil)(3759.255mil,5601mil)  Bottom Layer
+   Violation between Track (3912.5mil,5127.5mil)(3912.5mil,5470.382mil)  Bottom Layer and 
+                     Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer
+   Violation between Track (3618mil,5617mil)(3765.882mil,5617mil)  Bottom Layer and 
+                     Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer
+   Violation between Track (3765.882mil,5617mil)(3912.5mil,5470.382mil)  Bottom Layer and 
+                     Track (3759.255mil,5601mil)(3896.5mil,5463.755mil)  Bottom Layer
+   Violation between Track (3770mil,5640mil)(3935mil,5475mil)  Bottom Layer and 
+                     Track (3618mil,5617mil)(3765.882mil,5617mil)  Bottom Layer
+   Violation between Track (3912.5mil,5127.5mil)(3912.5mil,5470.382mil)  Bottom Layer and 
+                     Track (3770mil,5640mil)(3935mil,5475mil)  Bottom Layer
+   Violation between Track (3765.882mil,5617mil)(3912.5mil,5470.382mil)  Bottom Layer and 
+                     Track (3770mil,5640mil)(3935mil,5475mil)  Bottom Layer
+   Violation between Track (3896.5mil,5191.5mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3912.5mil,5127.5mil)(3912.5mil,5470.382mil)  Bottom Layer
+   Violation between Track (3750mil,5045mil)(3896.5mil,5191.5mil)  Bottom Layer and 
+                     Track (3912.5mil,5127.5mil)(3912.5mil,5470.382mil)  Bottom Layer
+   Violation between Track (3896.5mil,5191.5mil)(3896.5mil,5463.755mil)  Bottom Layer and 
+                     Track (3765.882mil,5617mil)(3912.5mil,5470.382mil)  Bottom Layer
+   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
+                     Track (2050mil,4395mil)(2420mil,4395mil)  Bottom Layer
+   Violation between Track (2395mil,4290mil)(2395mil,5650mil)  Keep-Out Layer and 
+                     Track (1760mil,4315mil)(2455mil,4315mil)  Bottom Layer
+   Violation between Track (5339mil,5886.373mil)(5339mil,5996.373mil)  Bottom Layer and 
+                     Track (5355mil,5820mil)(5355mil,5980mil)  Bottom Layer
+   Violation between Track (5282.627mil,5830mil)(5339mil,5886.373mil)  Bottom Layer and 
+                     Track (5355mil,5820mil)(5355mil,5980mil)  Bottom Layer
+   Violation between Track (5291.693mil,5861.693mil)(5323mil,5893mil)  Bottom Layer and 
+                     Track (5339mil,5886.373mil)(5339mil,5996.373mil)  Bottom Layer
+   Violation between Track (5323mil,5893mil)(5323mil,6013mil)  Bottom Layer and 
+                     Track (5339mil,5886.373mil)(5339mil,5996.373mil)  Bottom Layer
+   Violation between Track (5282.627mil,5830mil)(5339mil,5886.373mil)  Bottom Layer and 
+                     Track (5323mil,5893mil)(5323mil,6013mil)  Bottom Layer
+   Violation between Track (5282.627mil,5830mil)(5339mil,5886.373mil)  Bottom Layer and 
+                     Track (5028.307mil,5861.693mil)(5291.693mil,5861.693mil)  Bottom Layer
+   Violation between Track (5291.693mil,5861.693mil)(5323mil,5893mil)  Bottom Layer and 
+                     Track (5282.627mil,5830mil)(5339mil,5886.373mil)  Bottom Layer
+   Violation between Track (3521.1mil,4646.1mil)(3521.1mil,4687mil)  Bottom Layer and 
+                     Track (3540mil,4415mil)(3540mil,4686.21mil)  Bottom Layer
+   Violation between Track (3505mil,4630mil)(3521.1mil,4646.1mil)  Bottom Layer and 
+                     Track (3540mil,4415mil)(3540mil,4686.21mil)  Bottom Layer
+Rule Violations :237
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: 
+Rule Violations :1
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2229.381mil,2228.954mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2233.318mil,2224.489mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2236.272mil,2220.905mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2239.023mil,2217.398mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2241.668mil,2213.868mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2244.273mil,2210.23mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2246.774mil,2206.57mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2249.129mil,2202.96mil)  Top Layer
+   Violation between Pad B1-2(2495mil,1880mil)  Multi-Layer and 
+                     Arc (2251.38mil,2199.338mil)  Top Layer
+   Violation between Region (0 hole(s)) Top Layer and 
+                     Pad B1-2(2495mil,1880mil)  Multi-Layer
+   Violation between Track (1625mil,4480mil)(1643.44mil,4461.56mil)  Top Layer and 
+                     Via (1625mil,4480mil) Top Layer to Bottom Layer
+   Violation between Track (1560mil,5595mil)(1560.668mil,4400mil)  Top Layer and 
+                     Via (1560mil,4400mil) Top Layer to Bottom Layer
+Rule Violations :21
+
+
+Violations Detected : 260
+Time Elapsed        : 00:00:29
