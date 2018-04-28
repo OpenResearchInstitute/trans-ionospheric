@@ -38,12 +38,20 @@ void util_i2c_init(void) {
 
 
 bool util_i2c_write(uint8_t address7, uint8_t *data_p, uint8_t data_len) {
-	return twi_master_transfer(address7 << 1, data_p, data_len, TWI_ISSUE_STOP);
+	if (m_i2c_available) {
+		return twi_master_transfer(address7 << 1, data_p, data_len, TWI_ISSUE_STOP);
+	} else {
+		return false;
+	}
 }
 
 
 bool util_i2c_read(uint8_t address7, uint8_t *data_p, uint8_t data_len) {
-	return twi_master_transfer(TWI_READ_BIT | (address7 << 1), data_p, data_len, TWI_ISSUE_STOP);
+	if (m_i2c_available) {
+		return twi_master_transfer(TWI_READ_BIT | (address7 << 1), data_p, data_len, TWI_ISSUE_STOP);
+	} else {
+		return false;
+	}
 }
 
 
@@ -51,24 +59,28 @@ bool util_i2c_read(uint8_t address7, uint8_t *data_p, uint8_t data_len) {
 uint8_t util_i2c_count(void) {
 	uint8_t count = 0;
 	uint8_t buf[2];
-	
-	for (uint8_t addr7 = UTIL_I2C_FIRST_NORMAL_I2C_ADDRESS7; addr7 <= UTIL_I2C_LAST_NORMAL_I2C_ADDRESS7; addr7++) {
-		if (util_i2c_read(addr7, buf, 1)) {
-			count++;
+
+	if (m_i2c_available) {
+		for (uint8_t addr7 = UTIL_I2C_FIRST_NORMAL_I2C_ADDRESS7; addr7 <= UTIL_I2C_LAST_NORMAL_I2C_ADDRESS7; addr7++) {
+			if (util_i2c_read(addr7, buf, 1)) {
+				count++;
+			}
 		}
 	}
-	
+
 	return count;
 }
 
 uint8_t util_i2c_get_next_device_address(uint8_t start_addr7) {
 	uint8_t buf[2];
-	
-	for (uint8_t addr7 = start_addr7; addr7 <= UTIL_I2C_LAST_NORMAL_I2C_ADDRESS7; addr7++) {
-		if (util_i2c_read(addr7, buf, 1)) {
-			return addr7;
+
+	if (m_i2c_available) {
+		for (uint8_t addr7 = start_addr7; addr7 <= UTIL_I2C_LAST_NORMAL_I2C_ADDRESS7; addr7++) {
+			if (util_i2c_read(addr7, buf, 1)) {
+				return addr7;
+			}
 		}
 	}
-	
+
 	return UTIL_I2C_INVALID_I2C_ADDRESS7;
 }

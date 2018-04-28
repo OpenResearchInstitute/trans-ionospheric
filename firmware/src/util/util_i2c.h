@@ -26,6 +26,7 @@
 #define UTIL_I2C_LAST_NORMAL_I2C_ADDRESS7	0x77
 #define	UTIL_I2C_INVALID_I2C_ADDRESS7		0xFF
 
+extern bool m_i2c_available;
 
 void util_i2c_init(void);
 bool util_i2c_write(uint8_t address7, uint8_t *data_p, uint8_t data_len);
