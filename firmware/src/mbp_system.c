@@ -358,6 +358,8 @@ void mbp_system_shouts() {
 }
 
 void mbp_system_test() {
+	uint8_t i;
+	
 	mbp_tooth_eye_stop();
 	//clear out app_scheduler
 	app_sched_execute();
@@ -378,7 +380,7 @@ void mbp_system_test() {
 			util_gfx_print("Micro SD");
 
 			util_gfx_set_cursor(0, 12);
-			util_gfx_print("Tilt");
+			util_gfx_print("I2C");
 
 			util_gfx_set_cursor(0, 24);
 			util_gfx_print("Up");
@@ -418,14 +420,41 @@ void mbp_system_test() {
 			util_gfx_print("No");
 		}
 
-		//Test tilt
-		util_gfx_set_cursor(90, 12);
-		if (util_tilt_inverted()) {
-			util_gfx_set_color(COLOR_BLUE);
-			util_gfx_print("Inv");
+		//Discover I2C devices and display them
+		uint8_t num_i2c = util_i2c_count();
+		// Desired output depending on number of I2C devices found:
+		// I2C            None
+		// I2C            01
+		// I2C            01 02
+		// I2C         01 02 03
+		// I2C      01 02 03 04
+		// I2C   01 02 03 04 05
+		// I2C        123 found
+		static const uint8_t hex_columns[] = {90, 90, 90, 72, 54, 36, 66};
+		util_gfx_set_cursor(hex_columns[num_i2c < 6 ? num_i2c : 6], 12);
+
+		if (num_i2c == 0) {
+			util_gfx_set_color(COLOR_WHITE);
+			util_gfx_print("None");
+		} else if (num_i2c > 5) {
+			util_gfx_set_color(COLOR_RED);
+			sprintf(buffer, "%3u found", num_i2c);
+			util_gfx_print(buffer);
 		} else {
+			uint8_t scan_addr7 = UTIL_I2C_FIRST_NORMAL_I2C_ADDRESS7;
+			uint8_t result;
+
 			util_gfx_set_color(COLOR_YELLOW);
-			util_gfx_print("Norm");
+			for (i=0; i < num_i2c-1; i++) {
+				result = util_i2c_get_next_device_address(scan_addr7);
+				if (result != UTIL_I2C_INVALID_I2C_ADDRESS7) {
+					sprintf(buffer, "%02x ", result);
+					util_gfx_print(buffer);
+					scan_addr7 = result + 1;
+				}
+			}
+			sprintf(buffer, "%02x", util_i2c_get_next_device_address(scan_addr7));
+			util_gfx_print(buffer);
 		}
 
 		//up button

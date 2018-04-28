@@ -40,7 +40,7 @@ SRC_FILES += \
 	$(SDK_ROOT)/components/drivers_nrf/saadc/nrf_drv_saadc.c \
 	$(SDK_ROOT)/components/drivers_nrf/spi_master/nrf_drv_spi.c \
 	$(SDK_ROOT)/components/drivers_nrf/timer/nrf_drv_timer.c \
-	$(SDK_ROOT)/components/drivers_nrf/twi_master/nrf_drv_twi.c \
+	$(SDK_ROOT)/components/drivers_nrf/twi_master/deprecated/twi_sw_master.c \
 	$(SDK_ROOT)/components/libraries/block_dev/sdc/nrf_block_dev_sdc.c \
 	$(SDK_ROOT)/components/libraries/button/app_button.c \
 	$(SDK_ROOT)/components/libraries/csense/nrf_csense.c \
@@ -88,6 +88,7 @@ SRC_FILES += \
 	util/util_crypto.c \
 	util/util_gfx.c \
 	util/util_hello.c \
+	util/util_i2c.c \
 	util/util_led.c \
 	util/util_math.c \
 	util/util_nfc.c \
