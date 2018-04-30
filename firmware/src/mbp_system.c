@@ -359,6 +359,8 @@ void mbp_system_shouts() {
 
 void mbp_system_test() {
 	uint8_t i;
+	uint8_t i2c_config_data[2] = { 0x00, 0xf0 };
+	uint8_t i2c_test_data[2] = { 0x12, 0x00 };
 	
 	mbp_tooth_eye_stop();
 	//clear out app_scheduler
@@ -468,6 +470,9 @@ void mbp_system_test() {
 		if (util_button_up()) {
 			util_gfx_set_color(COLOR_GREEN);
 			util_gfx_print("true");
+			util_i2c_write(0x20, &i2c_config_data[0], 2);
+			util_i2c_write(0x20, &i2c_test_data[0], 2);
+			i2c_test_data[1]++;
 		} else {
 			util_gfx_set_color(COLOR_RED);
 			util_gfx_print("false");
