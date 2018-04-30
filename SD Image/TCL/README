@@ -1,4 +1,4 @@
-The JoCo badge includes the AND!XOR DC25 TCL-ish Scripting
+The Trans-Ionospheric badge includes the AND!XOR DC25 TCL-ish Scripting
 
                         `. ___
                         __,' __`.                _..----....____
@@ -150,6 +150,6 @@ EXAMPLE5.TCL: Prints text in the middle of the screen using ascii conversions
 
 EXAMPLE6.TCL: Demonstrates drawing graphics to the display
 
-EXAMPLE7.TCL: Toggles IO 0 on and off
+EXAMPLE7.TCL: Toggles all five IO pins on and off in a binary counting sequence
 
 EXAMPLE8.TCL: Prints random numbers to the screen
