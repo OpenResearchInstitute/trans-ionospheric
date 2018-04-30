@@ -200,7 +200,7 @@ tcl_value_t *tcl_list_append(tcl_value_t *v, tcl_value_t *tail) {
 
 struct tcl_cmd {
   tcl_value_t *name;
-  int arity;
+  int arity;  // -N means "variable arity, minimum of N"
   tcl_cmd_fn_t fn;
   void *arg;
   struct tcl_cmd *next;
@@ -349,7 +349,9 @@ int tcl_eval(struct tcl *tcl, const char *s, size_t len) {
         int r = FERROR;
         for (cmd = tcl->cmds; cmd != NULL; cmd = cmd->next) {
           if (strcmp(tcl_string(cmdname), tcl_string(cmd->name)) == 0) {
-            if (cmd->arity == 0 || cmd->arity == tcl_list_length(list)) {
+            if (cmd->arity == 0 ||
+                cmd->arity == tcl_list_length(list) ||
+                (cmd->arity < 0 && -cmd->arity <= tcl_list_length(list))) {
               r = cmd->fn(tcl, list, cmd->arg);
               break;
             }

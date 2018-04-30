@@ -36,7 +36,9 @@ typedef struct {
 } tcl_context_t;
 
 static bool m_quit = false;
-static uint8_t m_io_pins[] = { 31, 10, 9, 1, 0 };
+// static uint8_t m_io_pins[] = { 31, 10, 9, 1, 0 };	// Bender
+// static uint8_t m_io_pins[] = { 0, 1, 29, 30, 31 };	// JoCo
+static uint8_t m_io_pins[] = { 0, 1, 16, 17, 31 };	// Trans-Ionospheric
 static uint16_t m_color = COLOR_WHITE;
 #define IO_PIN_MAX	5
 
@@ -320,6 +322,55 @@ static int __tcl_io_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 
 	tcl_free(tcl_io);
 	tcl_free(tcl_value);
+	return FNORMAL;
+}
+
+static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
+	tcl_value_t *tcl_i2c_addr = tcl_list_at(args, 1);
+	tcl_value_t *tcl_i2c_count = tcl_list_at(args, 2);
+	
+	uint8_t addr = tcl_int(tcl_i2c_addr);
+	if (addr < 0 || addr > 127) {
+		char message[32];
+		sprintf(message, "I2C address %d out of range", addr);
+		mbp_ui_error(message);
+		
+		tcl_free(tcl_i2c_addr);
+		tcl_free(tcl_i2c_count);
+		return FERROR;
+	}
+
+	uint8_t count = tcl_int(tcl_i2c_count);
+	if (count < 1 || count > 31) {
+		char message[32];
+		sprintf(message, "I2C count %d out of range", count);
+		mbp_ui_error(message);
+
+		tcl_free(tcl_i2c_addr);
+		tcl_free(tcl_i2c_count);
+		return FERROR;
+	}
+
+	uint8_t data[32];
+	for (uint8_t i = 0; i < count; i++) {
+		tcl_value_t *tcl_byte = tcl_list_at(args, 3+i);
+		data[i] = tcl_int(tcl_byte);
+		tcl_free(tcl_byte);
+	}
+	
+	bool i2c_status = util_i2c_write(addr, &data[0], count);
+	if (i2c_status == false) {
+		char message[32];
+		sprintf(message, "I2C write to %d failed", addr);
+		mbp_ui_error(message);
+
+		tcl_free(tcl_i2c_addr);
+		tcl_free(tcl_i2c_count);
+		return FERROR;
+	}
+
+	tcl_free(tcl_i2c_count);
+	tcl_free(tcl_i2c_addr);
 	return FNORMAL;
 }
 
@@ -674,6 +725,9 @@ void mbp_tcl_exec(char *p_code) {
 	tcl_register(&tcl, "button_clear", &__tcl_button_clear, 1, NULL);
 	tcl_register(&tcl, "button_state", &__tcl_button_state, 1, NULL);
 	tcl_register(&tcl, "button_wait", &__tcl_button_wait, 1, NULL);
+	
+	//I2C access
+	tcl_register(&tcl, "i2c_write", &__tcl_i2c_write, -4, NULL);
 
 	//Setup IO pins for badges with WS2812B
 	if (!util_led_has_apa102()) {
