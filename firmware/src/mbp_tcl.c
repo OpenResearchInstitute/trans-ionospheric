@@ -42,6 +42,12 @@ static uint8_t m_io_pins[] = { 0, 1, 16, 17, 31 };	// Trans-Ionospheric
 static uint16_t m_color = COLOR_WHITE;
 #define IO_PIN_MAX	5
 
+// I2C Read needs to be able to read multiple bytes, but there was no
+// multibyte data structure available. So the i2c_read command puts
+// the results in a static buffer, and the i2c_get_byte command is
+// used to access the contents of the buffer.
+static uint8_t i2c_data_buffer[32];
+
 /**
  * Convert 8-bit color value to 16-bit
  *
@@ -325,10 +331,8 @@ static int __tcl_io_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 	return FNORMAL;
 }
 
-static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
+static int __tcl_i2c_read(struct tcl *tcl, tcl_value_t *args, void *arg) {
 	tcl_value_t *tcl_i2c_addr = tcl_list_at(args, 1);
-	tcl_value_t *tcl_i2c_count = tcl_list_at(args, 2);
-	
 	uint8_t addr = tcl_int(tcl_i2c_addr);
 	if (addr < 0 || addr > 127) {
 		char message[32];
@@ -336,10 +340,61 @@ static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 		mbp_ui_error(message);
 		
 		tcl_free(tcl_i2c_addr);
-		tcl_free(tcl_i2c_count);
 		return FERROR;
 	}
 
+	tcl_value_t *tcl_i2c_length = tcl_list_at(args, 2);
+	uint8_t length = tcl_int(tcl_i2c_length);
+	if (length < 1 || length > 31) {
+		char message[32];
+		sprintf(message, "I2C len %d out of range", length);
+		mbp_ui_error(message);
+
+		tcl_free(tcl_i2c_addr);
+		tcl_free(tcl_i2c_length);
+		return FERROR;
+	}
+
+	bool i2c_status = util_i2c_read(addr, &i2c_data_buffer[0], length);
+	if (i2c_status == false) {
+		char message[32];
+		sprintf(message, "I2C read at %d failed", addr);
+		mbp_ui_error(message);
+
+		tcl_free(tcl_i2c_addr);
+		tcl_free(tcl_i2c_length);
+		return FERROR;
+	}
+
+	tcl_free(tcl_i2c_addr);
+	tcl_free(tcl_i2c_length);
+	return FNORMAL;
+}
+
+static int __tcl_i2c_get_byte(struct tcl *tcl, tcl_value_t *args, void *arg) {
+	tcl_value_t *tcl_index = tcl_list_at(args, 1);
+	uint8_t index = tcl_int(tcl_index);
+	tcl_free(tcl_index);
+	
+	uint8_t value = i2c_data_buffer[index];
+	char r_str[4];
+	sprintf(r_str, "%d", value);
+	return tcl_result(tcl, FNORMAL, tcl_alloc(r_str, strlen(r_str)));
+}
+
+static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
+	tcl_value_t *tcl_i2c_addr = tcl_list_at(args, 1);
+	uint8_t addr = tcl_int(tcl_i2c_addr);
+	if (addr < 0 || addr > 127) {
+		char message[32];
+		sprintf(message, "I2C address %d out of range", addr);
+		mbp_ui_error(message);
+		
+		tcl_free(tcl_i2c_addr);
+		return FERROR;
+	}
+
+	tcl_value_t *tcl_i2c_count = tcl_list_at(args, 2);
 	uint8_t count = tcl_int(tcl_i2c_count);
 	if (count < 1 || count > 31) {
 		char message[32];
@@ -369,8 +424,8 @@ static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 		return FERROR;
 	}
 
-	tcl_free(tcl_i2c_count);
 	tcl_free(tcl_i2c_addr);
+	tcl_free(tcl_i2c_count);
 	return FNORMAL;
 }
 
@@ -727,6 +782,8 @@ void mbp_tcl_exec(char *p_code) {
 	tcl_register(&tcl, "button_wait", &__tcl_button_wait, 1, NULL);
 	
 	//I2C access
+	tcl_register(&tcl, "i2c_read", &__tcl_i2c_read, 3, NULL);
+	tcl_register(&tcl, "i2c_get_byte", &__tcl_i2c_get_byte, 2, NULL);
 	tcl_register(&tcl, "i2c_write", &__tcl_i2c_write, -4, NULL);
 
 	//Setup IO pins for badges with WS2812B
