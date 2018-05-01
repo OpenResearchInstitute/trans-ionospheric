@@ -1,4 +1,6 @@
 The Trans-Ionospheric badge includes the AND!XOR DC25 TCL-ish Scripting
+with some enhancements!
+
 
                         `. ___
                         __,' __`.                _..----....____
@@ -64,6 +66,12 @@ Special Commands
 cls - Clears the screen
 
 delay <ms> - Pauses execution for specified milliseconds
+
+i2c_get_byte <index> - Gets an individual byte from the I2C buffer
+
+i2c_read <seven-bit-address> <bytecount> - Read byte(s) from I2C into buffer
+
+i2c_write <seven-bit-address> <bytecount> <byte0> [<byte1> ...] - Write I2C bytes
 
 incr <variable> - Increments the given variable by 1
 
@@ -153,3 +161,8 @@ EXAMPLE6.TCL: Demonstrates drawing graphics to the display
 EXAMPLE7.TCL: Toggles all five IO pins on and off in a binary counting sequence
 
 EXAMPLE8.TCL: Prints random numbers to the screen
+
+I2C_DEMO.TCL: I2C writes to a MC23017-based I2C device ("Shitty Add-On")
+
+I2C_RW.TCL: I2C reads and writes. MC23017 and DS3231 devices required.
+
