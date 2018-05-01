@@ -44,7 +44,7 @@ uint8_t brightness = 20;
 #define LED_PIN_DATA			2
 #endif
 
-#define LED_PIN_SCK_DUMMY		22
+#define LED_PIN_SCK_DUMMY		29
 
 #define WS2812B_PATTERN_0 				(0b1000)
 #define WS2812B_PATTERN_1 				(0b1110)

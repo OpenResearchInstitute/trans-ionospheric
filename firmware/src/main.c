@@ -122,6 +122,9 @@ int main(void) {
 	//Init tilt sensor, this should happen before SD so it's available in self test
 	util_tilt_start();
 
+	//Init I2C, this also is needed for self test
+	util_i2c_init();
+
 	//Test for SD, if not, then run POST
 	if (!sd_available) {
 		mbp_system_test();

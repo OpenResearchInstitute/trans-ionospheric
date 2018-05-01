@@ -25,7 +25,7 @@
  *****************************************************************************/
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
-#define VERSION							"v1.9"
+#define VERSION							"v1.9+"
 #define VERSION_SD						27
 
 // Various testing options
@@ -118,6 +118,7 @@
 #include <nfc_t2t_lib.h>
 #include <nfc_ndef_msg.h>
 #include <nfc_text_rec.h>
+#include <deprecated/twi_master.h>
 
 //Nordic external FATFS
 #include "diskio_blkdev.h"
@@ -152,16 +153,17 @@
 #include "skifree.h"
 #include "util.h"
 #include "util_ble.h"
-#include "util_hello.h"
 #include "util_ble_lists.h"
-#include "util_nfc.h"
 #include "util_button.h"
+#include "util_crypto.h"
 #include "util_gfx.h"
+#include "util_hello.h"
+#include "util_i2c.h"
 #include "util_led.h"
 #include "util_math.h"
+#include "util_nfc.h"
 #include "util_sd.h"
 #include "util_tilt.h"
-#include "util_crypto.h"
 #include "version.h"
 
 #endif /* SYSTEM_H_ */
