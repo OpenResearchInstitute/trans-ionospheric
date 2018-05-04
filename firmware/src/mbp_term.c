@@ -105,7 +105,7 @@ static int __cmd_help(int argc, char **argv) {
 	mbp_term_print("date defrag emacs");
 	mbp_term_print("exit led leds");
 	mbp_term_print("less ll motd namechg");
-	mbp_term_print("passwd play service");
+	mbp_term_print("passwd play");
 	mbp_term_print("stop su tcl uname");
 	mbp_term_print("vim wall whoami");
 	mbp_term_print("\r");
