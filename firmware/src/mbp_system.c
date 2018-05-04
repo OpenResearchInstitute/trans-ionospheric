@@ -362,6 +362,7 @@ void mbp_system_test() {
 	uint8_t i2c_config_data[2] = { 0x00, 0xf0 };
 	uint8_t i2c_test_data[2] = { 0x12, 0x00 };
 	
+	mbp_tooth_eye_stop();
 	//clear out app_scheduler
 	app_sched_execute();
 	util_gfx_set_font(FONT_SMALL);
@@ -568,6 +569,7 @@ void mbp_system_test() {
 
 	util_led_clear();
 	util_button_clear();
+	mbp_tooth_eye_start();
 }
 
 void mbp_system_tilt_mode_select() {
@@ -582,7 +584,8 @@ void mbp_system_tilt_mode_select() {
 void mbp_system_unlock_state() {
 	uint16_t unlock = mbp_state_unlock_get();
 
-	//Clear out scheduler of any events
+	mbp_tooth_eye_stop();
+	//Clear out scheduler of any eye/tooth events
 	app_sched_execute();
 
 	util_led_clear();
@@ -601,4 +604,6 @@ void mbp_system_unlock_state() {
 	util_led_show();
 	util_gfx_draw_raw_file("BLING/JOCO/SKLCROSS.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, true, NULL);
 	util_led_clear();
+
+	mbp_tooth_eye_start();
 }

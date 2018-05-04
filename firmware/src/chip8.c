@@ -1,6 +1,7 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
+ *
+ * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,6 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
- *      @abraxas3d
  *
  *****************************************************************************/
 #include "system.h"
@@ -678,7 +678,9 @@ void chip8_run(chip8_game_t *p_game) {
 	err_code = app_timer_create(&m_chip8_timer, APP_TIMER_MODE_REPEATED, __chip8_timer_handler);
 	APP_ERROR_CHECK(err_code);
 
+	//Stop tooth/eyes
 	util_led_clear();
+	mbp_tooth_eye_stop();
 	app_sched_pause();
 
 	uint32_t ticks = APP_TIMER_TICKS(1000 / p_game->hz, UTIL_TIMER_PRESCALER);
@@ -693,7 +695,9 @@ void chip8_run(chip8_game_t *p_game) {
 	app_timer_stop(m_chip8_timer);
 	util_button_clear();
 
+	//restart tooth/eyes
 	app_sched_resume();
+	mbp_tooth_eye_start();
 	util_led_clear();
 	util_gfx_invalidate();
 }

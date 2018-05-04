@@ -1,6 +1,7 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
+ *
+ * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -212,6 +213,7 @@ static void __ski_timer_handler(void *data) {
 void ski() {
 	char *sprite_files[] = { "SKI/LIFT.RAW", "SKI/ROCK.RAW", "SKI/TREE.RAW" };
 
+	mbp_tooth_eye_stop();
 	app_sched_pause();
 
 	//Initialize the skier
@@ -282,4 +284,5 @@ void ski() {
 
 	app_sched_resume();
 	mbp_ui_popup("Ski", "Game Over!");
+	mbp_tooth_eye_start();
 }
