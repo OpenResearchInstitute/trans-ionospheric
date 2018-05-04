@@ -159,6 +159,9 @@ int main(void) {
 	util_led_clear();
 	mbp_ui_cls();
 
+	//Start up RSSI Monitoring
+	mbp_rssi_start();
+	
 	//Read seekrit resistor and set unlocked state appropriately
         //State persists across boot
 	if (mbp_system_seekrit_get()) {

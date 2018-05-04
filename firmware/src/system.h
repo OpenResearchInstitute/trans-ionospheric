@@ -142,6 +142,7 @@
 #include "score_ble.h"
 #include "mbp_medea.h"
 #include "mbp_menu.h"
+#include "mbp_rssi.h"
 #include "mbp_state.h"
 #include "mbp_system.h"
 #include "mbp_tcl.h"

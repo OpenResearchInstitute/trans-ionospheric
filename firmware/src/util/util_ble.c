@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +21,11 @@
  *      @andrewnriley
  *      @lacosteaef
  *      @bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3
  *
  *****************************************************************************/
 #include "../system.h"
@@ -34,7 +34,7 @@
 #define BLE_DATA_INDEX_SCORE          2
 #define BLE_DATA_INDEX_C2             4
 #define BLE_DATA_INDEX_GLOBAL_TIME    8
-#define BLE_TX_POWER                  0                 // 0dbm gain 
+#define BLE_TX_POWER                  0                 // 0dbm gain
 #define DEVICE_NAME                   "JOCO2018"
 #define APP_ADV_INTERVAL              0x0320            // Advertising interval in units of 0.625ms
 //#define APP_ADV_TIMEOUT_IN_SECONDS    180
@@ -446,6 +446,10 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
     // Now we're done parsing all the BLE data
 
+	// Process the RSSI if it's a known badge.
+	if ( friendly || (((badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID)) && valid_name)) {
+		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
+	}
 
     // joco badges we have counted as 'visits' are stored in the SD card database
     // This is the slowest access, and should only be accessed after checking the seen list
@@ -1029,7 +1033,7 @@ void util_ble_name_set(char *name) {
 	if ((1<<i) & special) {
 	    name_temp[i] = tolower((int) name_temp[i]);
 	}
-    }    
+    }
 
     ble_gap_conn_sec_mode_t sec_mode;
     BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&sec_mode);

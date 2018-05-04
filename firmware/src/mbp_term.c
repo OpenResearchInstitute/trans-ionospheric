@@ -56,6 +56,7 @@ static int __cmd_ll(int argc, char **argv);
 static int __cmd_passwd(int argc, char **argv);
 static int __cmd_play(int argc, char **argv);
 static int __cmd_release(int argc, char **argv);
+static int __cmd_rssi(int argc, char **argv);
 static int __cmd_stop(int argc, char **argv);
 static int __cmd_tcl(int argc, char **argv);
 static int __cmd_vim(int argc, char **argv);
@@ -87,11 +88,12 @@ typedef struct {
 		{ "leds", "Set All LEDs", __cmd_leds }, \
 		{ "led", "Set one LED", __cmd_led }, \
 		{ "release", "Release LEDs", __cmd_release}, \
+		{ "rssi", "Monitor signals", __cmd_rssi}, \
 		{ "tcl", "Run TCL program", __cmd_tcl}, \
 		{ "wall", "Leave a message", __cmd_wall } \
 	};
 
-#define CMD_LIST_COUNT 	21
+#define CMD_LIST_COUNT 	22
 
 uint8_t m_who_count = 0;
 uint8_t m_current_user_role = 0;
@@ -149,6 +151,43 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 	if (background_was_running) {
 		mbp_background_led_start();
 	}
+}
+
+void mbp_term_display_rssi(uint16_t device_id, int8_t rssi) {
+	char msg[21];
+
+	sprintf(msg, "%#x %d\r", device_id, rssi);
+	mbp_term_print(msg);
+	mbp_term_print("\r");
+}
+
+void mbp_term_end_rssi(void) {
+	mbp_term_print("Done with RSSI");
+	mbp_term_print("\r");
+}
+
+static int __cmd_rssi(int argc, char **argv) {
+	unsigned int duration;
+
+	if (m_current_user_role >= 1) {
+		if (argc == 2 && strcmp(argv[1], "stop") == 0) {
+			mbp_rssi_term_duration(0);
+		} else if (argc == 2 && sscanf(argv[1], "%u", &duration) == 1) {
+			mbp_term_print("Monitoring RSSI");
+			mbp_term_print("\r");
+			mbp_rssi_term_duration(duration);
+		} else {
+			mbp_term_print("Incorrect Usage");
+			mbp_term_print("  rssi duration");
+			mbp_term_print("  rssi stop");
+			mbp_term_print("\r");
+		}
+	}
+	else {
+		mbp_term_print("Permission Denied");
+		mbp_term_print("\r");
+	}
+	return 0;
 }
 
 static int __cmd_date(int argc, char **argv) {

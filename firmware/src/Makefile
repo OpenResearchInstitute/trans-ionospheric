@@ -104,6 +104,7 @@ SRC_FILES += \
 	main.c \
 	mbp_medea.c \
 	mbp_menu.c \
+	mbp_rssi.c \
 	mbp_state.c \
 	mbp_system.c \
 	mbp_tcl.c \

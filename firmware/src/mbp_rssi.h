@@ -1,7 +1,5 @@
 /*****************************************************************************
- * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,28 +14,15 @@
  * limitations under the License.
  *
  * Contributors:
- * 	@andnxor
- * 	@zappbrandnxor
- * 	@hyr0n1
- * 	@andrewnriley
- * 	@lacosteaef
- * 	@bitstr3m
- *
- * Further modifications made by
  *      @sconklin
  *      @mustbeart
  *
  *****************************************************************************/
-#ifndef MBP_TERM_H_
-#define MBP_TERM_H_
+#ifndef MBP_RSSI_H_
+#define MBP_RSSI_H_
 
+extern void mbp_rssi_badge_heard(uint16_t device_id, uint8_t rssi);
+extern void mbp_rssi_start(void);
+extern void mbp_rssi_term_duration(unsigned int duration);
 
-extern void mbp_term_init();
-extern void mbp_term_nus_data_handler(ble_nus_t * p_nus, uint8_t * p_data, uint16_t length);
-extern void mbp_term_print(char *text);
-extern void mbp_term_start();
-extern void mbp_term_user_role_set(uint8_t role);
-extern void mbp_term_end_rssi(void);
-extern void mbp_term_display_rssi(uint16_t device_id, int8_t rssi);
-
-#endif /* MBP_TERM_H_ */
+#endif /* MBP_RSSI_H_ */
