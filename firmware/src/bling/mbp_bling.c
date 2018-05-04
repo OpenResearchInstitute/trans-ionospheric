@@ -32,6 +32,7 @@
 #include "../system.h"
 
 #define BACKGROUND_LED_TIME_MS     10
+#define BG_TICKS_PER_SECOND		(1000/BACKGROUND_LED_TIME_MS)
 
 #define SCROLL_CHAR_WIDTH           16
 #define SCROLL_CHAR_HEIGHT          31
@@ -1229,28 +1230,86 @@ void mbp_bling_defrag() {
 
 // called every BACKGROUND_LED_TIME_MS
 static void __background_led_sch_handler(void * p_event_data, uint16_t event_size) {
-	static int bg_cycle_count;
+	static int bg_cycle_count = 0;
 
-    //Clear all colors
-    for (uint8_t i = 0; i < LED_COUNT; i++) {
-        util_led_set_rgb(i, LED_COLOR_BLACK);
-    }
+    // //Clear all colors
+    // for (uint8_t i = 0; i < LED_COUNT; i++) {
+    //     util_led_set_rgb(i, LED_COLOR_BLACK);
+    // }
+    //
+// 	//Dummy routine for testing background LED processing.
+// 	//Just cycle one red LED around the front of the badge.
+// #define BG_TICKS_PER_INDEX	20
+// 	static int index;
+// 	if ((bg_cycle_count % BG_TICKS_PER_INDEX) == 0) {
+// 		if (++index >= LED_COUNT) {
+// 			index = 0;
+// 		}
+// 	}
+// 	util_led_set(index, 255, 0, 0);
+//
+// if (++bg_cycle_count >= BG_TICKS_PER_INDEX * LED_COUNT)
+//     bg_cycle_count = 0;
 
-	//Dummy routine for testing background LED processing.
-	//Just cycle one red LED around the front of the badge.
-#define BG_TICKS_PER_INDEX	20
-	static int index;
-	if ((bg_cycle_count % BG_TICKS_PER_INDEX) == 0) {
-		if (++index >= LED_COUNT) {
-			index = 0;
-		}
+	if (bg_cycle_count == 3 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(8, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 4 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(9, LED_COLOR_RED);
+		util_led_set_rgb(11, LED_COLOR_RED);
+	} else if (bg_cycle_count == 7* BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(9, LED_COLOR_LIGHTBLUE);
+		util_led_set_rgb(11, LED_COLOR_RED);
+	} else if (bg_cycle_count == 8 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(7, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 10 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(12, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 11 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(9, LED_COLOR_GREEN);
+		util_led_set_rgb(11, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 14 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(13, LED_COLOR_ORANGE);
+	} else if (bg_cycle_count == 15 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(6, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 16 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(5, LED_COLOR_RED);
+	} else if (bg_cycle_count == 17 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(14, LED_COLOR_RED);
+	} else if (bg_cycle_count == 19 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(5, LED_COLOR_BLACK);
+		util_led_set_rgb(6, LED_COLOR_BLACK);
+		util_led_set_rgb(13, LED_COLOR_GREEN);
+		util_led_set_rgb(14, LED_COLOR_BLACK);
+	} else if (bg_cycle_count == 20 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(6, LED_COLOR_GREEN);
+		util_led_set_rgb(13, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 22 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(5, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 23 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(14, LED_COLOR_GREEN);
+	} else if (bg_cycle_count == 25 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(0, LED_COLOR_BLUE);
+		util_led_set_rgb(5, LED_COLOR_BLACK);
+		util_led_set_rgb(6, LED_COLOR_BLACK);
+		util_led_set_rgb(7, LED_COLOR_BLACK);
+		util_led_set_rgb(10, LED_COLOR_BLUE);
+		util_led_set_rgb(13, LED_COLOR_BLACK);
+		util_led_set_rgb(14, LED_COLOR_BLACK);
+	} else if (bg_cycle_count == 28 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(1, LED_COLOR_PURPLE);
+	} else if (bg_cycle_count == 29 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(2, LED_COLOR_PURPLE);
+	} else if (bg_cycle_count == 30 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(3, LED_COLOR_PURPLE);
+	} else if (bg_cycle_count == 31 * BG_TICKS_PER_SECOND) {
+		util_led_set_rgb(4, LED_COLOR_PURPLE);
+	} else if (bg_cycle_count == 35 * BG_TICKS_PER_SECOND) {
+		util_led_set_all_rgb(LED_COLOR_BLACK);
+	} else if (bg_cycle_count >= 38 * BG_TICKS_PER_SECOND) {
+		bg_cycle_count = 0;
 	}
-	util_led_set(index, 255, 0, 0);
-
-    if (++bg_cycle_count >= BG_TICKS_PER_INDEX * LED_COUNT)
-        bg_cycle_count = 0;
 
     util_led_show();
+	bg_cycle_count++;
 
 	// If computations are extensive, do them here, not before
 	// updating the display.
