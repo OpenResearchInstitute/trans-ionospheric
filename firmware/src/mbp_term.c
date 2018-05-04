@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,19 +25,16 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 
 #include "system.h"
 
-#define TERM_BLING_MODE_WHATS_UP 	0
 #define TERM_BLING_MODE_DEFRAG		1
 #define TERM_BLING_MODE_DATE_TIME	2
 #define TERM_BLING_MODE_RICK_ROLL	3
-#define TERM_BLING_MODE_MAJOR_LAZER	4
-#define TERM_BLING_MODE_OWLS		5
-#define TERM_BLING_MODE_BADGERS		6
-#define TERM_BLING_MODE_TROLOLOL	7
+#define TERM_BLING_MODE_OWLS		4
 
 static ntshell_t m_ntshell;
 
@@ -60,8 +56,6 @@ static int __cmd_ll(int argc, char **argv);
 static int __cmd_passwd(int argc, char **argv);
 static int __cmd_play(int argc, char **argv);
 static int __cmd_stop(int argc, char **argv);
-static int __cmd_Hey(int argc, char **argv);
-static int __cmd_Not(int argc, char **argv);
 static int __cmd_tcl(int argc, char **argv);
 static int __cmd_vim(int argc, char **argv);
 
@@ -88,8 +82,6 @@ typedef struct {
 		{ "stop", "Stop bling", __cmd_stop }, \
 		{ "namechg", "Change Name", __cmd_namechg }, \
 		{ "defrag", "HD Maintenance", __cmd_defrag }, \
-		{ "Hey", "Say Hey", __cmd_Hey }, \
-		{ "Not", "Say Hey", __cmd_Not }, \
 		{ "date", "Date status", __cmd_date }, \
 		{ "leds", "Set All LEDs", __cmd_leds }, \
 		{ "led", "Set All LEDs", __cmd_led }, \
@@ -97,12 +89,11 @@ typedef struct {
 		{ "wall", "Leave a message", __cmd_wall } \
 	};
 
-#define CMD_LIST_COUNT 	24
+#define CMD_LIST_COUNT 	20
 
-uint8_t m_hey_count = 0;
 uint8_t m_who_count = 0;
 uint8_t m_current_user_role = 0;
-uint8_t mm = 2;
+uint8_t mm = 5;
 uint8_t dd = 18;
 uint16_t yyyy = 2018;
 APP_TIMER_DEF(m_terminal_inactivity_timer);
@@ -112,7 +103,7 @@ uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;
 static int __cmd_help(int argc, char **argv) {
 	mbp_term_print("Available Commands:");
 	mbp_term_print("date defrag emacs");
-	mbp_term_print("exit fw Hey led leds");
+	mbp_term_print("exit led leds");
 	mbp_term_print("less ll motd namechg");
 	mbp_term_print("passwd play service");
 	mbp_term_print("stop su tcl uname");
@@ -134,29 +125,17 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 
 	util_button_clear();
 	switch (mode) {
-	case TERM_BLING_MODE_BADGERS:
-		mbp_bling_badgers();
-		break;
-	case TERM_BLING_MODE_WHATS_UP:
-		mbp_bling_whats_up();
-		break;
 	case TERM_BLING_MODE_DEFRAG:
 		mbp_bling_defrag();
 		break;
 	case TERM_BLING_MODE_DATE_TIME:
 		mbp_bling_hack_time();
 		break;
-	case TERM_BLING_MODE_MAJOR_LAZER:
-		mbp_bling_major_lazer(NULL);
-		break;
 	case TERM_BLING_MODE_OWLS:
 		mbp_bling_owl();
 		break;
 	case TERM_BLING_MODE_RICK_ROLL:
 		util_gfx_draw_raw_file("/BLING/AND!XOR/RICKROLL.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, true, NULL);
-		break;
-	case TERM_BLING_MODE_TROLOLOL:
-		mbp_bling_trololol();
 		break;
 	}
 
@@ -385,57 +364,6 @@ static int __cmd_leds(int argc, char **argv) {
 	return 0;
 }
 
-static int __cmd_Not(int argc, char **argv) {
-	if (argc == 3) {
-		if ((m_who_count == 2) && (strcmp(argv[1], "much.") == 0) && (strcmp(argv[2], "Brb.") == 0)) {
-			mbp_term_print("WHATS UP UNLOCKED");
-			mbp_term_print("\r");
-			mbp_term_print("Type: stop");
-			mbp_term_print("To Exit Bling-mode");
-			mbp_term_print("& Return to Terminal");
-			mbp_term_print("\r");
-
-			//Unlock!
-			uint16_t unlock = mbp_state_unlock_get();
-			unlock |= UNLOCK_MASK_WHATS_UP;
-			mbp_state_unlock_set(unlock);
-			mbp_state_save();
-
-			//reset whats up counter
-			m_who_count = 0;
-
-			//Schedule bling
-			uint8_t mode = TERM_BLING_MODE_WHATS_UP;
-			app_sched_event_put(&mode, 1, __bling_schedule_handler);
-		}
-	}
-	return 0;
-}
-
-static int __cmd_Hey(int argc, char **argv) {
-	/* HeMan What's Up Unlock
-	 TRIGGER INPUT FROM USER: Hey
-	 BENDER: Hey STUD!
-	 BENDER: LOL j/k
-	 TRIGGER INPUT FROM USER: Hey
-	 BENDER: What's going on??
-	 BENDER: ;)
-	 TRIGGER INPUT FROM USER: Not much. Brb.
-	 */
-	if (argc == 1) {
-		if (m_who_count == 0) {
-			mbp_term_print("Hey STUD!");
-			mbp_term_print("LOL j/k");
-			m_who_count++;
-		}
-		else if (m_who_count == 1) {
-			mbp_term_print("What's going on??");
-			mbp_term_print(";)");
-			m_who_count++;
-		}
-	}
-	return 0;
-}
 
 static int __cmd_defrag(int argc, char **argv) {
 	if (m_current_user_role >= 1) {
@@ -460,7 +388,7 @@ static int __cmd_defrag(int argc, char **argv) {
 
 static int __cmd_ll(int argc, char **argv) {
 	mbp_term_print("rw-rw----");
-	mbp_term_print("root glados ");
+	mbp_term_print("root riley ");
 	mbp_term_print("/shadow.backup");
 	mbp_term_print("\r");
 	return 0;
@@ -514,13 +442,13 @@ static int __cmd_passwd(int argc, char **argv) {
 	if ((argc == 2) && (strlen(argv[1]) <= SETTING_PW_LENGTH - 1)) {
 		if (m_current_user_role == 0) {
 			mbp_term_print("Error!");
-			mbp_term_print("codemonkey not allowed pw");
+			mbp_term_print("lid not allowed pw");
 			mbp_term_print("He always forgets it");
 			mbp_term_print("\r");
 		}
 		else if (m_current_user_role == 1) {
-			//glados passwd
-			mbp_state_pw_glados_set(argv[1]);
+			//riley passwd
+			mbp_state_pw_riley_set(argv[1]);
 			mbp_term_print("Password Updated!");
 			mbp_term_print("\r");
 			mbp_state_save();
@@ -553,23 +481,11 @@ static int __cmd_play(int argc, char **argv) {
 	//valid argument count
 	else if (argc == 2) {
 		uint8_t mode;
-		if (strcmp(argv[1], "whatsup") == 0) {
-			mode = TERM_BLING_MODE_WHATS_UP;
-			app_sched_event_put(&mode, 1, __bling_schedule_handler);
-		} else if (strcmp(argv[1], "rickroll") == 0) {
+		if (strcmp(argv[1], "rickroll") == 0) {
 			mode = TERM_BLING_MODE_RICK_ROLL;
-			app_sched_event_put(&mode, 1, __bling_schedule_handler);
-		} else if (strcmp(argv[1], "badgers") == 0) {
-			mode = TERM_BLING_MODE_BADGERS;
-			app_sched_event_put(&mode, 1, __bling_schedule_handler);
-		} else if (strcmp(argv[1], "lazer") == 0) {
-			mode = TERM_BLING_MODE_MAJOR_LAZER;
 			app_sched_event_put(&mode, 1, __bling_schedule_handler);
 		} else if (strcmp(argv[1], "owls") == 0) {
 			mode = TERM_BLING_MODE_OWLS;
-			app_sched_event_put(&mode, 1, __bling_schedule_handler);
-		} else if (strcmp(argv[1], "troll") == 0) {
-			mode = TERM_BLING_MODE_TROLOLOL;
 			app_sched_event_put(&mode, 1, __bling_schedule_handler);
 		} else {
 			incorrect_usage = true;
@@ -579,9 +495,7 @@ static int __cmd_play(int argc, char **argv) {
 	if (incorrect_usage) {
 		mbp_term_print("Incorrect Usage");
 		mbp_term_print("play <mode>");
-		mbp_term_print("Modes: badgers owls");
-		mbp_term_print("lazer rickroll troll");
-		mbp_term_print("whatsup");
+		mbp_term_print("Modes: owls rickroll");
 		mbp_term_print("\r");
 		mbp_term_print("Use Badge L Button");
 		mbp_term_print("To Exit Bling-mode");
@@ -605,7 +519,7 @@ static int __cmd_less(int argc, char **argv) {
 			mbp_term_print("\r");
 		}
 		if ((strcmp(argv[1], "shadow.backup") == 0) && (m_current_user_role > 0)) {
-			mbp_term_print("#Backup for GLaDOS");
+			mbp_term_print("#Backup for lid");
 			mbp_term_print("root:fb24c8828c599f6fad30fbed6f4074ad");
 			mbp_term_print("\r");
 			//Create Root Password Hash https://md5hashing.net/hash
@@ -626,14 +540,14 @@ static int __cmd_exit(int argc, char **argv) {
 		mbp_term_print("\r");
 		break;
 	case 1:
-		mbp_term_print("Session End: GLaDOS");
-		mbp_term_print("Current User: codemonkey");
+		mbp_term_print("Session End: riley");
+		mbp_term_print("Current User: lid");
 		mbp_term_print("\r");
 		m_current_user_role = 0; //always jump to lowest privilege on exit
 		break;
 	case 2:
 		mbp_term_print("Session End: root");
-		mbp_term_print("Current User: codemonkey");
+		mbp_term_print("Current User: lid");
 		mbp_term_print("\r");
 		m_current_user_role = 0; //always jump to lowest privilege on exit
 		break;
@@ -656,8 +570,8 @@ static int __cmd_stop(int argc, char **argv) {
 }
 
 static int __cmd_su(int argc, char **argv) {
-	char pw_glados[9];
-	mbp_state_pw_glados_get(pw_glados);
+	char pw_riley[9];
+	mbp_state_pw_riley_get(pw_riley);
 
 	char pw_root[9];
 	mbp_state_pw_root_get(pw_root);
@@ -669,19 +583,20 @@ static int __cmd_su(int argc, char **argv) {
 	}
 
 	if (argc == 3) {
-		if ((strcmp(argv[1], "glados") == 0) && (strcmp(argv[2], pw_glados) == 0)) {
+		if ((strcmp(argv[1], "riley") == 0) && (strcmp(argv[2], pw_riley) == 0)) {
 
-                    mbp_term_print("Aperture Science");
-                    mbp_term_print("We do what we must because we can");
-                    mbp_term_print("For the good of all of us");
-                    mbp_term_print("Except the ones who are dead");
+                    mbp_term_print("Don’t engage people, and ");
+                    mbp_term_print("don't humor the idiots. ");
+                    mbp_term_print("Stupidity can’t be regulated, ");
+                    mbp_term_print("no matter how good the rules are. ");
+                    mbp_term_print("Just turn the big knob. ");
+                    mbp_term_print("Every rig has one.");
                     mbp_term_print("\r");
                     m_current_user_role = 1;
 		}
-		else if ((strcmp(argv[1], "root") == 0) && ((strcmp(argv[2], pw_root) == 0) || (strcmp(argv[2], "xxxxxxxx") == 0))) {
-			//Did i just sneak in a backdoor?
+		else if ((strcmp(argv[1], "root") == 0) && (strcmp(argv[2], pw_root) == 0)) {
 			mbp_term_print("ROOT ACCESS");
-			mbp_term_print("Dont forget to exit!");
+			mbp_term_print("Don't forget to exit!");
 			mbp_term_print("\r");
 			m_current_user_role = 2;
 		}
@@ -760,17 +675,25 @@ static int __cmd_uname(int argc, char **argv) {
 }
 
 static int __cmd_motd(int argc, char **argv) {
-	mbp_term_print("JoCo 2018 Badge");
+	mbp_term_print("Trans-Ionospheric Badge");
+	mbp_term_print("@firmwarez");
+	mbp_term_print("@mustbeart");
+	mbp_term_print("@abraxas3d");
 	mbp_term_print("@sconklin");
 	mbp_term_print("@AmyH70");
 	mbp_term_print("@jeriellsworth");
-	mbp_term_print("@mustbeart");
-	mbp_term_print("@abraxas3d");
 	mbp_term_print("@n5ac");
 	mbp_term_print("@sewbuzzed");
+	mbp_term_print("@andnxor");
+	mbp_term_print("@zappbrandnxor");
+	mbp_term_print("@lacosteaef");
+	mbp_term_print("@andrewnriley");
+	mbp_term_print("@bitst3m");
+	mbp_term_print("@hyr0n1");
+	mbp_term_print("╚▒▒-▤8−◦");
 	mbp_term_print("\r");
 	mbp_term_print("Type 'help' to");
-	mbp_term_print("Kill All Humans!");
+	mbp_term_print("receive elmering.");
 	mbp_term_print("\r");
 	return 0;
 }
@@ -794,23 +717,23 @@ static int __cmd_whoami(int argc, char **argv) {
 	case 0:
 		mbp_term_print("First, you must ask");
 		mbp_term_print("who do you think you");
-		mbp_term_print("are...");
+		mbp_term_print("are ...");
 		mbp_term_print("\r");
 		break;
 	case 1:
 		mbp_term_print("...Only then can you");
-		mbp_term_print(" find peace...");
+		mbp_term_print(" find peace.");
 		mbp_term_print("\r");
 		break;
 	case 2:
 		mbp_term_print("Look deep into your");
 		mbp_term_print("mind and search for");
-		mbp_term_print("your true identity..");
+		mbp_term_print("your true identity.");
 		mbp_term_print("\r");
 		break;
 	case 3:
 		mbp_term_print("As the Dalai Lama");
-		mbp_term_print("once....wait....");
+		mbp_term_print("once ... wait ...");
 		mbp_term_print("why do you");
 		mbp_term_print("keep asking?");
 		mbp_term_print("\r");
@@ -830,7 +753,7 @@ static int __cmd_whoami(int argc, char **argv) {
 	case 6:
 		mbp_term_print("First, you must ask");
 		mbp_term_print("who do you think you");
-		mbp_term_print("are...");
+		mbp_term_print("are.");
 		mbp_term_print("\r");
 		break;
 	case 7:
@@ -838,7 +761,7 @@ static int __cmd_whoami(int argc, char **argv) {
 		mbp_term_print("started over didn't");
 		mbp_term_print("you, but you have to");
 		mbp_term_print("be so damn");
-		mbp_term_print("PERSISTANT!");
+		mbp_term_print("PERSISTENT!");
 		mbp_term_print("\r");
 		break;
 	case 8:

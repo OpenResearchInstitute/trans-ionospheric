@@ -55,8 +55,8 @@ void mbp_state_new() {
 	m_badge_state.joco_score = GAME_SCORE_DEFAULT;
 	m_badge_state.joco_last_level_dispensed = GAME_LASTLEVEL_DEFAULT;
 
-	strcpy(m_badge_state.pw_glados, "aperture");
-	strcpy(m_badge_state.pw_root,   "diligent");
+	strcpy(m_badge_state.pw_riley, "fcc_hero");
+	strcpy(m_badge_state.pw_root,  "royalty!");
 
 	strcpy(m_badge_state.wall_messages[0], "Msg 1 None");
 	strcpy(m_badge_state.wall_messages[1], "Msg 2 None");
@@ -265,12 +265,12 @@ void mbp_state_special_set(uint8_t special) {
 	util_ble_name_set(m_badge_state.name);
 }
 
-void mbp_state_pw_glados_set(char *pw) {
-	snprintf(m_badge_state.pw_glados, SETTING_PW_LENGTH, "%s", pw);
+void mbp_state_pw_riley_set(char *pw) {
+	snprintf(m_badge_state.pw_riley, SETTING_PW_LENGTH, "%s", pw);
 }
 
-void mbp_state_pw_glados_get(char *pw) {
-	snprintf(pw, SETTING_PW_LENGTH, "%s", m_badge_state.pw_glados);
+void mbp_state_pw_riley_get(char *pw) {
+	snprintf(pw, SETTING_PW_LENGTH, "%s", m_badge_state.pw_riley);
 }
 
 void mbp_state_pw_root_set(char *pw) {
