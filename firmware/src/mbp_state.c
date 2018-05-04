@@ -55,8 +55,8 @@ void mbp_state_new() {
 	m_badge_state.joco_score = GAME_SCORE_DEFAULT;
 	m_badge_state.joco_last_level_dispensed = GAME_LASTLEVEL_DEFAULT;
 
-	strcpy(m_badge_state.pw_riley, "fcc_hero");
-	strcpy(m_badge_state.pw_root,  "royalty!");
+	strcpy(m_badge_state.pw_riley, "part97");	// Hacker is expected to guess this one.
+	strcpy(m_badge_state.pw_root,  "royalty!");	// This one needn't be guessable.
 
 	strcpy(m_badge_state.wall_messages[0], "Msg 1 None");
 	strcpy(m_badge_state.wall_messages[1], "Msg 2 None");

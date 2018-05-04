@@ -536,10 +536,10 @@ static int __cmd_less(int argc, char **argv) {
 		}
 		if ((strcmp(argv[1], "shadow.backup") == 0) && (m_current_user_role > 0)) {
 			mbp_term_print("#Backup for lid");
-			mbp_term_print("root:fb24c8828c599f6fad30fbed6f4074ad");
+			mbp_term_print("root:430efdc48f60562c1af830e6dac71126");	// royalty!
 			mbp_term_print("\r");
 			//Create Root Password Hash https://md5hashing.net/hash
-			//Default Root Password = jcoulton
+			//Default Root Password = royalty!
 			//User must less the file and crack MD5 encrypted password
 			//Hope they change it...
 		}
@@ -550,9 +550,13 @@ static int __cmd_less(int argc, char **argv) {
 static int __cmd_exit(int argc, char **argv) {
 	switch (m_current_user_role) {
 	case 0:
-		mbp_term_print("Go ahead and leave me");
-		mbp_term_print("I think I prefer to stay inside");
-		mbp_term_print("Maybe you'll find someone else to help you");
+		mbp_term_print("Go ahead and leave ");
+		mbp_term_print("me. I think I ");
+		mbp_term_print("prefer to stay ");
+		mbp_term_print("inside. ");
+		mbp_term_print("Maybe you'll find ");
+		mbp_term_print("someone else to ");
+		mbp_term_print("help you.");
 		mbp_term_print("\r");
 		break;
 	case 1:
@@ -601,18 +605,22 @@ static int __cmd_su(int argc, char **argv) {
 	if (argc == 3) {
 		if ((strcmp(argv[1], "riley") == 0) && (strcmp(argv[2], pw_riley) == 0)) {
 
-                    mbp_term_print("Don’t engage people, and ");
-                    mbp_term_print("don't humor the idiots. ");
-                    mbp_term_print("Stupidity can’t be regulated, ");
-                    mbp_term_print("no matter how good the rules are. ");
-                    mbp_term_print("Just turn the big knob. ");
-                    mbp_term_print("Every rig has one.");
-                    mbp_term_print("\r");
-                    m_current_user_role = 1;
+					mbp_term_print("Don’t engage ");
+					mbp_term_print("people and don't ");
+					mbp_term_print("humor the idiots. ");
+					mbp_term_print("Stupidity can’t ");
+					mbp_term_print("be regulated, no ");
+					mbp_term_print("matter how good ");
+					mbp_term_print("the rules are. ");
+					mbp_term_print("Just turn the big ");
+					mbp_term_print("knob. Every rig ");
+					mbp_term_print("has one.");
+					mbp_term_print("\r");
+					m_current_user_role = 1;
 		}
 		else if ((strcmp(argv[1], "root") == 0) && (strcmp(argv[2], pw_root) == 0)) {
 			mbp_term_print("ROOT ACCESS");
-			mbp_term_print("Don't forget to exit!");
+			mbp_term_print("Remember to exit!");
 			mbp_term_print("\r");
 			m_current_user_role = 2;
 		}
