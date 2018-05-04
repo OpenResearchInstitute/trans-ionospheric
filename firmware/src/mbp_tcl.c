@@ -843,13 +843,11 @@ void mbp_tcl_exec_file(char *filename) {
 	f_read(&file, tcl, fsize, &count);
 	f_close(&file);
 
-	mbp_tooth_eye_stop();
 	//Clear out app_scheduler
 	app_sched_execute();
 	util_led_clear();
 
 	mbp_tcl_exec(tcl);
-	mbp_tooth_eye_start();
 	util_led_clear();
 	util_gfx_invalidate();
 }

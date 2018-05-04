@@ -476,11 +476,9 @@ static void mbp_menu_bling() {
 		items[menu.count++] = (menu_item_t ) { "Trolol", "MENU/TROLOLOL.ICO", "MENU/TROLOLOL.PRV", &mbp_bling_trololol, NULL };
 	}
 
-	mbp_tooth_eye_stop();
 	//clear out app_scheduler
 	app_sched_execute();
 	mbp_menu(&menu);
-	mbp_tooth_eye_start();
 }
 
 static void mbp_menu_games() {
@@ -588,6 +586,5 @@ void mbp_menu_main() {
 	menu.items = items;
 	menu.title = "JOCO2018";
 
-	mbp_tooth_eye_start();
 	mbp_menu(&menu);
 }

@@ -105,7 +105,7 @@ static int __cmd_help(int argc, char **argv) {
 	mbp_term_print("date defrag emacs");
 	mbp_term_print("exit led leds");
 	mbp_term_print("less ll motd namechg");
-	mbp_term_print("passwd play service");
+	mbp_term_print("passwd play");
 	mbp_term_print("stop su tcl uname");
 	mbp_term_print("vim wall whoami");
 	mbp_term_print("\r");
@@ -120,8 +120,6 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 	uint8_t mode = *((uint8_t *) p_data);
 
 	app_sched_pause();
-	bool tooth_running = mbp_tooth_eye_running();
-	mbp_tooth_eye_stop();
 
 	util_button_clear();
 	switch (mode) {
@@ -142,11 +140,6 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 	util_led_clear();
 	util_gfx_invalidate();
 	app_sched_resume();
-
-	//Only start tooth if previously running
-	if (tooth_running) {
-		mbp_tooth_eye_start();
-	}
 }
 
 static int __cmd_date(int argc, char **argv) {
