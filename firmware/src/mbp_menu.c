@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +21,7 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
@@ -435,7 +434,7 @@ static void mbp_menu_bling() {
 	if ((unlock & UNLOCK_MASK_WHEATON) > 0) {
             items[menu.count++] = (menu_item_t ) { "Wheaton", "MENU/WWSPIN.ICO", "MENU/WWSPIN.PRV", &mbp_bling_wheaton, NULL };
         }
-        
+
 	items[menu.count++] = (menu_item_t ) { "Flames", "MENU/FLAMES.ICO", "MENU/FLAMES.PRV", &mbp_bling_flames, NULL };
 	items[menu.count++] = (menu_item_t ) { "Toad", "MENU/TOAD.ICO", "MENU/TOAD.PRV", &mbp_bling_toad, NULL };
 
@@ -476,11 +475,11 @@ static void mbp_menu_bling() {
 		items[menu.count++] = (menu_item_t ) { "Trolol", "MENU/TROLOLOL.ICO", "MENU/TROLOLOL.PRV", &mbp_bling_trololol, NULL };
 	}
 
-	mbp_tooth_eye_stop();
+	mbp_background_led_stop();
 	//clear out app_scheduler
 	app_sched_execute();
 	mbp_menu(&menu);
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 }
 
 static void mbp_menu_games() {
@@ -588,6 +587,6 @@ void mbp_menu_main() {
 	menu.items = items;
 	menu.title = "JOCO2018";
 
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 	mbp_menu(&menu);
 }

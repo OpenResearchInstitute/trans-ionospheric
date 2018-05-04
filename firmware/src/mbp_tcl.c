@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +25,7 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #include "system.h"
@@ -338,7 +338,7 @@ static int __tcl_i2c_read(struct tcl *tcl, tcl_value_t *args, void *arg) {
 		char message[32];
 		sprintf(message, "I2C address %d out of range", addr);
 		mbp_ui_error(message);
-		
+
 		tcl_free(tcl_i2c_addr);
 		return FERROR;
 	}
@@ -375,7 +375,7 @@ static int __tcl_i2c_get_byte(struct tcl *tcl, tcl_value_t *args, void *arg) {
 	tcl_value_t *tcl_index = tcl_list_at(args, 1);
 	uint8_t index = tcl_int(tcl_index);
 	tcl_free(tcl_index);
-	
+
 	uint8_t value = i2c_data_buffer[index];
 	char r_str[4];
 	sprintf(r_str, "%d", value);
@@ -389,7 +389,7 @@ static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 		char message[32];
 		sprintf(message, "I2C address %d out of range", addr);
 		mbp_ui_error(message);
-		
+
 		tcl_free(tcl_i2c_addr);
 		return FERROR;
 	}
@@ -412,7 +412,7 @@ static int __tcl_i2c_write(struct tcl *tcl, tcl_value_t *args, void *arg) {
 		data[i] = tcl_int(tcl_byte);
 		tcl_free(tcl_byte);
 	}
-	
+
 	bool i2c_status = util_i2c_write(addr, &data[0], count);
 	if (i2c_status == false) {
 		char message[32];
@@ -780,7 +780,7 @@ void mbp_tcl_exec(char *p_code) {
 	tcl_register(&tcl, "button_clear", &__tcl_button_clear, 1, NULL);
 	tcl_register(&tcl, "button_state", &__tcl_button_state, 1, NULL);
 	tcl_register(&tcl, "button_wait", &__tcl_button_wait, 1, NULL);
-	
+
 	//I2C access
 	tcl_register(&tcl, "i2c_read", &__tcl_i2c_read, 3, NULL);
 	tcl_register(&tcl, "i2c_get_byte", &__tcl_i2c_get_byte, 2, NULL);
@@ -843,13 +843,13 @@ void mbp_tcl_exec_file(char *filename) {
 	f_read(&file, tcl, fsize, &count);
 	f_close(&file);
 
-	mbp_tooth_eye_stop();
+	mbp_background_led_stop();
 	//Clear out app_scheduler
 	app_sched_execute();
 	util_led_clear();
 
 	mbp_tcl_exec(tcl);
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 	util_led_clear();
 	util_gfx_invalidate();
 }

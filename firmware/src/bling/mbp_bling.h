@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +25,7 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #ifndef MBP_ANIM_H_
@@ -90,8 +90,8 @@ extern void mbp_bling_tardis_nyan();
 extern void mbp_bling_twilight_zone();
 extern void mbp_bling_zombie_nyan();
 //
-extern bool mbp_tooth_eye_running();
-extern void mbp_tooth_eye_start();
-extern void mbp_tooth_eye_stop();
+extern bool mbp_background_led_running();
+extern void mbp_background_led_start();
+extern void mbp_background_led_stop();
 
 #endif /* MBP_ANIM_H_ */

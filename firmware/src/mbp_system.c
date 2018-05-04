@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +25,7 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #include "system.h"
@@ -361,8 +361,8 @@ void mbp_system_test() {
 	uint8_t i;
 	uint8_t i2c_config_data[2] = { 0x00, 0xf0 };
 	uint8_t i2c_test_data[2] = { 0x12, 0x00 };
-	
-	mbp_tooth_eye_stop();
+
+	mbp_background_led_stop();
 	//clear out app_scheduler
 	app_sched_execute();
 	util_gfx_set_font(FONT_SMALL);
@@ -569,7 +569,7 @@ void mbp_system_test() {
 
 	util_led_clear();
 	util_button_clear();
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 }
 
 void mbp_system_tilt_mode_select() {
@@ -584,8 +584,8 @@ void mbp_system_tilt_mode_select() {
 void mbp_system_unlock_state() {
 	uint16_t unlock = mbp_state_unlock_get();
 
-	mbp_tooth_eye_stop();
-	//Clear out scheduler of any eye/tooth events
+	mbp_background_led_stop();
+	//Clear out scheduler of any background LED events
 	app_sched_execute();
 
 	util_led_clear();
@@ -605,5 +605,5 @@ void mbp_system_unlock_state() {
 	util_gfx_draw_raw_file("BLING/JOCO/SKLCROSS.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, true, NULL);
 	util_led_clear();
 
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 }

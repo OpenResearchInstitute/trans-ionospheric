@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,42 +25,28 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 
 #include "../system.h"
 
-#define TOOTH_EYES_TIME_MS          10
+#define BACKGROUND_LED_TIME_MS     10
 
-#define TOOTH_SAT                  1.0
-#define TOOTH_VAL                  0.5 // (brightness)
-#define TOOTH_FLASH_MINTIME            50 // min time between flashes in tens of mS
-#define TOOTH_FLASH_MAXTIME            500 // max time between flashes in tens of mS
-#define TOOTH_FLASH_LEN                3 // min flash length in tens of mS
-
-#define EYE_HUE_STEP                .00015
 #define SCROLL_CHAR_WIDTH           16
 #define SCROLL_CHAR_HEIGHT          31
 #define SCROLL_SPEED                -2
 #define SCROLL_TIME_MS              20
 
-APP_TIMER_DEF(m_tooth_timer);
+APP_TIMER_DEF(m_background_led_timer);
 APP_TIMER_DEF(m_scroll_led_timer);
 
-// For a shiny gold tooth
-static float m_tooth_hue = TOOTH_HUE_GOLD;
-static float m_tooth_sat = 1.0;
-static float m_tooth_val = 1.0;
-static uint32_t tooth_flash_counter = 100;
-static bool tooth_flashing = false;
-
-static float m_eye_hue = 0;
-static bool m_tooth_eye_running = false;
+static bool m_background_led_running = false;
 
 typedef struct {
     uint8_t index;
     float hue;
-} bling_defag_state_t;
+} bling_defrag_state_t;
 
 static void __rgb_file_callback(uint8_t frame, void *p_data) {
     util_led_play_rgb_frame((led_anim_t *) p_data);
@@ -175,7 +160,7 @@ static void __mbp_bling_rainbow_eye_callback(uint8_t frame, void *data) {
     float hue = ((float) *p_data) / 100.0;
 
     uint32_t rgb = util_led_hsv_to_rgb(hue, 1.0, 1.0);
-    util_led_set_rgb(LED_RIGHT_EYE_INDEX, rgb);
+//    util_led_set_rgb(LED_RIGHT_EYE_INDEX, rgb);
     util_led_set_rgb(6, rgb);
     util_led_show();
 
@@ -416,8 +401,6 @@ void mbp_bling_wheaton() {
 }
 
 static void __led_jollyroger(uint8_t f_unused, void *p_data) {
-    uint8_t eye_closed[] = { 4, 5, 6, 7 };
-    uint8_t eye_open[] = { 1, 2, 4, 7, 9, 10 };
     uint8_t frame = *((uint8_t *) p_data);
 
     //Clear all colors
@@ -425,22 +408,7 @@ static void __led_jollyroger(uint8_t f_unused, void *p_data) {
         util_led_set_rgb(i, LED_COLOR_BLACK);
     }
 
-    //Compute and set the eye colors
-    util_led_set_rgb(LED_RIGHT_EYE_INDEX, LED_COLOR_EYES);
-
-    uint32_t tooth_color = util_led_hsv_to_rgb(TOOTH_HUE_GOLD, 1, 0.5);
-    util_led_set_rgb(LED_TOOTH_INDEX, tooth_color);
-
-    //Large Eye
-    if (frame < 20) {
-        for (uint8_t i = 0; i < 6; i++) {
-            util_led_set_rgb(eye_open[i], LED_COLOR_EYES);
-        }
-    } else {
-        for (uint8_t i = 0; i < 4; i++) {
-            util_led_set_rgb(eye_closed[i], LED_COLOR_EYES);
-        }
-    }
+    //Set non-boring LED states here.
 
     //latch
     util_led_show();
@@ -822,8 +790,8 @@ void mbp_bling_score_schedule_handler(void * p_event_data, uint16_t event_size) 
     char *name = (char *) p_event_data;
     uint16_t w, h;
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     UTIL_LED_ANIM_INIT(anim);
     util_led_load_rgb_file("BLING/GRNBLUE.RGB", &anim);
@@ -850,8 +818,8 @@ void mbp_bling_score_schedule_handler(void * p_event_data, uint16_t event_size) 
 
     //Cleanup and give control back to user
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -861,8 +829,8 @@ void mbp_bling_hello_joco_schedule_handler(void * p_event_data, uint16_t event_s
     char *name = (char *) p_event_data;
     uint16_t w, h;
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     //Pick colors
     float h1 = ((float) util_math_rand8_max(100) / 100.0);
@@ -956,8 +924,8 @@ void mbp_bling_hello_joco_schedule_handler(void * p_event_data, uint16_t event_s
 
     //Cleanup and give control back to user
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -967,8 +935,8 @@ void mbp_bling_hello_bender_schedule_handler(void * p_event_data, uint16_t event
     char *name = (char *) p_event_data;
     uint16_t w, h;
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     //Pick colors
     float h1 = ((float) util_math_rand8_max(100) / 100.0);
@@ -1062,8 +1030,8 @@ void mbp_bling_hello_bender_schedule_handler(void * p_event_data, uint16_t event
 
     //Cleanup and give control back to user
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -1071,8 +1039,8 @@ void mbp_bling_hello_bender_schedule_handler(void * p_event_data, uint16_t event
 
 void mbp_bling_hello_cpv_schedule_handler(void * p_event_data, uint16_t event_size) {
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     UTIL_LED_ANIM_INIT(anim);
     util_led_load_rgb_file("BLING/PINKBLUE.RGB", &anim);
@@ -1087,8 +1055,8 @@ void mbp_bling_hello_cpv_schedule_handler(void * p_event_data, uint16_t event_si
     //Cleanup and give control back to user
     util_led_clear();
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -1097,8 +1065,8 @@ void mbp_bling_hello_cpv_schedule_handler(void * p_event_data, uint16_t event_si
 
 void mbp_bling_hello_dc503_schedule_handler(void * p_event_data, uint16_t event_size) {
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     UTIL_LED_ANIM_INIT(anim);
     util_led_load_rgb_file("BLING/TUNNEL2.RGB", &anim);
@@ -1113,8 +1081,8 @@ void mbp_bling_hello_dc503_schedule_handler(void * p_event_data, uint16_t event_
     //Cleanup and give control back to user
     util_led_clear();
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -1122,8 +1090,8 @@ void mbp_bling_hello_dc503_schedule_handler(void * p_event_data, uint16_t event_
 
 void mbp_bling_hello_dc801_schedule_handler(void * p_event_data, uint16_t event_size) {
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     UTIL_LED_ANIM_INIT(anim);
     util_led_load_rgb_file("BLING/GRNBLUE.RGB", &anim);
@@ -1138,8 +1106,8 @@ void mbp_bling_hello_dc801_schedule_handler(void * p_event_data, uint16_t event_
     //Cleanup and give control back to user
     util_led_clear();
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -1147,8 +1115,8 @@ void mbp_bling_hello_dc801_schedule_handler(void * p_event_data, uint16_t event_
 
 void mbp_bling_hello_queercon_schedule_handler(void * p_event_data, uint16_t event_size) {
     app_sched_pause();
-    bool tooth = mbp_tooth_eye_running();
-    mbp_tooth_eye_stop();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
 
     UTIL_LED_ANIM_INIT(anim);
     util_led_load_rgb_file("BLING/COLORS.RGB", &anim);
@@ -1163,8 +1131,8 @@ void mbp_bling_hello_queercon_schedule_handler(void * p_event_data, uint16_t eve
     //Cleanup and give control back to user
     util_led_clear();
     util_gfx_invalidate();
-    if (tooth) {
-        mbp_tooth_eye_start();
+    if (background_was_running) {
+        mbp_background_led_start();
     }
     app_sched_resume();
     util_button_clear();
@@ -1228,7 +1196,7 @@ void mbp_bling_twitter() {
 }
 
 static void __mbp_defrag_callback(uint8_t frame, void *p_data) {
-    bling_defag_state_t *p_defrag = (bling_defag_state_t *) p_data;
+    bling_defrag_state_t *p_defrag = (bling_defrag_state_t *) p_data;
     uint8_t count = (LED_MATRIX_FULL_COL_COUNT * LED_MATRIX_FULL_ROW_COUNT);
     uint8_t led_mapping[LED_MATRIX_FULL_COL_COUNT * LED_MATRIX_FULL_ROW_COUNT] = LED_MATRIX_FULL_MAPPING
     ;
@@ -1252,105 +1220,67 @@ static void __mbp_defrag_callback(uint8_t frame, void *p_data) {
 }
 
 void mbp_bling_defrag() {
-    bling_defag_state_t defrag;
+    bling_defrag_state_t defrag;
     defrag.hue = 0;
     defrag.index = 0;
     util_led_clear();
     util_gfx_draw_raw_file("BLING/AND!XOR/DEFRAG.RAW", 0, 0, 128, 128, &__mbp_defrag_callback, true, &defrag);
 }
 
-// called every TOOTH_EYES_TIME_MS
-// 10
-static int eye_cycle_count;
-#define EYE_CYCLE_LEN 500
-#define EYE_CYCLE_HALF 20
-
-static void __tooth_sch_handler(void * p_event_data, uint16_t event_size) {
-    uint8_t eye_closed[] = { 4, 5, 6, 7 };
-    uint8_t eye_open[] = { 1, 2, 4, 7, 9, 10 };
+// called every BACKGROUND_LED_TIME_MS
+static void __background_led_sch_handler(void * p_event_data, uint16_t event_size) {
+	static int bg_cycle_count;
 
     //Clear all colors
     for (uint8_t i = 0; i < LED_COUNT; i++) {
         util_led_set_rgb(i, LED_COLOR_BLACK);
     }
 
-    //Compute and set the eye colors
-    uint32_t eye_color = util_led_hsv_to_rgb(m_eye_hue, 1, 0.8);
-    util_led_set_rgb(LED_RIGHT_EYE_INDEX, eye_color);
+	//Dummy routine for testing background LED processing.
+	//Just cycle one red LED around the front of the badge.
+#define BG_TICKS_PER_INDEX	20
+	static int index;
+	if ((bg_cycle_count % BG_TICKS_PER_INDEX) == 0) {
+		if (++index >= LED_COUNT) {
+			index = 0;
+		}
+	}
+	util_led_set(index, 255, 0, 0);
 
-    uint32_t tooth_color = util_led_hsv_to_rgb(m_tooth_hue, 1, 0.5);
-    util_led_set_rgb(LED_TOOTH_INDEX, tooth_color);
-
-    if (eye_cycle_count > EYE_CYCLE_HALF) {
-        //Large Eye
-        for (uint8_t i = 0; i < 6; i++) {
-            util_led_set_rgb(eye_open[i], eye_color);
-        }
-    } else {
-        //Small Eye
-        for (uint8_t i = 0; i < 4; i++) {
-            util_led_set_rgb(eye_closed[i], eye_color);
-        }
-    }
-    if (++eye_cycle_count > EYE_CYCLE_LEN)
-        eye_cycle_count = 0;
+    if (++bg_cycle_count >= BG_TICKS_PER_INDEX * LED_COUNT)
+        bg_cycle_count = 0;
 
     util_led_show();
 
-        // Update the tooth for next pass
-        if (tooth_flashing) {
-            // we're twinkling, see if we're done
-            if (--tooth_flash_counter == 0) {
-                m_tooth_hue = TOOTH_HUE_GOLD;
-                m_tooth_sat = TOOTH_SAT;
-                m_tooth_val = TOOTH_VAL;
-                tooth_flash_counter = util_math_rand32_max(TOOTH_FLASH_MAXTIME-TOOTH_FLASH_MINTIME) + TOOTH_FLASH_MINTIME;
-                tooth_flashing = false;
-            }
-        } else {
-            // we're waiting to twinkle again, see if we're done
-            if (--tooth_flash_counter == 0) {
-                // start a flash
-                m_tooth_hue = TOOTH_HUE_GOLD;
-                m_tooth_sat = 0;
-                m_tooth_val = TOOTH_VAL;
-                tooth_flash_counter = TOOTH_FLASH_LEN;
-                tooth_flashing = true;
-            }
-        }
+	// If computations are extensive, do them here, not before
+	// updating the display.
 
-    //Change the eye hue for next pass
-    m_eye_hue += EYE_HUE_STEP;
-    if (m_eye_hue >= 1.0) {
-        m_eye_hue -= 1.0;
+}
+
+static void __background_led_timer_handler(void *p_data) {
+    app_sched_event_put(NULL, 0, __background_led_sch_handler);
+}
+
+bool mbp_background_led_running() {
+    return m_background_led_running;
+}
+
+void mbp_background_led_start() {
+    if (!m_background_led_running) {
+        //Start up timer for updating the background LED display
+        APP_ERROR_CHECK(app_timer_create(&m_background_led_timer, APP_TIMER_MODE_REPEATED, __background_led_timer_handler));
+        APP_ERROR_CHECK(app_timer_start(m_background_led_timer, APP_TIMER_TICKS(BACKGROUND_LED_TIME_MS, UTIL_TIMER_PRESCALER), NULL));
+
+        m_background_led_running = true;
     }
 }
 
-static void __tooth_timer_handler(void *p_data) {
-    app_sched_event_put(NULL, 0, __tooth_sch_handler);
-}
-
-bool mbp_tooth_eye_running() {
-    return m_tooth_eye_running;
-}
-
-void mbp_tooth_eye_start() {
-    if (!m_tooth_eye_running) {
-        //Start up tooth flicker timer
-        APP_ERROR_CHECK(app_timer_create(&m_tooth_timer, APP_TIMER_MODE_REPEATED, __tooth_timer_handler));
-        APP_ERROR_CHECK(app_timer_start(m_tooth_timer, APP_TIMER_TICKS(TOOTH_EYES_TIME_MS, UTIL_TIMER_PRESCALER), NULL));
-
-        m_tooth_eye_running = true;
-    }
-}
-
-void mbp_tooth_eye_stop() {
-    if (m_tooth_eye_running) {
-        util_led_set(LED_RIGHT_EYE_INDEX, 0, 0, 0);
-        util_led_set(LED_TOOTH_INDEX, 0, 0, 0);
+void mbp_background_led_stop() {
+    if (m_background_led_running) {
+        util_led_set_all_rgb(LED_COLOR_BLACK);
         util_led_show();
-        APP_ERROR_CHECK(app_timer_stop(m_tooth_timer));
+        APP_ERROR_CHECK(app_timer_stop(m_background_led_timer));
 
-        m_tooth_eye_running = false;
+        m_background_led_running = false;
     }
 }

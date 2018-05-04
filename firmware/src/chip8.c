@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +25,7 @@
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #include "system.h"
@@ -678,9 +678,9 @@ void chip8_run(chip8_game_t *p_game) {
 	err_code = app_timer_create(&m_chip8_timer, APP_TIMER_MODE_REPEATED, __chip8_timer_handler);
 	APP_ERROR_CHECK(err_code);
 
-	//Stop tooth/eyes
+	//Stop background LED display
 	util_led_clear();
-	mbp_tooth_eye_stop();
+	mbp_background_led_stop();
 	app_sched_pause();
 
 	uint32_t ticks = APP_TIMER_TICKS(1000 / p_game->hz, UTIL_TIMER_PRESCALER);
@@ -695,9 +695,9 @@ void chip8_run(chip8_game_t *p_game) {
 	app_timer_stop(m_chip8_timer);
 	util_button_clear();
 
-	//restart tooth/eyes
+	//restart background LED display
 	app_sched_resume();
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 	util_led_clear();
 	util_gfx_invalidate();
 }
@@ -830,7 +830,7 @@ void chip8_run_file(char *filename) {
         if ((stop_timestamp - start_timestamp) > GAME_TIME_4_SCORE) {
             add_to_score(POINTS_4_LOCAL_GAME, "gameplay"); // schedules a bling automatically
         }
-        
+
 	//cleanup
 	free(game.game_data);
 	free(game.note);

@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -245,7 +244,7 @@ static void __menu_custom_anim_callback(void *p_data) {
 
 	if (p_data != NULL) {
 		//Clear the LEDs
-		mbp_tooth_eye_stop();
+		mbp_background_led_stop();
 		util_led_clear();
 		char *filename = (char *) p_data;
 		util_gfx_draw_raw_file(filename, 0, 0, 128, 128, NULL, true, NULL);
@@ -269,7 +268,7 @@ static void __menu_custom_anim_callback(void *p_data) {
 
 	//Cleanup
 	util_led_clear();
-	mbp_tooth_eye_start();
+	mbp_background_led_start();
 }
 
 static void __animation_menu(void *p_data) {

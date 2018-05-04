@@ -120,8 +120,8 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 	uint8_t mode = *((uint8_t *) p_data);
 
 	app_sched_pause();
-	bool tooth_running = mbp_tooth_eye_running();
-	mbp_tooth_eye_stop();
+	bool background_was_running = mbp_background_led_running();
+	mbp_background_led_stop();
 
 	util_button_clear();
 	switch (mode) {
@@ -143,9 +143,9 @@ static void __bling_schedule_handler(void *p_data, uint16_t length) {
 	util_gfx_invalidate();
 	app_sched_resume();
 
-	//Only start tooth if previously running
-	if (tooth_running) {
-		mbp_tooth_eye_start();
+	//Only start background LED display if previously running
+	if (background_was_running) {
+		mbp_background_led_start();
 	}
 }
 
