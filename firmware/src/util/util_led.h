@@ -103,5 +103,6 @@ extern void util_led_set_all(uint8_t red, uint8_t green, uint8_t blue);
 extern void util_led_set_all_rgb(uint32_t rgb);
 extern void util_led_set_rgb(uint32_t index, uint32_t rgb);
 extern void util_led_show();
+extern void util_led_set_locked(bool state);
 
 #endif /* UTIL_LED_H_ */

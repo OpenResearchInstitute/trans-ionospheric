@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +21,18 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #include "../system.h"
 
 static bool m_apa102 = false;
 static uint8_t leds[LED_COUNT * 3 * sizeof(uint8_t)];
+static bool m_leds_locked = false;
 
 static const uint8_t gamma_values[] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -62,6 +63,10 @@ uint32_t util_led_565_to_rgb(uint16_t color) {
 }
 
 inline void util_led_clear() {
+	if (m_leds_locked) {
+		return;
+	}
+
 	util_led_set_all(0, 0, 0);
 	util_led_show();
 }
@@ -147,6 +152,10 @@ void util_led_init() {
 void util_led_load_rgb_file(char *filename, led_anim_t *p_anim) {
 	FIL rgb_file;
 
+	if (m_leds_locked) {
+		return;
+	}
+
 	//Stat the file to determine frame count
 	uint32_t size = util_sd_file_size(filename);
 	if (size == 0) {
@@ -196,6 +205,10 @@ void util_led_play_rgb_frame(led_anim_t *p_anim) {
 	util_led_set_all(0, 0, 0);
 	uint8_t rgb_led_mapping[] = LED_MATRIX_FULL_MAPPING;
 
+	if (m_leds_locked) {
+		return;
+	}
+
 	//MBP2 has eyes swapped
 	if (util_led_has_apa102()) {
 		rgb_led_mapping[0] = 13;
@@ -219,6 +232,10 @@ void util_led_play_rgb_frame(led_anim_t *p_anim) {
 }
 
 void util_led_set(uint32_t index, uint8_t r, uint8_t g, uint8_t b) {
+	if (m_leds_locked) {
+		return;
+	}
+
 	uint32_t offset = index * 3;
 	leds[offset] = gamma_values[b];
 	leds[offset + 1] = gamma_values[g];
@@ -226,22 +243,38 @@ void util_led_set(uint32_t index, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void util_led_set_all(uint8_t red, uint8_t green, uint8_t blue) {
+	if (m_leds_locked) {
+		return;
+	}
+
 	for (uint32_t i = 0; i < LED_COUNT; i++) {
 		util_led_set(i, red, green, blue);
 	}
 }
 
 void util_led_set_all_rgb(uint32_t rgb) {
+	if (m_leds_locked) {
+		return;
+	}
+
 	for (uint32_t i = 0; i < LED_COUNT; i++) {
 		util_led_set_rgb(i, rgb);
 	}
 }
 
 void util_led_set_rgb(uint32_t index, uint32_t rgb) {
+	if (m_leds_locked) {
+		return;
+	}
+
 	util_led_set(index, (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
 }
 
 void util_led_show() {
+	if (m_leds_locked) {
+		return;
+	}
+
 	if (m_apa102) {
 		apa102_send(leds);
 	} else {
@@ -251,4 +284,8 @@ void util_led_show() {
 
 uint32_t util_led_to_rgb(uint8_t red, uint8_t green, uint8_t blue) {
 	return ((uint32_t)(0xFF & red) << 16) | ((uint32_t)(0xFF & green) << 8) | (uint32_t)(0xFF & blue);
+}
+
+void util_led_set_locked(bool state) {
+	m_leds_locked = state;
 }

@@ -55,6 +55,7 @@ static int __cmd_less(int argc, char **argv);
 static int __cmd_ll(int argc, char **argv);
 static int __cmd_passwd(int argc, char **argv);
 static int __cmd_play(int argc, char **argv);
+static int __cmd_release(int argc, char **argv);
 static int __cmd_stop(int argc, char **argv);
 static int __cmd_tcl(int argc, char **argv);
 static int __cmd_vim(int argc, char **argv);
@@ -84,12 +85,13 @@ typedef struct {
 		{ "defrag", "HD Maintenance", __cmd_defrag }, \
 		{ "date", "Date status", __cmd_date }, \
 		{ "leds", "Set All LEDs", __cmd_leds }, \
-		{ "led", "Set All LEDs", __cmd_led }, \
+		{ "led", "Set one LED", __cmd_led }, \
+		{ "release", "Release LEDs", __cmd_release}, \
 		{ "tcl", "Run TCL program", __cmd_tcl}, \
 		{ "wall", "Leave a message", __cmd_wall } \
 	};
 
-#define CMD_LIST_COUNT 	20
+#define CMD_LIST_COUNT 	21
 
 uint8_t m_who_count = 0;
 uint8_t m_current_user_role = 0;
@@ -105,7 +107,7 @@ static int __cmd_help(int argc, char **argv) {
 	mbp_term_print("date defrag emacs");
 	mbp_term_print("exit led leds");
 	mbp_term_print("less ll motd namechg");
-	mbp_term_print("passwd play");
+	mbp_term_print("passwd play release");
 	mbp_term_print("stop su tcl uname");
 	mbp_term_print("vim wall whoami");
 	mbp_term_print("\r");
@@ -306,9 +308,10 @@ static int __cmd_led(int argc, char **argv) {
 				mbp_term_print("\r");
 			}
 			else {
-				//Print the input
+				util_led_set_locked(false);
 				util_led_set(led, r, g, b);
 				util_led_show();
+				util_led_set_locked(true);
 			}
 		}
 		else {
@@ -344,9 +347,10 @@ static int __cmd_leds(int argc, char **argv) {
 				mbp_term_print("\r");
 			}
 			else {
-				//Print the input
+				util_led_set_locked(false);
 				util_led_set_all(r, g, b);
 				util_led_show();
+				util_led_set_locked(true);
 			}
 		}
 		else {
@@ -356,6 +360,18 @@ static int __cmd_leds(int argc, char **argv) {
 			mbp_term_print("  leds 255 255 255");
 			mbp_term_print("\r");
 		}
+	}
+	else {
+		mbp_term_print("Permission Denied");
+		mbp_term_print("\r");
+	}
+	return 0;
+}
+
+
+static int __cmd_release(int argc, char **argv) {
+	if (m_current_user_role >= 1) {
+		util_led_set_locked(false);
 	}
 	else {
 		mbp_term_print("Permission Denied");
