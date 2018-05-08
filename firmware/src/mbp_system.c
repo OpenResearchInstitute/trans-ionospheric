@@ -305,8 +305,8 @@ void mbp_system_name_edit() {
 
 void mbp_system_name_select() {
 	char *names[] = {
-			"MONKEY", "REDSHIRT", "GLADOS", "KVOTHE", "DENNA",
-			"AURI", "WESLEY", "GEORDI", "KINGA", "MAX"
+		"ELMER", "HIRAM", "PERCY", "MAXIM", "WOUFF",
+		"DEFOREST", "MARCONI", "ZENITH", "PHASE4", "EXTRA"
 	};
 	uint8_t name_count = 10;
 
