@@ -411,11 +411,15 @@ void mbp_system_test() {
 			util_gfx_print("Time");
 
 			util_gfx_set_cursor(0, 108);
-			util_gfx_print("Version");
+			util_gfx_print("Build");
+
+			//FW Version (this won't change!)
+			util_gfx_set_cursor(36, 108);
+			util_gfx_print(build_timestamp);
 		}
 
 		//Clear values
-		util_gfx_fill_rect(90, 0, 38, GFX_HEIGHT, COLOR_BLACK);
+		util_gfx_fill_rect(90, 0, 38, 108, COLOR_BLACK);
 		util_gfx_fill_rect(36, 12, 92, 12, COLOR_BLACK);	// for I2C wider data
 
 		//Test for microsd
@@ -524,10 +528,8 @@ void mbp_system_test() {
 			util_gfx_print("false");
 		}
 
-                util_gfx_set_color(COLOR_WHITE);
-
 		//Show badge db count
-                util_gfx_set_color(COLOR_WHITE);
+		util_gfx_set_color(COLOR_WHITE);
 		util_gfx_set_cursor(90, 84);
 		sprintf(buffer, "%d", get_nearby_badge_count());
 		util_gfx_print(buffer);
@@ -536,10 +538,6 @@ void mbp_system_test() {
 		util_gfx_set_cursor(90, 96);
 		sprintf(buffer, "%lu", util_millis() / 1000);
 		util_gfx_print(buffer);
-
-		//FW Version
-		util_gfx_set_cursor(90, 108);
-		util_gfx_print(VERSION);
 
 		util_gfx_validate();
 
