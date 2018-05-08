@@ -359,14 +359,18 @@ void mbp_system_shouts() {
 
 void mbp_system_test() {
 	uint8_t i;
-	uint8_t i2c_config_data[2] = { 0x00, 0xf0 };
-	uint8_t i2c_test_data[2] = { 0x12, 0x00 };
 
 	mbp_background_led_stop();
 	//clear out app_scheduler
 	app_sched_execute();
 	util_gfx_set_font(FONT_SMALL);
 	char buffer[32];
+
+	uint16_t i2c_test_data = 0xff00;
+	bool smeter_was_on = m_smeter_available;
+	if (!smeter_was_on) {
+		util_i2c_smeter_start();
+	}
 
 	util_gfx_invalidate();
 	uint8_t color = 0;
@@ -470,9 +474,9 @@ void mbp_system_test() {
 		if (util_button_up()) {
 			util_gfx_set_color(COLOR_GREEN);
 			util_gfx_print("true");
-			util_i2c_write(0x20, &i2c_config_data[0], 2);
-			util_i2c_write(0x20, &i2c_test_data[0], 2);
-			i2c_test_data[1]++;
+			util_i2c_ioexp_out(i2c_test_data);
+			util_i2c_smeter_write(i2c_test_data & 0x1F);
+			i2c_test_data += 0xFF01;	// increment LSbyte, decrement MSbyte
 		} else {
 			util_gfx_set_color(COLOR_RED);
 			util_gfx_print("false");
@@ -567,6 +571,9 @@ void mbp_system_test() {
 		nrf_delay_ms(300);
 	}
 
+	if (!smeter_was_on) {
+		util_i2c_smeter_stop();
+	}
 	util_led_clear();
 	util_button_clear();
 	mbp_background_led_start();
