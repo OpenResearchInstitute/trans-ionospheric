@@ -766,7 +766,7 @@ void mbp_bling_scroll_cycle() {
 
     uint8_t index = 0;
     uint8_t count = 3;
-    char *messages[] = { "JOCO 2018 ", "STINKING BADGES ", name };
+    char *messages[] = { "TRANS-IONOSPHERIC ", "STINKING BADGES ", name };
 
     //Start up led timer for scroll
     APP_ERROR_CHECK(app_timer_create(&m_scroll_led_timer, APP_TIMER_MODE_REPEATED, __scroll_callback));
@@ -1232,25 +1232,7 @@ void mbp_bling_defrag() {
 static void __background_led_sch_handler(void * p_event_data, uint16_t event_size) {
 	static int bg_cycle_count = 0;
 
-    // //Clear all colors
-    // for (uint8_t i = 0; i < LED_COUNT; i++) {
-    //     util_led_set_rgb(i, LED_COLOR_BLACK);
-    // }
-    //
-// 	//Dummy routine for testing background LED processing.
-// 	//Just cycle one red LED around the front of the badge.
-// #define BG_TICKS_PER_INDEX	20
-// 	static int index;
-// 	if ((bg_cycle_count % BG_TICKS_PER_INDEX) == 0) {
-// 		if (++index >= LED_COUNT) {
-// 			index = 0;
-// 		}
-// 	}
-// 	util_led_set(index, 255, 0, 0);
-//
-// if (++bg_cycle_count >= BG_TICKS_PER_INDEX * LED_COUNT)
-//     bg_cycle_count = 0;
-
+	// Background LEDs intended to simulate Phase 4 Ground status display:
 	if (bg_cycle_count == 3 * BG_TICKS_PER_SECOND) {
 		util_led_set_rgb(8, LED_COLOR_GREEN);
 	} else if (bg_cycle_count == 4 * BG_TICKS_PER_SECOND) {
