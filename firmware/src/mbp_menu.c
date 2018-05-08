@@ -585,7 +585,7 @@ void mbp_menu_main() {
 //	}
 
 	menu.items = items;
-	menu.title = "JOCO2018";
+	menu.title = "TRANSIO";
 
 	mbp_background_led_start();
 	mbp_menu(&menu);
