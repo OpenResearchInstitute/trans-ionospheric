@@ -114,14 +114,15 @@ void util_i2c_ioexp_out(uint16_t output_bitmap) {
 
 // For our S-meter display, the color of each bar is predetermined.
 // This function defines it.
+// Note that the high end of the bargraph is bar 0, and the low end is 23.
 static uint8_t __color_for_bar(uint8_t bar) {
 
-		if (bar <= 18) {
-			return BAR_GREEN;
-		} else if (bar <= 21) {
+		if (bar < 2) {
+			return BAR_RED;
+		} else if (bar < 5) {
 			return BAR_YELLOW;
 		} else {
-			return BAR_RED;
+			return BAR_GREEN;
 		}
 }
 
@@ -196,9 +197,9 @@ void util_i2c_smeter_write(uint8_t level) {
 	if (level > 24) {
 		level = 24;
 	}
-	
+
 	if (level > 0) {
-		for (uint8_t i=0; i < level; i++) {
+		for (uint8_t i=23; 24-i < level; i--) {
 			uint8_t color = __color_for_bar(i);
 			if ((color & BAR_RED) != 0) {
 				i2c_write_buffer[__byte_for_bar(i)] |= __mask_for_bar(i);
