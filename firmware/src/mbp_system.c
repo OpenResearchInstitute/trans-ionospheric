@@ -371,6 +371,7 @@ void mbp_system_test() {
 	if (!smeter_was_on) {
 		util_i2c_smeter_start();
 	}
+	mbp_rssi_stop();
 
 	util_gfx_invalidate();
 	uint8_t color = 0;
@@ -574,6 +575,7 @@ void mbp_system_test() {
 	if (!smeter_was_on) {
 		util_i2c_smeter_stop();
 	}
+	mbp_rssi_start();
 	util_led_clear();
 	util_button_clear();
 	mbp_background_led_start();
