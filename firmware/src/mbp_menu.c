@@ -328,11 +328,10 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 			menu_item_t item = p_menu->items[p_menu->selected];
 			if (item.callback != NULL) {
 				item.callback(item.data);
-			} else {
-				return MENU_OK;
 			}
+			return MENU_OK;
 
-			util_gfx_invalidate();
+//			util_gfx_invalidate();
 		}
 	}
 }
@@ -484,13 +483,14 @@ static void mbp_menu_bling() {
 
 static void mbp_menu_games() {
 	menu_item_t items[] = {
+			{ "Mastermind", NULL, NULL, &mastermind, NULL },
 			{ "Ski Free", NULL, NULL, &ski, NULL },
 			{ "CHIP-8", NULL, NULL, &chip8_menu, NULL },
 	};
 
 	menu_t menu;
 	menu.items = items;
-	menu.count = 2;
+	menu.count = 3;
 	menu.selected = 0;
 	menu.title = "Games";
 	menu.top = 0;
