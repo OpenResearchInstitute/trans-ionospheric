@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +21,11 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
+ *
+ * Additional contributors:
+ *	@sconklin
+ *	@mustbeart
+ *	@abraxas3d
  *****************************************************************************/
 #include "system.h"
 #define MEDEA_SERVICE_UUID					{0xfb,0x34,0x9b,0x5f,0x80,0x00,0x00,0x80,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00}		/** Little endian **/
@@ -204,8 +208,8 @@ void mbp_medea_hack(void *p_data) {
 		util_gfx_print("Connected to host\n");
 		util_gfx_print("Running exploit\n");
 
-		__send_message("JOCO2018", false);
-		util_gfx_print(" JOCO2018\n");
+		__send_message("TRANSIONOSPHERIC", false);
+		util_gfx_print(" TRANSIONOSPHERIC\n");
 		nrf_delay_ms(4500);
 
 		__send_message("HAXXORS", false);
