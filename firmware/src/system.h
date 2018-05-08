@@ -139,6 +139,7 @@
 #include "joco_gameplay.h"
 #include "joco_db.h"
 #include "score_ble.h"
+#include "mastermind.h"
 #include "mbp_medea.h"
 #include "mbp_menu.h"
 #include "mbp_rssi.h"

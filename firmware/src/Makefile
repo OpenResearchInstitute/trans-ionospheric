@@ -102,6 +102,7 @@ SRC_FILES += \
 	joco_db.c \
 	joco_gameplay.c \
 	main.c \
+	mastermind.c \
 	mbp_medea.c \
 	mbp_menu.c \
 	mbp_rssi.c \
