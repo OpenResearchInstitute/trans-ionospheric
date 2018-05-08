@@ -351,10 +351,11 @@ bool mbp_system_seekrit_get() {
 void mbp_system_shouts() {
 	mbp_ui_popup(
 			"Shouts",
-                        "@ANDnXOR\n"
+			"@ANDnXOR\n"
 			"Partners\n"
-			"JOCO Fans\n"
-			"#badgelife\n");
+			"JoCo badge team\n"
+			"#badgelife\n"
+			"... and you!\n");
 }
 
 void mbp_system_test() {
