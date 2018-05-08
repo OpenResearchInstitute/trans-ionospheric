@@ -21,7 +21,7 @@
 #ifndef MBP_RSSI_H_
 #define MBP_RSSI_H_
 
-extern void mbp_rssi_badge_heard(uint16_t device_id, uint8_t rssi);
+extern void mbp_rssi_badge_heard(uint16_t device_id, int8_t rssi);
 extern void mbp_rssi_start(void);
 extern void mbp_rssi_term_duration(unsigned int duration);
 

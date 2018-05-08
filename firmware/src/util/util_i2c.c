@@ -193,6 +193,10 @@ void util_i2c_smeter_write(uint8_t level) {
 		// correspond to LEDs that don't exist.
 	};
 
+	if (level > 24) {
+		level = 24;
+	}
+	
 	if (level > 0) {
 		for (uint8_t i=0; i < level; i++) {
 			uint8_t color = __color_for_bar(i);

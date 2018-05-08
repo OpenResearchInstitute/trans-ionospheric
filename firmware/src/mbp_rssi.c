@@ -21,11 +21,22 @@
 
 #include "system.h"
 
+#define	RSSI_NOTHING_HEARD	(-127)
+
+#define MIN_BARGRAPH_RSSI	(-97)
+#define DB_PER_BAR 3
+
+static int8_t m_rssi_summary = RSSI_NOTHING_HEARD;
 static uint32_t m_rssi_term_end_time = 0;
 
 APP_TIMER_DEF(m_rssi_timer);
 
-void mbp_rssi_badge_heard(uint16_t device_id, uint8_t rssi) {
+void mbp_rssi_badge_heard(uint16_t device_id, int8_t rssi) {
+
+	// RSSI summary is the strongest signal heard this period.
+	if (rssi > m_rssi_summary) {
+		m_rssi_summary = rssi;
+	}
 
 	// If RSSI monitoring on the terminal is active, monitor this one
 	if (m_rssi_term_end_time > 0) {
@@ -33,7 +44,26 @@ void mbp_rssi_badge_heard(uint16_t device_id, uint8_t rssi) {
 	}
 }
 
+static void report_rssi(int8_t rssi) {
+	uint8_t level;
+
+	if (rssi < MIN_BARGRAPH_RSSI) {
+		level = 0;
+	} else {
+		level = (rssi - MIN_BARGRAPH_RSSI) / DB_PER_BAR;
+	}
+
+	// send RSSI summary to the bargraph display
+	util_i2c_smeter_write(level);
+}
+
 static void __rssi_timer_handler(void *p_data) {
+
+	// Report the RSSI summary for this tick
+	report_rssi(m_rssi_summary);
+	m_rssi_summary = RSSI_NOTHING_HEARD;
+
+	// Check for the end of Terminal RSSI monitoring
 	if (m_rssi_term_end_time > 0 && util_millis() > m_rssi_term_end_time) {
 		m_rssi_term_end_time = 0;
 		mbp_term_end_rssi();
@@ -42,10 +72,13 @@ static void __rssi_timer_handler(void *p_data) {
 
 void mbp_rssi_start(void) {
 	uint32_t err_code;
-	err_code = app_timer_create(&m_rssi_timer, APP_TIMER_MODE_REPEATED, __rssi_timer_handler);
-	APP_ERROR_CHECK(err_code);
-	err_code = app_timer_start(m_rssi_timer, APP_TIMER_TICKS(100, UTIL_TIMER_PRESCALER), NULL);
-	APP_ERROR_CHECK(err_code);
+
+	if (util_i2c_smeter_start()) {
+		err_code = app_timer_create(&m_rssi_timer, APP_TIMER_MODE_REPEATED, __rssi_timer_handler);
+		APP_ERROR_CHECK(err_code);
+		err_code = app_timer_start(m_rssi_timer, APP_TIMER_TICKS(100, UTIL_TIMER_PRESCALER), NULL);
+		APP_ERROR_CHECK(err_code);
+	}
 }
 
 void mbp_rssi_term_duration(unsigned int duration) {
