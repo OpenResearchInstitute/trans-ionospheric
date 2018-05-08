@@ -416,6 +416,7 @@ void mbp_system_test() {
 
 		//Clear values
 		util_gfx_fill_rect(90, 0, 38, GFX_HEIGHT, COLOR_BLACK);
+		util_gfx_fill_rect(36, 12, 92, 12, COLOR_BLACK);	// for I2C wider data
 
 		//Test for microsd
 		util_gfx_set_cursor(90, 0);
