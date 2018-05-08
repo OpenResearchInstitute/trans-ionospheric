@@ -33,7 +33,8 @@
 #define BLE_DATA_LEN                  10
 #define BLE_DATA_INDEX_SCORE          2
 #define BLE_DATA_INDEX_C2             4
-#define BLE_DATA_INDEX_GLOBAL_TIME    8
+#define BLE_DATA_INDEX_UNUSED0        8
+#define BLE_DATA_INDEX_UNUSED1        9
 #define BLE_TX_POWER                  0                 // 0dbm gain
 #define DEVICE_NAME                   "JOCO2018"
 #define APP_ADV_INTERVAL              0x0320            // Advertising interval in units of 0.625ms
@@ -122,12 +123,6 @@ static void __on_adv_evt(ble_adv_evt_t ble_adv_evt);
 static void __on_ble_evt(ble_evt_t * p_ble_evt);
 static void pm_evt_handler(pm_evt_t const * p_evt);
 
-//Global time sync
-uint16_t m_time = 0;
-APP_TIMER_DEF(m_ble_global_time_timer);
-
-#define BLE_GLOBAL_TIME_SECRET        0x8dc0
-#define BLE_GLOBAL_TIME_UPDATE_MS     (1000 * 1) // Update the global time in the advertisement every second)
 
 /**@brief Function for initializing the Advertising functionality.
  *
@@ -297,39 +292,6 @@ static void __gatt_init(void) {
     APP_ERROR_CHECK(err_code);
 }
 
-static void __global_time_advertisement_process(uint16_t t, uint16_t id) {
-    t = t ^ id ^ BLE_GLOBAL_TIME_SECRET;
-
-    uint32_t millis = (uint32_t) t << 14;
-
-    //Jump forward
-    if (millis > util_millis()) {
-            util_millis_offset_set(millis - util_millis());
-    }
-}
-
-static void __global_time_schedule_handler(void *p_data, uint16_t length) {
-    ble_gap_conn_sec_mode_t sec_mode;
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
-
-    uint16_t id = util_get_device_id();
-    uint16_t t = ((util_millis() >> 14) & 0xFFFF);
-    t = t ^ BLE_GLOBAL_TIME_SECRET ^ id;
-    m_adv_data.p_manuf_specific_data->data.p_data[BLE_DATA_INDEX_GLOBAL_TIME] = (t >> 8);
-    m_adv_data.p_manuf_specific_data->data.p_data[BLE_DATA_INDEX_GLOBAL_TIME + 1] = t;
-
-    ble_advdata_set(&m_adv_data, NULL);
-}
-
-/**
- * Update the global time being advertised
- */
-
-static void __global_time_timer_handler(void *p_data) {
-    //update the ble GAP data on main
-    app_sched_event_put(NULL, 0, __global_time_schedule_handler);
-}
-
 
 /**
  * @brief Parses advertisement data, providing length and location of the field in case
@@ -357,9 +319,6 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
     // peer adress includes the address type, we only care about the 6 byte GAP address
     memcpy(&badge.address, &p_report->peer_addr.addr, BLE_GAP_ADDR_LEN);
-
-    //Advertised time
-    uint16_t time;
 
     //C2 Data
     master_c2_t c2;
@@ -410,8 +369,6 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
                 badge.device_id = field_data[2] | (field_data[3] << 8);
                 //Parse C2 data
                 memcpy(&c2, field_data + BLE_DATA_INDEX_C2 + 2, sizeof(master_c2_t));
-                //Parse global time sync
-                time = (field_data[BLE_DATA_INDEX_GLOBAL_TIME + 2] << 8) | field_data[BLE_DATA_INDEX_GLOBAL_TIME + 3];
 		break;
 	    case COMPANY_ID:
                 sprintf(badge.name, "AND!XOR");
@@ -523,11 +480,6 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	    if (try_to_hello(badge.company_id, badge.name))
 		set_seen_flags(badge.address, badge.device_id, SEEN_FLAG_SAID_HELLO);
 	}
-    }
-
-    //handle global time sync with other joco badges
-    if (badge.company_id == COMPANY_ID_JOCO && time > 0) {
-	__global_time_advertisement_process(time, badge.device_id);
     }
 
     //Look for medea vodka
@@ -976,10 +928,6 @@ void util_ble_init() {
 
     //Set transmit power
     sd_ble_gap_tx_power_set(BLE_TX_POWER);
-
-    //Startup global time sync timer
-    APP_ERROR_CHECK(app_timer_create(&m_ble_global_time_timer, APP_TIMER_MODE_REPEATED, __global_time_timer_handler));
-    APP_ERROR_CHECK(app_timer_start(m_ble_global_time_timer, APP_TIMER_TICKS(BLE_GLOBAL_TIME_UPDATE_MS, UTIL_TIMER_PRESCALER), NULL));
 }
 
 static void __nus_send_schedule_handler(void *p_data, uint16_t length) {
