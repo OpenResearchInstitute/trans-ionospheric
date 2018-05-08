@@ -199,7 +199,7 @@ void util_i2c_smeter_write(uint8_t level) {
 	}
 
 	if (level > 0) {
-		for (uint8_t i=23; 24-i < level; i--) {
+		for (int8_t i=23; 23-i < level; i--) {
 			uint8_t color = __color_for_bar(i);
 			if ((color & BAR_RED) != 0) {
 				i2c_write_buffer[__byte_for_bar(i)] |= __mask_for_bar(i);

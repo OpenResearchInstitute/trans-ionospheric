@@ -23,7 +23,7 @@
 
 #define	RSSI_NOTHING_HEARD	(-127)
 
-#define MIN_BARGRAPH_RSSI	(-97)
+#define MIN_BARGRAPH_RSSI	(-106)
 #define DB_PER_BAR 3
 
 static int8_t m_rssi_summary = RSSI_NOTHING_HEARD;
