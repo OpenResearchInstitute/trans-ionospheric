@@ -21,3 +21,4 @@
 #include "system.h"
 
 extern void mastermind();
+extern void mastermind_rsvp(void);
