@@ -49,16 +49,22 @@
 #define MM_PEG_WIDTH	((GFX_WIDTH - 2*MM_LEFT_MARGIN - MM_GUTTER)/(2*MM_NUM_COLUMNS)-MM_PEG_KERNING)
 #define MM_GO_X_POSITION		60
 #define MM_FONT_HEIGHT_TO_BASELINE	9
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 #define MM_ARROW_HEIGHT			8
 #define MM_ARROW_HALF_WIDTH		4
 =======
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+#define MM_ARROW_HEIGHT			8
+#define MM_ARROW_HALF_WIDTH		4
+>>>>>>> Add "play the badge" option, draw the arrows
 
 #define MM_BACKGROUND_COLOR		0x2081	// very very yellow
 #define MM_DIMMED_COLOR			0x4208	// very dark grey
 #define MM_ENABLED_COLOR		COLOR_LIGHTGREY
 
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 #define MM_REMOTE			17
 #define MM_AUTO_OPPONENT	18
@@ -67,6 +73,10 @@
 APP_TIMER_DEF(m_mm_animation_timer);
 =======
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+#define MM_REMOTE			17
+#define MM_AUTO_OPPONENT	18
+>>>>>>> Add "play the badge" option, draw the arrows
 
 // Structure that holds a single row of color choices,
 // which may be guesses or answers.
@@ -95,7 +105,10 @@ typedef struct {
 // This is the game in which the local user is Codebreaker.
 static mm_game_t game;
 
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
+=======
+>>>>>>> Add "play the badge" option, draw the arrows
 
 // Structure that holds the information about our worthy opponent.
 typedef struct {
@@ -103,6 +116,7 @@ typedef struct {
 	char	name[20];
 } mm_opponent_t;
 
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 // Identity of our worthy opponent.
 //!!! right now the badge identity is text; soon it will need to contain either a
 //!!! Bluetooth address or a flag that play is to proceed locally.
@@ -121,10 +135,12 @@ static mm_color_list_t		m_received_answer;
 const uint16_t mm_colors[] = {
 	COLOR_YELLOW, COLOR_RED, COLOR_MAGENTA, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE,
 =======
+=======
+>>>>>>> Add "play the badge" option, draw the arrows
 // Identity of our worthy opponent.
-//!!! right now this is text; soon it will need to contain either a
+//!!! right now the badge identity is text; soon it will need to contain either a
 //!!! Bluetooth address or a flag that play is to proceed locally.
-static ble_badge_list_menu_text_t m_opponent;
+static mm_opponent_t m_opponent;
 
 // These are the graphical colors used to display the various color indexes.
 const uint16_t mm_colors[] = {
@@ -190,6 +206,7 @@ static void __set_go_xy(uint8_t x, uint8_t y) {
 	m_go_y = y;
 }
 
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 
 // Display the "Go" menu item in a specified color.
@@ -910,6 +927,9 @@ static void __set_auto_opponent(void *p_data) {
 //			MM_USER_QUIT if the user canceled.
 static uint8_t __mbp_mastermind_players() {
 =======
+=======
+
+>>>>>>> Add "play the badge" option, draw the arrows
 // Display the "Go" menu item in the disabled state.
 static void __disable_go(void) {
 	util_gfx_set_cursor(m_go_x, m_go_y);
@@ -917,12 +937,43 @@ static void __disable_go(void) {
 	util_gfx_print("Go ");
 }
 
+
 // Display the "Go" menu item in the enabled state.
 static void __enable_go(void) {
 	util_gfx_set_cursor(m_go_x, m_go_y);
 	util_gfx_set_color(MM_ENABLED_COLOR);
 	util_gfx_print("Go ");
 }
+
+
+// Clear the arrow pointer.
+static void __mm_arrow_clear(uint8_t y) {
+	util_gfx_fill_rect( 0, y, GFX_WIDTH, MM_ARROW_HEIGHT+1, MM_BACKGROUND_COLOR);
+}
+
+
+// Display the arrow pointer.
+static void __mm_arrow(uint8_t y, uint8_t which) {
+	// Erase any previous arrows
+	__mm_arrow_clear(y);
+
+	// compute the location of the top vertex
+	uint8_t x = MM_LEFT_MARGIN + MM_PEG_WIDTH/2 + which*(MM_PEG_WIDTH+MM_PEG_KERNING);
+	if (which == MM_NUM_COLUMNS) {
+		// Move the Go arrow over a bit to look centered
+		x += 1;
+	} else if (which == MM_NUM_COLUMNS+1) {
+		// Move the Quit arrow over a bit to look centered
+		x += 12;
+	}
+
+	// draw the arrow
+	util_gfx_draw_triangle(	x, y,	// Top vertex
+							x - MM_ARROW_HALF_WIDTH, y + MM_ARROW_HEIGHT,
+							x + MM_ARROW_HALF_WIDTH, y + MM_ARROW_HEIGHT,
+							COLOR_WHITE);
+}
+
 
 // Collect guesses from the local user, in place on the graphic display
 // Returns: true if the user guessed and hit Go
@@ -949,16 +1000,21 @@ static bool __collect_guesses(uint8_t row) {
 	//!!! Here's where we display the triangle cursor and handle buttons
 	//!!! until the user selects Go or Quit
 
-	nrf_delay_ms(5000); //!!! demo
+	//!!! demo
+	for (uint8_t i=0; i < MM_NUM_COLUMNS+2; i++) {
+		__mm_arrow(y + m_row_height, i);
+		nrf_delay_ms(1000);
+	}
 	__enable_go();		//!!! this happens when all four guesses are filled in
-	nrf_delay_ms(5000); //!!!
+	nrf_delay_ms(2000); //!!!
 
 	// Erase other menu choices
 	util_gfx_fill_rect(MM_GO_X_POSITION,
-						y-1, 							// allow for ascender height
+						y-2, 							// allow for ascender height
 						GFX_WIDTH - MM_GO_X_POSITION,	// to right screen edge
-						m_row_height+1,					// to the very bottom
+						m_row_height+2,					// to the very bottom
 						MM_BACKGROUND_COLOR);
+	__mm_arrow_clear(y + m_row_height);
 
 	return true;	//!!! actually need to return correct status here.
 }
@@ -1010,6 +1066,8 @@ static void __mm_codebreaker(void) {
 	}
 
 	// Initial screen draw.
+	util_gfx_cursor_area_reset();
+	mbp_ui_cls();
 	util_gfx_fill_screen(MM_BACKGROUND_COLOR);
 
 	util_gfx_set_font(FONT_SMALL);
@@ -1023,7 +1081,7 @@ static void __mm_codebreaker(void) {
 		uint8_t row;
 
 		if (turn == 6) {	// time to squeeze the display vertically
-			m_row_height = 9;
+			m_row_height = 8;
 			util_gfx_fill_rect(0,						// left screen edge
 							   SUBMENU_TITLE_SIZE+1,	// just below the line
 							   GFX_WIDTH, GFX_HEIGHT,	// to bottom right corner
@@ -1044,9 +1102,9 @@ static void __mm_codebreaker(void) {
 			break;
 		}
 
-		__draw_answers(row);
+		__draw_answers(turn);
 
-		if (__check_for_victory(row)) {
+		if (__check_for_victory(turn)) {
 			status = MM_VICTORY;
 			break;
 		}
@@ -1083,18 +1141,31 @@ static void __mm_codebreaker(void) {
 
 
 // Handle the action of selecting an opponent from the menu.
-static void __set_opponent(void *p_data) {
-	memcpy(m_opponent.text, ((ble_badge_list_menu_text_t *)p_data)->text, 20);
+static void __set_remote_opponent(void *p_data) {
+	memcpy(m_opponent.name, ((ble_badge_list_menu_text_t *)p_data)->text, 20);
+	m_opponent.remote = true;
+}
+
+static void __set_auto_opponent(void *p_data) {
+	strcpy(m_opponent.name, "the Badge");
+	m_opponent.remote = false;
 }
 
 
 // Present a menu of available opponents to choose from.
 //!!! This currently uses the text-only listing from JoCo's badge list.
 //!!! It needs to be updated to use a complete list with Bluetooth addresses.
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 // Returns: true if the user picked an opponent.
 //			false if the user canceled.
 static bool __mbp_mastermind_players() {
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+// Returns: MM_REMOTE if the user picked a remote badge opponent.
+//			MM_AUTO_OPPONENT if the user chose to play against the badge
+//			MM_USER_QUIT if the user canceled.
+static uint8_t __mbp_mastermind_players() {
+>>>>>>> Add "play the badge" option, draw the arrows
 	int badge_list_size;
 	ble_badge_list_menu_text_t *list;
 	uint8_t status;
@@ -1143,6 +1214,7 @@ static bool __mbp_mastermind_players() {
 
 // Make a connection to the remote opponent.
 static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 	util_gfx_cursor_area_reset();
 	mbp_ui_cls();
 
@@ -1189,6 +1261,8 @@ static bool __mm_connect_opponent(mm_opponent_t opponent) {
 =======
 // Make a connection to the remote opponent.
 static bool __mm_connect_opponent(char *text) {
+=======
+>>>>>>> Add "play the badge" option, draw the arrows
 	util_gfx_cursor_area_reset();
 	mbp_ui_cls();
 
@@ -1211,6 +1285,22 @@ static bool __mm_connect_opponent(char *text) {
 	util_gfx_print("CONNECT\n");
 	return true;
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+}
+
+
+static bool __mm_connect_auto_opponent(mm_opponent_t opponent) {
+	//!!! what to do
+
+	return true;
+}
+
+
+static bool __mm_connect_opponent(mm_opponent_t opponent) {
+	if (opponent.remote) {
+		return __mm_connect_remote_opponent(opponent);
+	} else {
+		return __mm_connect_auto_opponent(opponent);
+	}
 }
 
 
@@ -1240,11 +1330,15 @@ void mastermind() {
 			return;
 		}
 
+<<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 		if (__mm_connect_opponent(m_opponent)) {
 =======
 		if (__mm_connect_opponent(m_opponent.text)) {
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+		if (__mm_connect_opponent(m_opponent)) {
+>>>>>>> Add "play the badge" option, draw the arrows
 			__mm_codebreaker();	// play the game locally.
 
 			//!!! here we will join up with the codemaker server,
