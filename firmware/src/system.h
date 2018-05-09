@@ -25,8 +25,7 @@
  *****************************************************************************/
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
-#define VERSION							"v1.9+"
-#define VERSION_SD						27
+#define VERSION_SD						28
 
 // Various testing options
 
@@ -52,11 +51,11 @@
 #define UNLOCK_MASK_MASTER_4			0x0008 // master unlock
 #define UNLOCK_MASK_DATE_TIME			0x0010 // hack time bling (in terminal)
 #define UNLOCK_MASK_DEFRAG			0x0020 // defrag bling (in terminal)
-#define UNLOCK_MASK_WHATS_UP			0x0040 // What's up (in terminal)
+#define UNLOCK_MASK_0040			0x0040 // transio_unused
 #define UNLOCK_MASK_WHEATON    			0x0080 // Wheaton
 #define UNLOCK_MASK_TWITTER			0x0100 // Twitter bling
-#define UNLOCK_MASK_SEEKRIT			0x0200 // trololol bling
-#define UNLOCK_MASK_DAMON			0x0400 // Matt Damon bling
+#define UNLOCK_MASK_SEEKRIT			0x0200 // transio_unused
+#define UNLOCK_MASK_0400			0x0400 // transio_unused
 #define UNLOCK_MASK_0800			0x0800 // joco_unused
 #define UNLOCK_MASK_1000			0x1000 // joco_unused
 #define UNLOCK_MASK_WH				0x2000 // White Hat detected  (joco_unused)

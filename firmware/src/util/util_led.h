@@ -32,7 +32,6 @@
 
 #define LED_COUNT					16
 #define LED_RGB_COUNT				20
-#define LED_TOOTH_INDEX				13
 #define LED_MATRIX_W				4
 #define LED_MATRIX_H				3
 #define LED_MATRIX_COUNT			(LED_MATRIX_W * LED_MATRIX_H)

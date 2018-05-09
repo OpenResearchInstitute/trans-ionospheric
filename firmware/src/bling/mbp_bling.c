@@ -389,18 +389,6 @@ void mbp_bling_led_rainbow_callback(uint8_t frame, void *p_data) {
     *data = (int) (hue * 100);
 }
 
-void mbp_bling_badgers() {
-    uint8_t hue = 0;
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/AND!XOR/BADGERS.RAW", 0, 0, 128, 128, &__mbp_bling_rainbow_eye_callback, true, &hue);
-}
-
-void mbp_bling_wheaton() {
-    uint8_t hue = 0;
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/JOCO/WWSPIN.RAW", 0, 0, 128, 128, &__led_chase_cw_callback, true, &hue);
-}
-
 static void __led_jollyroger(uint8_t f_unused, void *p_data) {
     uint8_t frame = *((uint8_t *) p_data);
 
@@ -418,31 +406,11 @@ static void __led_jollyroger(uint8_t f_unused, void *p_data) {
     *((uint8_t *) p_data) = frame;
 }
 
-void mbp_bling_skull_crossbones() {
-    uint8_t hue = 0;
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/JOCO/SKLCROSS.RAW", 0, 0, 128, 128, &__led_jollyroger, true, &hue);
-}
-
-void mbp_bling_5th_element_dance(void *data) { simple_filebased_bling("BLING/JOCO/5THEL.RAW", "BLING/FADEBLUE.RGB"); }
-
-void mbp_bling_candy_mountain(void *data) { simple_filebased_bling("BLING/JOCO/CANDYMTN.RAW", "BLING/BLUPRPSW.RGB"); }
-
-void mbp_bling_concert_flame(void *data) { simple_filebased_bling("BLING/JOCO/CFLAME.RAW", "BLING/FLAMES.RGB"); }
-
-void mbp_bling_dancing_cyberman(void *data) { simple_filebased_bling("BLING/JOCO/CYBERMAN.RAW", "BLING/FADEGRN.RGB"); }
-
 void mbp_bling_drwho_time(void *data) { simple_filebased_bling("BLING/JOCO/DRWHOTIM.RAW", "BLING/TUNNEL.RGB");}
 
 void mbp_bling_duckhunt(void *data) { simple_filebased_bling("BLING/JOCO/DUCKHUNT.RAW", "BLING/COLORS3.RGB"); }
 
-void mbp_bling_fallout_boygirl_drinking(void *data) { simple_filebased_bling("BLING/JOCO/FODRINK.RAW", "BLING/BOUNCE.RGB"); }
-
-void mbp_bling_fallout_boy_science(void *data) { simple_filebased_bling("BLING/JOCO/FOSCI.RAW", "BLING/TUNNEL.RGB"); }
-
 void mbp_bling_get_on_my_horse(void *data) { simple_filebased_bling("BLING/JOCO/MYHORSE.RAW", "BLING/IRADESC.RGB"); }
-
-void mbp_bling_multipass_leelo(void *data) { simple_filebased_bling("BLING/JOCO/MLTIPASS.RAW", "BLING/REDORNG.RGB"); }
 
 void mbp_bling_outer_limits() {
     uint8_t hue = 0;
@@ -450,15 +418,7 @@ void mbp_bling_outer_limits() {
     util_gfx_draw_raw_file("BLING/JOCO/OUTERLIM.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
 }
 
-void mbp_bling_portal_frying_pan(void *data) { simple_filebased_bling("BLING/JOCO/PORTALFP.RAW", "BLING/FADEYLLW.RGB"); }
-
 void mbp_bling_portal_wink(void *data) { simple_filebased_bling("BLING/JOCO/PORTALWN.RAW", "BLING/CIRCLES.RGB"); }
-
-void mbp_bling_portals(void *data) { simple_filebased_bling("BLING/JOCO/PORTALS.RAW", "BLING/TETRIS.RGB"); }
-
-void mbp_bling_sleestaks(void *data) { simple_filebased_bling("BLING/JOCO/SLEESTAK.RAW", "BLING/GRNYELL.RGB"); }
-
-void mbp_bling_tardis_nyan(void *data) { simple_filebased_bling("BLING/JOCO/TARDNYAN.RAW", "BLING/BOUNCE.RGB"); }
 
 void mbp_bling_twilight_zone() {
     uint8_t hue = 0;
@@ -466,29 +426,7 @@ void mbp_bling_twilight_zone() {
     util_gfx_draw_raw_file("BLING/JOCO/TWILITE.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
 }
 
-void mbp_bling_zombie_nyan(void *data) { simple_filebased_bling("BLING/JOCO/ZOMBNYAN.RAW", "BLING/BOUNCE.RGB"); }
-
-void mbp_bling_damon() {
-    util_led_clear();
-    uint8_t index = 0;
-    uint8_t count = 4;
-
-    char *modes[] = { "BLING/AND!XOR/DAMON1.RAW", "BLING/AND!XOR/DAMON2.RAW", "BLING/AND!XOR/DAMON3.RAW", "BLING/AND!XOR/DAMON4.RAW" };
-    uint8_t button = 0;
-
-    util_led_clear();
-
-    //If anything other than left button is pressed cycle modes
-    while ((button & BUTTON_MASK_LEFT) == 0) {
-        uint8_t hue = 0;
-        button = util_gfx_draw_raw_file(modes[index], 0, 0, 128, 128, &__led_chase_cw_callback, true, &hue);
-        index = (index + 1) % count;
-    }
-}
-
 void mbp_bling_flames(void *data) { simple_filebased_bling("BLING/AND!XOR/FLAMES.RAW", "BLING/FLAMES.RGB"); }
-
-void mbp_bling_meatspin(void *data) { simple_filebased_bling("BLING/AND!XOR/MEATSPIN.RAW", "BLING/AND!XOR/MEATSPIN.RGB"); }
 
 void mbp_bling_hack_time(void *data) { simple_filebased_bling("BLING/AND!XOR/HACKTIME.RAW", "BLING/PINKBLUE.RGB"); }
 
@@ -510,12 +448,6 @@ void mbp_bling_illusion() {
     }
 }
 
-void mbp_bling_whats_up() {
-    util_led_clear();
-    uint8_t hue = 0; //hue is normally a float 0 to 1, pack it in an 8 bit int
-    util_gfx_draw_raw_file("BLING/AND!XOR/HEMANHEY.RAW", 0, 0, 128, 128, &__led_sparkle, true, &hue);
-}
-
 void mbp_bling_led_botnet(uint8_t frame, void *data) {
 //
 //  for (uint8_t i = 0; i < LED_COUNT; i++) {
@@ -532,13 +464,6 @@ void mbp_bling_led_botnet(uint8_t frame, void *data) {
     uint8_t i = util_math_rand8_max(LED_COUNT);
     util_led_set(i, red, 0, 0);
     util_led_show();
-}
-
-void mbp_bling_major_lazer(void *data) {
-    util_led_clear();
-    UTIL_LED_ANIM_INIT(anim);
-    util_led_load_rgb_file("BLING/MAJORL1.RGB", &anim);
-    util_gfx_draw_raw_file("BLING/AND!XOR/MAJORL1.RAW", 0, 0, 128, 128, &__rgb_file_callback, true, (void *) &anim);
 }
 
 static void __matrix_callback(uint8_t frame, void *p_data) {
@@ -948,7 +873,7 @@ void mbp_bling_hello_bender_schedule_handler(void * p_event_data, uint16_t event
     uint32_t color_1 = util_led_hsv_to_rgb(h1, 1, 1);
     uint32_t color_2 = util_led_hsv_to_rgb(h2, 1, 1);
 
-    util_gfx_draw_raw_file("BG.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, false, NULL);
+    util_gfx_draw_raw_file("B2B/BENDER.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, false, NULL);
     uint16_t fg = util_gfx_rgb_to_565(color_1);
     uint16_t bg = util_gfx_rgb_to_565(color_2);
 
@@ -1139,29 +1064,6 @@ void mbp_bling_hello_queercon_schedule_handler(void * p_event_data, uint16_t eve
     util_button_clear();
 }
 
-static void __mbp_bling_toad_callback(uint8_t frame, void *p_data) {
-//Unpack hue as a float
-    uint8_t *data = (uint8_t *) p_data;
-    float hue = ((float) *data / 100.0);
-
-    util_led_set_all_rgb(util_led_hsv_to_rgb(hue, 1, .9));
-    util_led_show();
-
-    hue += 0.07;
-    if (hue >= 1) {
-        hue = 0;
-    }
-
-    //Pack the hue
-    *data = (uint8_t) (hue * 100.0);
-}
-
-void mbp_bling_toad() {
-    util_led_clear();
-    uint8_t hue = 0; //hue is normally a float 0 to 1, pack it in an 8 bit int
-    util_gfx_draw_raw_file("BLING/AND!XOR/TOAD2.RAW", 0, 0, 128, 128, &__mbp_bling_toad_callback, true, &hue);
-}
-
 static void __mbp_bling_twitter_callback(uint8_t frame, void *p_data) {
     uint8_t *p_index = (uint8_t *) p_data;
 
@@ -1183,11 +1085,6 @@ static void __mbp_bling_twitter_callback(uint8_t frame, void *p_data) {
     }
 
     util_led_show();
-}
-
-void mbp_bling_trololol() {
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/AND!XOR/TROLOLOL.RAW", 0, 0, 128, 128, &mbp_bling_led_botnet, true, NULL);
 }
 
 void mbp_bling_twitter() {

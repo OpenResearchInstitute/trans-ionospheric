@@ -79,13 +79,6 @@ void mbp_system_code() {
 		mbp_state_save();
 		mbp_ui_popup("Master", "Master Mode Engaged.");
 	}
-	//DAMON
-	else if (strcmp(code, "DAMON") == 0) {
-		uint16_t unlock = mbp_state_unlock_get();
-		mbp_state_unlock_set(unlock | UNLOCK_MASK_DAMON);
-		mbp_state_save();
-		mbp_ui_popup("Unlocked", "Matt Damon mode enabled.");
-	}
 	//Wheaton
 	else if (strcmp(code, "TABLETOP") == 0) {
 		uint16_t unlock = mbp_state_unlock_get();
@@ -115,14 +108,6 @@ void mbp_system_code() {
 		mbp_state_unlock_set(unlock | UNLOCK_MASK_DEFRAG);
 		mbp_state_save();
 		mbp_ui_popup("Unlocked", "Defrag Bling unlocked.");
-	}
-
-	//He Man
-	else if (strcmp(code, "WHATSUP") == 0) {
-		uint16_t unlock = mbp_state_unlock_get();
-		mbp_state_unlock_set(unlock | UNLOCK_MASK_WHATS_UP);
-		mbp_state_save();
-		mbp_ui_popup("Unlocked", "He Man Bling unlocked.");
 	}
 
 	//Everything else
@@ -425,7 +410,7 @@ void mbp_system_test() {
 
 		//Test for microsd
 		util_gfx_set_cursor(90, 0);
-		if (util_sd_file_size("BG.RAW") > 0) {
+		if (util_sd_file_size("VERSION") > 0) {
 			util_gfx_set_color(COLOR_GREEN);
 			util_gfx_print("Yes");
 		} else {
@@ -611,7 +596,7 @@ void mbp_system_unlock_state() {
 	}
 
 	util_led_show();
-	util_gfx_draw_raw_file("BLING/JOCO/SKLCROSS.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, true, NULL);
+	util_gfx_draw_raw_file("BLING/TRANSIO/MAGICEYE.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, NULL, true, NULL);
 	util_led_clear();
 
 	mbp_background_led_start();

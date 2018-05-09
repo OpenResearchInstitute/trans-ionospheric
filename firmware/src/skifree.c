@@ -46,7 +46,7 @@
 #define SKI_SPRITE_W			16
 #define SKI_SPRITE_H			16
 #define SKI_SPRITE_TYPE_COUNT	3
-#define SKI_MBP_W				16
+#define SKI_MBP_W				5
 #define SKI_MBP_H				28
 #define SKI_MBP_SPEED			3
 
@@ -115,7 +115,7 @@ static void __draw(ski_state_t *p_state) {
 
 static void __mbp() {
 	uint8_t mbp_raw[SKI_MBP_W * SKI_MBP_H * 2];
-	util_gfx_load_raw(mbp_raw, "SKI/MBP.RAW", SKI_MBP_W * SKI_MBP_H * 2);
+	util_gfx_load_raw(mbp_raw, "SKI/WOUFHONG.RAW", SKI_MBP_W * SKI_MBP_H * 2);
 	for (int16_t x = 0 - SKI_MBP_W; x < SKI_X - SKI_MBP_W; x += SKI_MBP_SPEED) {
 		util_gfx_fill_rect(x - SKI_MBP_SPEED, SKI_Y + 3, SKI_MBP_SPEED, SKI_MBP_H, COLOR_WHITE);
 		util_gfx_draw_raw(x, SKI_Y + 3, SKI_MBP_W, SKI_MBP_H, mbp_raw);
