@@ -106,20 +106,6 @@ static void __led_sparkle_single(uint8_t frame, void *p_data) {
 }
 */
 
-static void __led_chase_cw_callback(uint8_t frame, void *p_data) {
-    uint8_t *p_index = (uint8_t *) p_data;
-    uint8_t order[] = { 0, 1, 2, 3, 7, 11, 10, 9, 8, 4 };
-
-    util_led_set(order[*p_index], 255, 0, 0);
-    util_led_show();
-    util_led_set(order[*p_index], 0, 0, 0);
-
-    (*p_index)++;
-    if (*p_index > 9) {
-        *p_index = 0;
-    }
-}
-
 void __led_hue_cycle(uint8_t frame, void *p_data) {
     uint8_t *p_hue = (uint8_t *) p_data;
     float hue = (float) (*p_hue) / 100.0;
@@ -389,23 +375,6 @@ void mbp_bling_led_rainbow_callback(uint8_t frame, void *p_data) {
     *data = (int) (hue * 100);
 }
 
-static void __led_jollyroger(uint8_t f_unused, void *p_data) {
-    uint8_t frame = *((uint8_t *) p_data);
-
-    //Clear all colors
-    for (uint8_t i = 0; i < LED_COUNT; i++) {
-        util_led_set_rgb(i, LED_COLOR_BLACK);
-    }
-
-    //Set non-boring LED states here.
-
-    //latch
-    util_led_show();
-
-    frame = (frame + 1) % 40;
-    *((uint8_t *) p_data) = frame;
-}
-
 void mbp_bling_drwho_time(void *data) { simple_filebased_bling("BLING/JOCO/DRWHOTIM.RAW", "BLING/TUNNEL.RGB");}
 
 void mbp_bling_duckhunt(void *data) { simple_filebased_bling("BLING/JOCO/DUCKHUNT.RAW", "BLING/COLORS3.RGB"); }
@@ -419,12 +388,6 @@ void mbp_bling_outer_limits() {
 }
 
 void mbp_bling_portal_wink(void *data) { simple_filebased_bling("BLING/JOCO/PORTALWN.RAW", "BLING/CIRCLES.RGB"); }
-
-void mbp_bling_twilight_zone() {
-    uint8_t hue = 0;
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/JOCO/TWILITE.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
-}
 
 void mbp_bling_flames(void *data) { simple_filebased_bling("BLING/AND!XOR/FLAMES.RAW", "BLING/FLAMES.RGB"); }
 

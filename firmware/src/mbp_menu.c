@@ -419,7 +419,6 @@ static void mbp_menu_bling() {
 	items[menu.count++] = (menu_item_t ) { "Duck", "MENU/DUCKHUNT.ICO", "MENU/DUCKHUNT.PRV", &mbp_bling_duckhunt, NULL };
 	items[menu.count++] = (menu_item_t ) { "Outer", "MENU/OUTERLIM.ICO", "MENU/OUTERLIM.PRV", &mbp_bling_outer_limits, NULL };
 	items[menu.count++] = (menu_item_t ) { "PortWk", "MENU/PORTALWN.ICO", "MENU/PORTALWN.PRV", &mbp_bling_portal_wink, NULL };
-	items[menu.count++] = (menu_item_t ) { "Twilite", "MENU/TWILITE.ICO", "MENU/TWILITE.PRV", &mbp_bling_twilight_zone, NULL };
 	items[menu.count++] = (menu_item_t ) { "Flames", "MENU/FLAMES.ICO", "MENU/FLAMES.PRV", &mbp_bling_flames, NULL };
 	items[menu.count++] = (menu_item_t ) { "Twitter", "MENU/TWITTER.ICO", "MENU/TWITTER.PRV", &mbp_bling_twitter, NULL };
 	items[menu.count++] = (menu_item_t ) { "Matrix", "MENU/MATRIX.ICO", "MENU/MATRIX.PRV", &mbp_bling_matrix, NULL };
