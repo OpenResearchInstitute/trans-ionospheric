@@ -177,19 +177,23 @@ static void __set_go_xy(uint8_t x, uint8_t y) {
 }
 
 
+// Display the "Go" menu item in a specified color.
+static void __display_go(uint16_t color) {
+	util_gfx_set_cursor(m_go_x, m_go_y);
+	util_gfx_set_color(color);
+	util_gfx_print("Go ");
+}
+
+
 // Display the "Go" menu item in the disabled state.
 static void __disable_go(void) {
-	util_gfx_set_cursor(m_go_x, m_go_y);
-	util_gfx_set_color(MM_DIMMED_COLOR);
-	util_gfx_print("Go ");
+	__display_go(MM_DIMMED_COLOR);
 }
 
 
 // Display the "Go" menu item in the enabled state.
 static void __enable_go(void) {
-	util_gfx_set_cursor(m_go_x, m_go_y);
-	util_gfx_set_color(MM_ENABLED_COLOR);
-	util_gfx_print("Go ");
+	__display_go(MM_ENABLED_COLOR);
 }
 
 
