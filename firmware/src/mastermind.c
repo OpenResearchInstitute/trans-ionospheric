@@ -21,6 +21,7 @@
 
 #define MM_NUM_COLUMNS	4
 #define	MM_NUM_COLORS	6
+<<<<<<< 1c2b2e5204ce4796330e8d46a4def1007c241f96
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 #define MM_NO_COLOR		(MM_NUM_COLORS)
 #define MM_ANSWER_MATCH	(MM_NUM_COLORS+1)
@@ -30,6 +31,11 @@
 #define MM_ANSWER_MATCH	(MM_NUM_COLORS+2)
 #define MM_ANSWER_WHITE	(MM_NUM_COLORS+3)	// right color, wrong column
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+#define MM_NO_COLOR		(MM_NUM_COLORS)
+#define MM_ANSWER_MATCH	(MM_NUM_COLORS+1)
+#define MM_ANSWER_WHITE	(MM_NUM_COLORS+2)	// right color, wrong column
+>>>>>>> Complete on-screen guess picker for Mastermind
 #define MM_MAX_TURNS	12
 
 #define MM_PLAYING		0
@@ -154,8 +160,40 @@ const uint16_t mm_colors[] = {
 // rows need to be displayed.
 static uint8_t m_row_height;
 
+<<<<<<< 1c2b2e5204ce4796330e8d46a4def1007c241f96
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 =======
+=======
+
+// Current coordinates for the "Go" menu item. This item is updated on
+// the fly (to show whether all guesses have been entered, making it valid
+// to proceed) so it's useful to save these.
+static uint8_t m_go_x, m_go_y;
+
+// Set the current coordinates for the "Go" menu item.
+static void __set_go_xy(uint8_t x, uint8_t y) {
+	m_go_x = x;
+	m_go_y = y;
+}
+
+
+// Display the "Go" menu item in the disabled state.
+static void __disable_go(void) {
+	util_gfx_set_cursor(m_go_x, m_go_y);
+	util_gfx_set_color(MM_DIMMED_COLOR);
+	util_gfx_print("Go ");
+}
+
+
+// Display the "Go" menu item in the enabled state.
+static void __enable_go(void) {
+	util_gfx_set_cursor(m_go_x, m_go_y);
+	util_gfx_set_color(MM_ENABLED_COLOR);
+	util_gfx_print("Go ");
+}
+
+
+>>>>>>> Complete on-screen guess picker for Mastermind
 // Update a single row of the graphical display with color boxes
 // for all of the guesses. This is used when redrawing the screen
 // after a change in m_row_height, but not when actually entering guesses.
@@ -169,6 +207,7 @@ static void __draw_guesses(uint8_t row) {
 		x += MM_PEG_WIDTH + MM_PEG_KERNING;
 	}
 }
+
 
 // Update a single row of the graphical display with color boxes
 // for all of the answers. This is used both when the answers first
@@ -184,26 +223,24 @@ static void __draw_answers(uint8_t row) {
 	}
 }
 
+
 // Draw a single blank color box, consisting of an outline in dark grey
 // around a box filled with black. Used to initialize the guesses, and
 // also used when the user chooses to enter MM_NO_COLOR temporarily.
-static void __draw_peg_outline(uint8_t y, uint8_t peg) {
-	uint8_t x = MM_LEFT_MARGIN + peg * (MM_PEG_WIDTH + MM_PEG_KERNING);
+static void __draw_peg_outline(uint8_t y, uint8_t column) {
+	uint8_t x = MM_LEFT_MARGIN + column * (MM_PEG_WIDTH + MM_PEG_KERNING);
 
 	util_gfx_fill_rect(x, y, MM_PEG_WIDTH, m_row_height - MM_LEADING, COLOR_BLACK);
 	util_gfx_draw_rect(x, y, MM_PEG_WIDTH, m_row_height - MM_LEADING, COLOR_DARKGREY);
 }
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
 
-// Current coordinates for the "Go" menu item. This item is updated on
-// the fly (to show whether all guesses have been entered, making it valid
-// to proceed) so it's useful to save these.
-static uint8_t m_go_x, m_go_y;
 
-// Set the current coordinates for the "Go" menu item.
-static void __set_go_xy(uint8_t x, uint8_t y) {
-	m_go_x = x;
-	m_go_y = y;
+// Draw a single color box in the specified color.
+static void __draw_peg_colorbox(uint8_t y, uint8_t column, uint8_t color) {
+	uint8_t x = MM_LEFT_MARGIN + column * (MM_PEG_WIDTH + MM_PEG_KERNING);
+
+	util_gfx_fill_rect(x, y, MM_PEG_WIDTH, m_row_height - MM_LEADING, mm_colors[color]);
 }
 
 <<<<<<< 363c918778780165b381fc0e3d6abcf529565f73
@@ -217,6 +254,7 @@ static void __display_go(uint16_t color) {
 }
 
 
+<<<<<<< 1c2b2e5204ce4796330e8d46a4def1007c241f96
 // Display the "Go" menu item in the disabled state.
 static void __disable_go(void) {
 	__display_go(MM_DIMMED_COLOR);
@@ -283,11 +321,18 @@ static void __draw_peg_colorbox(uint8_t y, uint8_t column, uint8_t color) {
 static bool __guess_is_complete(mm_color_list_t *guess, uint8_t row) {
 	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
 		if (guess->peg[i] >= MM_NUM_COLORS) {
+=======
+// Check whether all the columns in this guess are set to a valid color.
+static bool __guess_is_complete(uint8_t row) {
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		if (game.turn[row].guess.peg[i] >= MM_NUM_COLORS) {
+>>>>>>> Complete on-screen guess picker for Mastermind
 			return false;
 		}
 	}
 
 	return true;
+<<<<<<< 1c2b2e5204ce4796330e8d46a4def1007c241f96
 }
 
 
@@ -935,20 +980,45 @@ static void __disable_go(void) {
 	util_gfx_set_cursor(m_go_x, m_go_y);
 	util_gfx_set_color(MM_DIMMED_COLOR);
 	util_gfx_print("Go ");
+=======
+>>>>>>> Complete on-screen guess picker for Mastermind
 }
 
 
-// Display the "Go" menu item in the enabled state.
-static void __enable_go(void) {
-	util_gfx_set_cursor(m_go_x, m_go_y);
-	util_gfx_set_color(MM_ENABLED_COLOR);
-	util_gfx_print("Go ");
+// Update a single peg box according to game state and button press.
+// Cycle up or down through the list of colors (0 to MM_NUM_COLORS) and
+// a final value representing no color choice (MM_NUM_COLORS == MM_NO_COLOR).
+static void __change_peg_box(uint8_t y, uint8_t row, uint8_t column, bool up) {
+	uint8_t peg = game.turn[row].guess.peg[column];
+	if (up) {
+		peg++;
+		if (peg > MM_NUM_COLORS) {
+			peg = 0;
+		}
+	} else if (peg == 0) {
+		peg = MM_NO_COLOR;
+	} else {
+		peg--;
+	}
+	game.turn[row].guess.peg[column] = peg;
+
+	if (peg == MM_NO_COLOR) {
+		__draw_peg_outline(y, column);
+	} else {
+		__draw_peg_colorbox(y, column, peg);
+	}
+
+	if (__guess_is_complete(row)) {
+		__enable_go();
+	} else {
+		__disable_go();
+	}
 }
 
 
 // Clear the arrow pointer.
 static void __mm_arrow_clear(uint8_t y) {
-	util_gfx_fill_rect( 0, y, GFX_WIDTH, MM_ARROW_HEIGHT+1, MM_BACKGROUND_COLOR);
+	util_gfx_fill_rect( 0, y+m_row_height, GFX_WIDTH, MM_ARROW_HEIGHT+1, MM_BACKGROUND_COLOR);
 }
 
 
@@ -958,6 +1028,7 @@ static void __mm_arrow(uint8_t y, uint8_t which) {
 	__mm_arrow_clear(y);
 
 	// compute the location of the top vertex
+	y += m_row_height;
 	uint8_t x = MM_LEFT_MARGIN + MM_PEG_WIDTH/2 + which*(MM_PEG_WIDTH+MM_PEG_KERNING);
 	if (which == MM_NUM_COLUMNS) {
 		// Move the Go arrow over a bit to look centered
@@ -997,26 +1068,50 @@ static bool __collect_guesses(uint8_t row) {
 	util_gfx_print("   Quit");	// leaving room for "Go" at the beginning
 	__disable_go();
 
-	//!!! Here's where we display the triangle cursor and handle buttons
-	//!!! until the user selects Go or Quit
+	// Handle buttons until the user selects Go or Quit
+	uint8_t column = 0;
+	__mm_arrow(y, column);
+	while (1) {
+		util_button_wait();
 
-	//!!! demo
-	for (uint8_t i=0; i < MM_NUM_COLUMNS+2; i++) {
-		__mm_arrow(y + m_row_height, i);
-		nrf_delay_ms(1000);
+		if (util_button_up()) {
+			if (column < MM_NUM_COLUMNS) {
+				__change_peg_box(y, row, column, true);
+			}
+		} else if (util_button_down() > 0) {
+			if (column < MM_NUM_COLUMNS) {
+				__change_peg_box(y, row, column, false);
+			}
+		} else if (util_button_action()) {
+			if (column == MM_NUM_COLUMNS) {	// Go menu item
+				if (__guess_is_complete(row)) {
+					// Erase other menu choices
+					util_gfx_fill_rect(MM_GO_X_POSITION,
+										y-2, 							// allow for ascender height
+										GFX_WIDTH - MM_GO_X_POSITION,	// to right screen edge
+										m_row_height+2,					// to the very bottom
+										MM_BACKGROUND_COLOR);
+					__mm_arrow_clear(y);
+					return true;
+				}
+			} else if (column == MM_NUM_COLUMNS+1) {	// Quit menu item
+				// No need to clean up display, we'll be abandoning it anyway.
+				return false;
+			}
+		} else if (util_button_left()) {
+			if (column > 0) {
+				column--;
+				__mm_arrow(y, column);
+			}
+		} else if (util_button_right()) {
+			if (column < MM_NUM_COLUMNS+1) {
+				column++;
+				__mm_arrow(y, column);
+			}
+		}
+
+		util_button_clear();
 	}
-	__enable_go();		//!!! this happens when all four guesses are filled in
-	nrf_delay_ms(2000); //!!!
-
-	// Erase other menu choices
-	util_gfx_fill_rect(MM_GO_X_POSITION,
-						y-2, 							// allow for ascender height
-						GFX_WIDTH - MM_GO_X_POSITION,	// to right screen edge
-						m_row_height+2,					// to the very bottom
-						MM_BACKGROUND_COLOR);
-	__mm_arrow_clear(y + m_row_height);
-
-	return true;	//!!! actually need to return correct status here.
 }
 
 
