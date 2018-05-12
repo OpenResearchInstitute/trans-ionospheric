@@ -387,12 +387,10 @@ void mbp_bling_ADA(void *data) { simple_filebased_bling("BLING/TRANSIO/ADA.RAW",
 void mbp_bling_ANIME(void *data) { simple_filebased_bling("BLING/TRANSIO/ANIME.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_ARRL(void *data) { simple_filebased_bling("BLING/TRANSIO/ARRL.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_CRT1(void *data) { simple_filebased_bling("BLING/TRANSIO/CRT1.RAW", "BLING/PINKBLUE.RGB"); }
-void mbp_bling_EYE(void *data) { simple_filebased_bling("BLING/TRANSIO/EYE.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_HOMER(void *data) { simple_filebased_bling("BLING/TRANSIO/HOMER.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_HORN(void *data) { simple_filebased_bling("BLING/TRANSIO/HORN.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_KEY(void *data) { simple_filebased_bling("BLING/TRANSIO/KEY.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_KUHL(void *data) { simple_filebased_bling("BLING/TRANSIO/KUHL.RAW", "BLING/PINKBLUE.RGB"); }
-void mbp_bling_METER1(void *data) { simple_filebased_bling("BLING/TRANSIO/METER1.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_MICK(void *data) { simple_filebased_bling("BLING/TRANSIO/MICK.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_MODEL(void *data) { simple_filebased_bling("BLING/TRANSIO/MODEL.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_NIXIE(void *data) { simple_filebased_bling("BLING/TRANSIO/NIXIE.RAW", "BLING/PINKBLUE.RGB"); }

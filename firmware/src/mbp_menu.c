@@ -421,12 +421,10 @@ static void mbp_menu_bling() {
 	items[menu.count++] = (menu_item_t ) { "Anime", "MENU/ANIME.ICO", "MENU/ANIME.PRV", &mbp_bling_ANIME, NULL };
 	items[menu.count++] = (menu_item_t ) { "ARRL", "MENU/ARRL.ICO", "MENU/ARRL.PRV", &mbp_bling_ARRL, NULL };
 	items[menu.count++] = (menu_item_t ) { "CRT", "MENU/CRT1.ICO", "MENU/CRT1.PRV", &mbp_bling_CRT1, NULL };
-	items[menu.count++] = (menu_item_t ) { "Eye", "MENU/EYE.ICO", "MENU/EYE.PRV", &mbp_bling_EYE, NULL };
 	items[menu.count++] = (menu_item_t ) { "Homer", "MENU/HOMER.ICO", "MENU/HOMER.PRV", &mbp_bling_HOMER, NULL };
 	items[menu.count++] = (menu_item_t ) { "Horn", "MENU/HORN.ICO", "MENU/HORN.PRV", &mbp_bling_HORN, NULL };
 	items[menu.count++] = (menu_item_t ) { "Key", "MENU/KEY.ICO", "MENU/KEY.PRV", &mbp_bling_KEY, NULL };
 	items[menu.count++] = (menu_item_t ) { "Kuhl", "MENU/KUHL.ICO", "MENU/KUHL.PRV", &mbp_bling_KUHL, NULL };
-	items[menu.count++] = (menu_item_t ) { "Meter", "MENU/METER1.ICO", "MENU/METER1.PRV", &mbp_bling_METER1, NULL };
 	items[menu.count++] = (menu_item_t ) { "Mickey", "MENU/MICK.ICO", "MENU/MICK.PRV", &mbp_bling_MICK, NULL };
 	items[menu.count++] = (menu_item_t ) { "Model", "MENU/MODEL.ICO", "MENU/MODEL.PRV", &mbp_bling_MODEL, NULL };
 	items[menu.count++] = (menu_item_t ) { "Nixie", "MENU/NIXIE.ICO", "MENU/NIXIE.PRV", &mbp_bling_NIXIE, NULL };
