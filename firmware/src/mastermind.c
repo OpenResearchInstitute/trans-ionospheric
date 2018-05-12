@@ -84,6 +84,9 @@ APP_TIMER_DEF(m_mm_animation_timer);
 #define MM_AUTO_OPPONENT	18
 >>>>>>> Add "play the badge" option, draw the arrows
 
+#define MM_ANIMATION_MS		100
+APP_TIMER_DEF(m_mm_animation_timer);
+
 // Structure that holds a single row of color choices,
 // which may be guesses or answers.
 // Each entry should be a color index from 0 to MM_NUM_COLORS for guesses,
@@ -148,10 +151,23 @@ const uint16_t mm_colors[] = {
 //!!! Bluetooth address or a flag that play is to proceed locally.
 static mm_opponent_t m_opponent;
 
+// Secret code for local play against the badge
+static mm_color_list_t		m_their_code;
+
+// Secret code we create for remote player to guess
+static mm_color_list_t		m_our_code;
+
+// Key pegs answer we have received from the codemaker (auto or remote)
+static mm_color_list_t		m_received_answer;
+
 // These are the graphical colors used to display the various color indexes.
 const uint16_t mm_colors[] = {
+<<<<<<< 51adb0317c36c4575303e68e904cfa3f74a2d88d
 	COLOR_YELLOW, COLOR_RED, COLOR_ORANGE, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE,
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+	COLOR_YELLOW, COLOR_RED, COLOR_MAGENTA, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE,
+>>>>>>> Integrate Mastermind scorer; first playable version
 	MM_BACKGROUND_COLOR,		// MM_NO_COLOR
 	COLOR_PINK, COLOR_WHITE		// Colors for answers
 };
@@ -201,6 +217,7 @@ static void __enable_go(void) {
 // Update a single row of the graphical display with color boxes
 // for all of the guesses. This is used when redrawing the screen
 // after a change in m_row_height, but not when actually entering guesses.
+// It assumes the guesses are all valid colors.
 static void __draw_guesses(uint8_t row) {
 	uint8_t y = SUBMENU_TITLE_SIZE + 1 + row * m_row_height + 2;
 	uint8_t x = MM_LEFT_MARGIN;
@@ -327,10 +344,14 @@ static bool __guess_is_complete(mm_color_list_t *guess, uint8_t row) {
 		if (guess->peg[i] >= MM_NUM_COLORS) {
 =======
 // Check whether all the columns in this guess are set to a valid color.
-static bool __guess_is_complete(uint8_t row) {
+static bool __guess_is_complete(mm_color_list_t *guess, uint8_t row) {
 	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+<<<<<<< 51adb0317c36c4575303e68e904cfa3f74a2d88d
 		if (game.turn[row].guess.peg[i] >= MM_NUM_COLORS) {
 >>>>>>> Complete on-screen guess picker for Mastermind
+=======
+		if (guess->peg[i] >= MM_NUM_COLORS) {
+>>>>>>> Integrate Mastermind scorer; first playable version
 			return false;
 		}
 	}
@@ -990,10 +1011,10 @@ static void __disable_go(void) {
 
 
 // Update a single peg box according to game state and button press.
-// Cycle up or down through the list of colors (0 to MM_NUM_COLORS) and
+// Cycle up or down through the list of colors (0 to MM_NUM_COLORS-1) and
 // a final value representing no color choice (MM_NUM_COLORS == MM_NO_COLOR).
-static void __change_peg_box(uint8_t y, uint8_t row, uint8_t column, bool up) {
-	uint8_t peg = game.turn[row].guess.peg[column];
+static void __change_peg_box(mm_color_list_t *guess, uint8_t y, uint8_t row, uint8_t column, bool up) {
+	uint8_t peg = guess->peg[column];
 	if (up) {
 		peg++;
 		if (peg > MM_NUM_COLORS) {
@@ -1004,7 +1025,7 @@ static void __change_peg_box(uint8_t y, uint8_t row, uint8_t column, bool up) {
 	} else {
 		peg--;
 	}
-	game.turn[row].guess.peg[column] = peg;
+	guess->peg[column] = peg;
 
 	if (peg == MM_NO_COLOR) {
 		__draw_peg_outline(y, column);
@@ -1012,7 +1033,7 @@ static void __change_peg_box(uint8_t y, uint8_t row, uint8_t column, bool up) {
 		__draw_peg_colorbox(y, column, peg);
 	}
 
-	if (__guess_is_complete(row)) {
+	if (__guess_is_complete(guess, row)) {
 		__enable_go();
 	} else {
 		__disable_go();
@@ -1053,7 +1074,7 @@ static void __mm_arrow(uint8_t y, uint8_t which) {
 // Collect guesses from the local user, in place on the graphic display
 // Returns: true if the user guessed and hit Go
 //			false if the user hit Quit
-static bool __collect_guesses(uint8_t row) {
+static bool __collect_guesses(mm_color_list_t *guess, uint8_t row) {
 	uint8_t y = SUBMENU_TITLE_SIZE		// room for the column headers
 	 			+ 1 					// room for the line under the headers
 				+ row * m_row_height	// room for the boxes above this row
@@ -1080,15 +1101,15 @@ static bool __collect_guesses(uint8_t row) {
 
 		if (util_button_up()) {
 			if (column < MM_NUM_COLUMNS) {
-				__change_peg_box(y, row, column, true);
+				__change_peg_box(guess, y, row, column, true);
 			}
 		} else if (util_button_down() > 0) {
 			if (column < MM_NUM_COLUMNS) {
-				__change_peg_box(y, row, column, false);
+				__change_peg_box(guess, y, row, column, false);
 			}
 		} else if (util_button_action()) {
 			if (column == MM_NUM_COLUMNS) {	// Go menu item
-				if (__guess_is_complete(row)) {
+				if (__guess_is_complete(guess, row)) {
 					// Erase other menu choices
 					util_gfx_fill_rect(MM_GO_X_POSITION,
 										y-2, 							// allow for ascender height
@@ -1119,14 +1140,345 @@ static bool __collect_guesses(uint8_t row) {
 }
 
 
-// Send the guess to the code maker (remote or automatic) and display answers
+// shuffle the array of key pegs
+static void __shuffle(uint8_t* array, long NumberOfElements)
+{
+	if (NumberOfElements > 1)
+	{
+		long i;
+		for (i = 0; i < NumberOfElements - 1; i++)
+		{
+			long j = i + rand() / (RAND_MAX / (NumberOfElements - i) + 1);
+			uint8_t t = array[j];
+			array[j] = array[i];
+			array[i] = t;
+		}
+	}
+}
+
+
+// Score a guess against a secret code.
+// Results go in m_received_answer
+// This implementation only works for FOUR COLUMNS
+static void __mm_score_guess(mm_color_list_t *guess_struct, mm_color_list_t *code) {
+
+	// Adapt arguments to existing code for scoring
+	// int testCode(int* color, int* guess, int* pegs)
+	uint8_t guess[4];
+	uint8_t color[4];
+	uint8_t pegs[4];
+	for (uint8_t i=0; i < 4; i++) {
+		guess[i] = guess_struct->peg[i] + 1;		// color can't be 0 here.
+		color[i] = code->peg[i] + 1;
+	}
+
+	//key peg result of 2 is a match in both position and color
+	//key peg result of 1 is a match in color, but not position
+	//punch out all the perfect matches first
+	//Check for exact matches and mark corresponding key peg
+	if(guess[0] == color[0]){
+		// printf("correct1\n");
+		pegs[0] = 2;
+	}
+	if(guess[1] == color[1]){
+		// printf("correct2\n");
+		pegs[1] = 2;
+	}
+	if(guess[2] == color[2]){
+		// printf("correct3\n");
+		pegs[2] = 2;
+	}
+	if(guess[3] == color[3]){
+		// printf("correct4\n");
+		pegs[3] = 2;
+	}
+
+	//then check remaining guesses to see if the color appears in remaining color code
+	//found another bug.
+
+	uint8_t color_flag[4] = {1, 1, 1, 1};  //trust me
+
+	if(pegs[0]==0){
+		// printf("test guess[0] for color out of place\n");
+		//we only work with guess[0] if it wasn't an exact match
+		//it's either 0 or 2 at this point of the tests
+		//this might work more generally if it was != 2
+		//but I don't know that yet
+		if((guess[0] == color[1])&&(pegs[1]!=2)){
+			//guess[0] matches color[1], but we can't claim it if guess[1] matched color[1] already
+			//since pegs[1] = 2 in that condition, we can work this into the test
+			// printf("guess[0] at color[1] so peg[0] = 1 and color_flag[1] = 0 to remove it from further testing\n");
+			pegs[0] = 1;
+			color_flag[1] = 0; //we matched with color[1], remove it
+		}else{//only execute this if the above condition was false
+			if((guess[0] == color[2])&&(pegs[2]!=2)){
+				//guess[0] matches color[2], but we can't claim it if guess[2] matched color[2] already
+				//since pegs[2] = 2 in that condition, we can work this into the test
+				// printf("guess[0] at color[2] so pegs[0]=1 and color_flag[2] = 0 to remove it from further testing\n");
+				pegs[0] = 1;
+				color_flag[2] = 0; //we matched with color[2], remove it
+			}else{//only execute this if the above condition was false
+				if((guess[0] == color[3])&&(pegs[3]!=2)){
+					//guess[0] matches color[3], but we can't claim it if guess[3] matched color[3] already
+					//since pegs[3] = 2 in that condition, we can work this into the test
+					// printf("guess[0] at color[3] so pegs[0]=1 and color_flag[3] = 0 to remove it from further testing\n");
+					pegs[0] = 1;
+					color_flag[3] = 0; //we matched with color[3], remove it
+
+
+				}
+			}
+		}
+	}
+
+
+	if(pegs[1]==0){
+		// printf("test guess[1] for color out of place\n");
+		//we only work with guess[1] if it wasn't an exact match
+		//it's either 0 or 2 at this point of the tests
+		//this might work more generally if it was != 2
+		//but I don't know that yet
+		if((guess[1] == color_flag[0]*color[0])&&(pegs[0]!=2)){
+			//guess[1] matches color[0], but we can't claim it if guess[0] matched color[0] already
+			//since pegs[0] = 2 in that condition, we can work this into the test
+			// printf("guess[1] at color[0] so peg[1] = 1 and color_flag[0] = 0 to remove it from further testing\n");
+			pegs[1] = 1;
+			color_flag[0] = 0; //we matched with color[0], remove it
+
+
+		}else{//only execute this if the above condition was false
+			if((guess[1] == color_flag[2]*color[2])&&(pegs[2]!=2)){
+				//guess[1] matches color[2], but we can't claim it if guess[2] matched color[2] already
+				//since pegs[2] = 2 in that condition, we can work this into the test
+				// printf("guess[1] at color[2] so pegs[1]=1 and color_flag[2] = 0 to remove it from further testing\n");
+				pegs[1] = 1;
+				color_flag[2] = 0; //we matched with color[2], remove it
+
+
+			}else{//only execute this if the above condition was false
+				if((guess[1] == color_flag[3]*color[3])&&(pegs[3]!=2)){
+					//guess[1] matches color[3], but we can't claim it if guess[3] matched color[3] already
+					//since pegs[3] = 2 in that condition, we can work this into the test
+					// printf("guess[1] at color[3] so pegs[1]=1 and color_flag[3] = 0 to remove it from further testing\n");
+					pegs[1] = 1;
+					color_flag[3] = 0; //we matched with color[3], remove it
+
+
+				}
+			}
+		}
+	}
+
+	if(pegs[2]==0){
+		// printf("test guess[2] for color out of place\n");
+		//we only work with guess[2] if it wasn't an exact match
+		//it's either 0 or 2 at this point of the tests
+		//this might work more generally if it was != 2
+		//but I don't know that yet
+		if((guess[2] == color_flag[0]*color[0])&&(pegs[0]!=2)){
+			//guess[2] matches color[0], but we can't claim it if guess[0] matched color[0] already
+			//since pegs[0] = 2 in that condition, we can work this into the test
+			// printf("guess[2] at color[0] so peg[2] = 1 and color_flag[0] = 0 to remove it from further testing\n");
+			pegs[2] = 1;
+			color_flag[0] = 0; //we matched with color[0], remove it
+
+
+		}else{//only execute this if the above condition was false
+			if((guess[2] == color_flag[1]*color[1])&&(pegs[1]!=2)){
+				//guess[2] matches color[1], but we can't claim it if guess[1] matched color[1] already
+				//since pegs[1] = 2 in that condition, we can work this into the test
+				// printf("guess[2] at color[1] so pegs[2]=1 and color_flag[1] = 0 to remove it from further testing\n");
+				pegs[2] = 1;
+				color_flag[1] = 0; //we matched with color[1], remove it
+
+
+			}else{//only execute this if the above condition was false
+				if((guess[2] == color_flag[3]*color[3])&&(pegs[3]!=2)){
+					//guess[2] matches color[3], but we can't claim it if guess[3] matched color[3] already
+					//since pegs[3] = 2 in that condition, we can work this into the test
+					// printf("guess[2] at color[3] so pegs[2]=1 and color_flag[3] = 0 to remove it from further testing\n");
+					pegs[2] = 1;
+					color_flag[3] = 0; //we matched with color[3], remove it
+
+
+				}
+			}
+		}
+	}
+
+	if(pegs[3]==0){
+		// printf("test guess[3] for color out of place\n");
+		//we only work with guess[3] if it wasn't an exact match
+		//it's either 0 or 2 at this point of the tests
+		//this might work more generally if it was != 2
+		//but I don't know that yet
+		if((guess[3] == color_flag[0]*color[0])&&(pegs[0]!=2)){
+			//guess[3] matches color[0], but we can't claim it if guess[0] matched color[0] already
+			//since pegs[0] = 2 in that condition, we can work this into the test
+			// printf("guess[3] at color[0] so peg[3] = 1 and color_flag[0] = 0 to remove it from further testing\n");
+			pegs[3] = 1;
+			color_flag[0] = 0; //we matched with color[0], remove it
+
+
+		}else{//only execute this if the above condition was false
+			if((guess[3] == color_flag[2]*color[2])&&(pegs[2]!=2)){
+				//guess[3] matches color[2], but we can't claim it if guess[2] matched color[2] already
+				//since pegs[2] = 2 in that condition, we can work this into the test
+				// printf("guess[3] at color[2] so pegs[3]=1 and color_flag[2] = 0 to remove it from further testing\n");
+				pegs[3] = 1;
+				color_flag[2] = 0; //we matched with color[2], remove it
+
+
+			}else{//only execute this if the above condition was false
+				if((guess[3] == color_flag[1]*color[1])&&(pegs[1]!=2)){
+					//guess[3] matches color[1], but we can't claim it if guess[1] matched color[1] already
+					//since pegs[1] = 2 in that condition, we can work this into the test
+					// printf("guess[3] at color[1] so pegs[3]=1 and color_flag[1] = 0 to remove it from further testing\n");
+					pegs[3] = 1;
+					color_flag[1] = 0; //we matched with color[1], remove it
+
+
+				}
+			}
+		}
+	}
+	// printf("inside knuth-o-matic, counter is now %d\n", pegs[0]+pegs[1]+pegs[2]+pegs[3]);
+	// return pegs[0]+pegs[1]+pegs[2]+pegs[3];
+
+	// Key pegs need to be scrambled up to hide position information
+	__shuffle(pegs, 4);
+
+	// Convert output of existing code to our color convention
+	// and copy it into m_received_answer.
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		switch (pegs[i]) {
+			case 0:
+				m_received_answer.peg[i] = MM_NO_COLOR;
+				break;
+			case 1:
+				m_received_answer.peg[i] = MM_ANSWER_WHITE;
+				break;
+			case 2:
+				m_received_answer.peg[i] = MM_ANSWER_MATCH;
+				break;
+			default:
+				mbp_ui_error("unknown key peg value");
+				break;
+		}
+	}
+}
+
+
+// Alternate untested unintegrated scoring routine.
+// WIP but it can score any number of columns.
+// static void __score_guess(uint8_t *guess, uint8_t *code, uint8_t *keypegs) {
+// 	uint8_t exact_matches = 0;
+// 	uint8_t color_matches = 0;
+//
+// 	// Make scratch copies of both guess and code
+// 	for (int8_t i=0; i < MM_NUM_COLUMNS; i++) {
+// 		s_guess[i] = guess[i];
+// 		s_code[i] = code[i];
+// 	}
+//
+// 	// Check for exact matches (color and position); mark them in both scratch arrays
+// 	for (int8_t i=0; i < MM_NUM_COLUMNS; i++) {
+// 		if (s_guess[i] == s_code[i]) {
+// 			exact_matches++;
+// 			s_guess[i] = MM_NO_COLOR_1;
+// 			s_code[i] == MM_NO_COLOR_2;
+// 		}
+// 	}
+//
+// 	// For each peg in the guess, scan the code array for a color match.
+// 	for (uint8_t g=0; g < MM_NUM_COLUMNS; g++) {
+// 		// We're not skipping guess that are exact matches; they won't match again.
+//
+// 		for (uint8_t c=0; c < MM_NUM_COLUMNS; c++) {
+// 			// We're not skipping codes that already matched; they won't match again.
+//
+// 			if (s_guess[g] == s_code[c]) {
+// 				color_matches++;
+// 				s_code[c] = MM_NO_COLOR_2;
+// 				break;		// Don't look for any more matches of this guess peg
+// 			}
+// 		}
+// 	}
+//
+//
+// }
+
+
+// Animation timer for waiting for our guess to be scored.
+static uint8_t m_animation_row;
+static void __mm_animation_timer_handler(void *p_data) {
+
+	// select random colors for the answers in the row
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		game.turn[m_animation_row].answer.peg[i] = util_math_rand16_max(0xFFFF);
+	}
+	__draw_answers(m_animation_row);
+}
+
+
+// Control the animation for waiting for our guess to be scored.
+static void __animate_answers(uint8_t row, bool run) {
+	uint32_t err_code;
+
+	if (run) {
+		m_animation_row = row;
+
+		// start the animation
+		err_code = app_timer_create(&m_mm_animation_timer, APP_TIMER_MODE_REPEATED, __mm_animation_timer_handler);
+		APP_ERROR_CHECK(err_code);
+
+		uint32_t ticks = APP_TIMER_TICKS(MM_ANIMATION_MS, UTIL_TIMER_PRESCALER);
+		err_code = app_timer_start(m_mm_animation_timer, ticks, NULL);
+		APP_ERROR_CHECK(err_code);
+
+	} else {
+		// stop the animation
+		app_timer_stop(m_mm_animation_timer);
+	}
+}
+
+
+// Send the user's guess to the code maker (remote or automatic) and obtain answers
 // Returns: true if we successfully retrieved answers
 //			false if not
 static bool __collect_answers(uint8_t row) {
+	bool status = false;
 
-	//!!! TODO
+	// for debug let's see the receive answers all magenta if not updated.
+	// for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+	// 	m_received_answer.peg[i] = 2;
+	// }
 
-	return true;
+	// scribble on the answers wildly to signal that thinking is taking place
+	__animate_answers(row, true);
+
+	if (m_opponent.remote) {
+		//!!! TODO
+
+		status = false;
+	} else {	// non-remote, automatic, opponent
+		// call the scoring algorithm locally
+		__mm_score_guess(&(game.turn[row].guess), &m_their_code);
+
+		nrf_delay_ms(2000);	// make it seem like hard work!
+		status = true;		// local scoring always succeeds
+	}
+
+	// stop the animation
+	__animate_answers(row, false);
+
+	// replace the animation with answers collected
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		game.turn[row].answer.peg[i] = m_received_answer.peg[i];
+	}
+	__draw_answers(row);
+
+	return status;
 }
 
 
@@ -1164,7 +1516,7 @@ static void __mm_codebreaker(void) {
 		}
 	}
 
-	// Initial screen draw.
+	// Initial screen draw
 	util_gfx_cursor_area_reset();
 	mbp_ui_cls();
 	util_gfx_fill_screen(MM_BACKGROUND_COLOR);
@@ -1191,7 +1543,7 @@ static void __mm_codebreaker(void) {
 			}
 		}
 
-		if ( ! __collect_guesses(turn)) {
+		if ( ! __collect_guesses(&(game.turn[turn].guess), turn)) {
 			status = MM_USER_QUIT;
 			break;
 		}
@@ -1226,7 +1578,7 @@ static void __mm_codebreaker(void) {
 				sprintf(msg_buf, "Couldn't get an answer from the other player!");
 				break;
 		case MM_VICTORY:
-				sprintf(msg_buf, "You got it in %d turn%c!", turn-1, turn == 0 ? '!' : 's');
+				sprintf(msg_buf, "You got it in %d turn%c!", turn+1, turn == 0 ? '!' : 's');
 				break;
 		case MM_DEFEAT:
 				sprintf(msg_buf, "You had %d tries but still didn't get it!", MM_MAX_TURNS);
@@ -1239,11 +1591,46 @@ static void __mm_codebreaker(void) {
 }
 
 
+// Prompts the user for a secret code
+// Returns: true if the user entered a complete code and hit Go
+//			false if the user hit Quit
+static bool __mm_make_code(void) {
+
+	m_row_height = 16;	// nice big boxes for single-row code entry
+
+	// Initial screen draw.
+	util_gfx_cursor_area_reset();
+	mbp_ui_cls();
+	util_gfx_fill_screen(MM_BACKGROUND_COLOR);
+
+	util_gfx_set_font(FONT_LARGE);
+	util_gfx_set_cursor(0, 5);
+	util_gfx_set_color(COLOR_WHITE);
+	util_gfx_fill_rect(0, 0, GFX_WIDTH, SUBMENU_TITLE_SIZE, SUBMENU_TITLE_BG);
+	util_gfx_draw_line(0, SUBMENU_TITLE_SIZE, GFX_WIDTH, SUBMENU_TITLE_SIZE, SUBMENU_TITLE_FG);
+	util_gfx_print("MASTERMIND");
+
+	util_gfx_set_font(FONT_SMALL);
+	util_gfx_set_cursor(0, 2 + SUBMENU_TITLE_SIZE);
+	util_gfx_set_color(COLOR_GREEN);
+	util_gfx_print("Enter your secret    code for the other   player to guess:");
+
+	// util_gfx_draw_line(0, SUBMENU_TITLE_SIZE, GFX_WIDTH, SUBMENU_TITLE_SIZE, SUBMENU_TITLE_FG);
+
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		m_our_code.peg[i] = MM_NO_COLOR;
+	}
+
+	return __collect_guesses(&m_our_code, 3);	// Use row 3 for a nice vertical location
+}
+
+
 // Handle the action of selecting an opponent from the menu.
 static void __set_remote_opponent(void *p_data) {
 	memcpy(m_opponent.name, ((ble_badge_list_menu_text_t *)p_data)->text, 20);
 	m_opponent.remote = true;
 }
+
 
 static void __set_auto_opponent(void *p_data) {
 	strcpy(m_opponent.name, "the Badge");
@@ -1387,9 +1774,14 @@ static bool __mm_connect_opponent(char *text) {
 }
 
 
+// "Connect" to the simulated opponent within this program.
 static bool __mm_connect_auto_opponent(mm_opponent_t opponent) {
-	//!!! what to do
+	// Roll up a random secret code.
+	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
+		m_their_code.peg[i] = util_math_rand8_max(MM_NUM_COLORS);
+	}
 
+	nrf_delay_ms(2000);		// Whew, that was hard work.
 	return true;
 }
 
@@ -1409,14 +1801,20 @@ static bool __mm_connect_opponent(mm_opponent_t opponent) {
 // The codemaker function is automatic, except for choosing the code.
 void mastermind() {
 
+<<<<<<< 51adb0317c36c4575303e68e904cfa3f74a2d88d
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
+=======
+>>>>>>> Integrate Mastermind scorer; first playable version
 	// Try to collect the codemaker pegs from the user
 	if (! __mm_make_code()) {
 		return;
 	}
+<<<<<<< 51adb0317c36c4575303e68e904cfa3f74a2d88d
 =======
 	//!!! here we need to collect the codemaker pegs from the user
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+>>>>>>> Integrate Mastermind scorer; first playable version
 
 	// Try to pick an opponent from the available players
 	if (__mbp_mastermind_players()) {
@@ -1454,9 +1852,13 @@ void mastermind() {
 // Entry point from an incoming Bluetooth connection.
 void mastermind_rsvp(void) {
 
+<<<<<<< 51adb0317c36c4575303e68e904cfa3f74a2d88d
 <<<<<<< 251ab9bf26d0113cc440f96623a5956f8681e99e
 	//!!! TODO
 =======
 	// TODO
 >>>>>>> WIP: Implement structure of Mastermind codebreaker UI
+=======
+	//!!! TODO
+>>>>>>> Integrate Mastermind scorer; first playable version
 }
