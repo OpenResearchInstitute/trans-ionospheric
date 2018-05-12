@@ -56,11 +56,46 @@ extern void mbp_bling_hello_dc801_schedule_handler(void * p_event_data, uint16_t
 extern void mbp_bling_hello_queercon_schedule_handler(void * p_event_data, uint16_t event_size);
 extern void mbp_bling_twitter();
 //
-extern void mbp_bling_drwho_time();
-extern void mbp_bling_duckhunt();
-extern void mbp_bling_outer_limits();
-extern void mbp_bling_portal_wink();
 extern void mbp_bling_twilight_zone();
+
+extern void mbp_bling_16APSK();
+extern void mbp_bling_ADA();
+extern void mbp_bling_ANIME();
+extern void mbp_bling_ARRL();
+extern void mbp_bling_CRT1();
+extern void mbp_bling_EYE();
+extern void mbp_bling_HOMER();
+extern void mbp_bling_HORN();
+extern void mbp_bling_KEY();
+extern void mbp_bling_KUHL();
+extern void mbp_bling_METER1();
+extern void mbp_bling_MICK();
+extern void mbp_bling_MODEL();
+extern void mbp_bling_NIXIE();
+extern void mbp_bling_NOISE();
+extern void mbp_bling_OSCOPE();
+extern void mbp_bling_PATTERN();
+extern void mbp_bling_PRISM();
+extern void mbp_bling_RADIO();
+extern void mbp_bling_RKO1();
+extern void mbp_bling_RKO2();
+extern void mbp_bling_ROTATE();
+extern void mbp_bling_SAT1();
+extern void mbp_bling_SAT2();
+extern void mbp_bling_SBOB();
+extern void mbp_bling_SDR();
+extern void mbp_bling_SNOW();
+extern void mbp_bling_SP1();
+extern void mbp_bling_SP2();
+extern void mbp_bling_SP3();
+extern void mbp_bling_SPECT1();
+extern void mbp_bling_SPECT2();
+extern void mbp_bling_TESLA();
+extern void mbp_bling_TOWER();
+extern void mbp_bling_TREK1();
+extern void mbp_bling_TREK2();
+extern void mbp_bling_YAGI();
+
 //
 extern bool mbp_background_led_running();
 extern void mbp_background_led_start();

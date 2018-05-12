@@ -375,23 +375,57 @@ void mbp_bling_led_rainbow_callback(uint8_t frame, void *p_data) {
     *data = (int) (hue * 100);
 }
 
-void mbp_bling_drwho_time(void *data) { simple_filebased_bling("BLING/JOCO/DRWHOTIM.RAW", "BLING/TUNNEL.RGB");}
-
-void mbp_bling_duckhunt(void *data) { simple_filebased_bling("BLING/JOCO/DUCKHUNT.RAW", "BLING/COLORS3.RGB"); }
-
-void mbp_bling_get_on_my_horse(void *data) { simple_filebased_bling("BLING/JOCO/MYHORSE.RAW", "BLING/IRADESC.RGB"); }
-
-void mbp_bling_outer_limits() {
-    uint8_t hue = 0;
-    util_led_clear();
-    util_gfx_draw_raw_file("BLING/JOCO/OUTERLIM.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
-}
-
-void mbp_bling_portal_wink(void *data) { simple_filebased_bling("BLING/JOCO/PORTALWN.RAW", "BLING/CIRCLES.RGB"); }
+// template
+//void mbp_bling_fillthisin(void *data) { simple_filebased_bling("BLING/JOCO/DRWHOTIM.RAW", "BLING/TUNNEL.RGB");}
 
 void mbp_bling_flames(void *data) { simple_filebased_bling("BLING/AND!XOR/FLAMES.RAW", "BLING/FLAMES.RGB"); }
 
 void mbp_bling_hack_time(void *data) { simple_filebased_bling("BLING/AND!XOR/HACKTIME.RAW", "BLING/PINKBLUE.RGB"); }
+
+void mbp_bling_16APSK(void *data) { simple_filebased_bling("BLING/TRANSIO/16APSK.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_ADA(void *data) { simple_filebased_bling("BLING/TRANSIO/ADA.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_ANIME(void *data) { simple_filebased_bling("BLING/TRANSIO/ANIME.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_ARRL(void *data) { simple_filebased_bling("BLING/TRANSIO/ARRL.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_CRT1(void *data) { simple_filebased_bling("BLING/TRANSIO/CRT1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_EYE(void *data) { simple_filebased_bling("BLING/TRANSIO/EYE.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_HOMER(void *data) { simple_filebased_bling("BLING/TRANSIO/HOMER.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_HORN(void *data) { simple_filebased_bling("BLING/TRANSIO/HORN.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_KEY(void *data) { simple_filebased_bling("BLING/TRANSIO/KEY.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_KUHL(void *data) { simple_filebased_bling("BLING/TRANSIO/KUHL.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_METER1(void *data) { simple_filebased_bling("BLING/TRANSIO/METER1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_MICK(void *data) { simple_filebased_bling("BLING/TRANSIO/MICK.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_MODEL(void *data) { simple_filebased_bling("BLING/TRANSIO/MODEL.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_NIXIE(void *data) { simple_filebased_bling("BLING/TRANSIO/NIXIE.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_NOISE(void *data) { simple_filebased_bling("BLING/TRANSIO/NOISE.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_OSCOPE(void *data) { simple_filebased_bling("BLING/TRANSIO/OSCOPE.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_PATTERN(void *data) { simple_filebased_bling("BLING/TRANSIO/PATTERN.RAW", "BLING/PINKBLUE.RGB"); }
+
+//void mbp_bling_PRISM(void *data) { simple_filebased_bling("BLING/TRANSIO/PRISM.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_PRISM() {
+    uint8_t hue = 0;
+    util_led_clear();
+    util_gfx_draw_raw_file("BLING/TRANSIO/PRISM.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
+}
+
+void mbp_bling_RADIO(void *data) { simple_filebased_bling("BLING/TRANSIO/RADIO.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_RKO1(void *data) { simple_filebased_bling("BLING/TRANSIO/RKO1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_RKO2(void *data) { simple_filebased_bling("BLING/TRANSIO/RKO2.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_ROTATE(void *data) { simple_filebased_bling("BLING/TRANSIO/ROTATE.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SAT1(void *data) { simple_filebased_bling("BLING/TRANSIO/SAT1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SAT2(void *data) { simple_filebased_bling("BLING/TRANSIO/SAT2.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SBOB(void *data) { simple_filebased_bling("BLING/TRANSIO/SBOB.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SDR(void *data) { simple_filebased_bling("BLING/TRANSIO/SDR.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SNOW(void *data) { simple_filebased_bling("BLING/TRANSIO/SNOW.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SP1(void *data) { simple_filebased_bling("BLING/TRANSIO/SP1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SP2(void *data) { simple_filebased_bling("BLING/TRANSIO/SP2.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SP3(void *data) { simple_filebased_bling("BLING/TRANSIO/SP3.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SPECT1(void *data) { simple_filebased_bling("BLING/TRANSIO/SPECT1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_SPECT2(void *data) { simple_filebased_bling("BLING/TRANSIO/SPECT2.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_TESLA(void *data) { simple_filebased_bling("BLING/TRANSIO/TESLA.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_TOWER(void *data) { simple_filebased_bling("BLING/TRANSIO/TOWER.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_TREK1(void *data) { simple_filebased_bling("BLING/TRANSIO/TREK1.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_TREK2(void *data) { simple_filebased_bling("BLING/TRANSIO/TREK2.RAW", "BLING/PINKBLUE.RGB"); }
+void mbp_bling_YAGI(void *data) { simple_filebased_bling("BLING/TRANSIO/YAGI.RAW", "BLING/PINKBLUE.RGB"); }
 
 void mbp_bling_illusion() {
     uint8_t index = 0;

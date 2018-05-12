@@ -415,10 +415,45 @@ static void mbp_menu_bling() {
 // 	}
 
 	items[menu.count++] = (menu_item_t ) { "Custom", "MENU/WRENCH.ICO", NULL, &mbp_bling_menu_custom, NULL };
-	items[menu.count++] = (menu_item_t ) { "WhoTime", "MENU/DRWHOTIM.ICO", "MENU/DRWHOTIM.PRV", &mbp_bling_drwho_time, NULL };
-	items[menu.count++] = (menu_item_t ) { "Duck", "MENU/DUCKHUNT.ICO", "MENU/DUCKHUNT.PRV", &mbp_bling_duckhunt, NULL };
-	items[menu.count++] = (menu_item_t ) { "Outer", "MENU/OUTERLIM.ICO", "MENU/OUTERLIM.PRV", &mbp_bling_outer_limits, NULL };
-	items[menu.count++] = (menu_item_t ) { "PortWk", "MENU/PORTALWN.ICO", "MENU/PORTALWN.PRV", &mbp_bling_portal_wink, NULL };
+
+	items[menu.count++] = (menu_item_t ) { "16APSK", "MENU/16APSK.ICO", "MENU/16APSK.PRV", &mbp_bling_16APSK, NULL };
+	items[menu.count++] = (menu_item_t ) { "AdaPi", "MENU/ADA.ICO", "MENU/ADA.PRV", &mbp_bling_ADA, NULL };
+	items[menu.count++] = (menu_item_t ) { "Anime", "MENU/ANIME.ICO", "MENU/ANIME.PRV", &mbp_bling_ANIME, NULL };
+	items[menu.count++] = (menu_item_t ) { "ARRL", "MENU/ARRL.ICO", "MENU/ARRL.PRV", &mbp_bling_ARRL, NULL };
+	items[menu.count++] = (menu_item_t ) { "CRT", "MENU/CRT1.ICO", "MENU/CRT1.PRV", &mbp_bling_CRT1, NULL };
+	items[menu.count++] = (menu_item_t ) { "Eye", "MENU/EYE.ICO", "MENU/EYE.PRV", &mbp_bling_EYE, NULL };
+	items[menu.count++] = (menu_item_t ) { "Homer", "MENU/HOMER.ICO", "MENU/HOMER.PRV", &mbp_bling_HOMER, NULL };
+	items[menu.count++] = (menu_item_t ) { "Horn", "MENU/HORN.ICO", "MENU/HORN.PRV", &mbp_bling_HORN, NULL };
+	items[menu.count++] = (menu_item_t ) { "Key", "MENU/KEY.ICO", "MENU/KEY.PRV", &mbp_bling_KEY, NULL };
+	items[menu.count++] = (menu_item_t ) { "Kuhl", "MENU/KUHL.ICO", "MENU/KUHL.PRV", &mbp_bling_KUHL, NULL };
+	items[menu.count++] = (menu_item_t ) { "Meter", "MENU/METER1.ICO", "MENU/METER1.PRV", &mbp_bling_METER1, NULL };
+	items[menu.count++] = (menu_item_t ) { "Mickey", "MENU/MICK.ICO", "MENU/MICK.PRV", &mbp_bling_MICK, NULL };
+	items[menu.count++] = (menu_item_t ) { "Model", "MENU/MODEL.ICO", "MENU/MODEL.PRV", &mbp_bling_MODEL, NULL };
+	items[menu.count++] = (menu_item_t ) { "Nixie", "MENU/NIXIE.ICO", "MENU/NIXIE.PRV", &mbp_bling_NIXIE, NULL };
+	items[menu.count++] = (menu_item_t ) { "Noise", "MENU/NOISE.ICO", "MENU/NOISE.PRV", &mbp_bling_NOISE, NULL };
+	items[menu.count++] = (menu_item_t ) { "Oscope", "MENU/OSCOPE.ICO", "MENU/OSCOPE.PRV", &mbp_bling_OSCOPE, NULL };
+	items[menu.count++] = (menu_item_t ) { "Pattern", "MENU/PATTERN.ICO", "MENU/PATTERN.PRV", &mbp_bling_PATTERN, NULL };
+	items[menu.count++] = (menu_item_t ) { "Prism", "MENU/PRISM.ICO", "MENU/PRISM.PRV", &mbp_bling_PRISM, NULL };
+	items[menu.count++] = (menu_item_t ) { "Radio", "MENU/RADIO.ICO", "MENU/RADIO.PRV", &mbp_bling_RADIO, NULL };
+	items[menu.count++] = (menu_item_t ) { "RKO1", "MENU/RKO1.ICO", "MENU/RKO1.PRV", &mbp_bling_RKO1, NULL };
+	items[menu.count++] = (menu_item_t ) { "RKO2", "MENU/RKO2.ICO", "MENU/RKO2.PRV", &mbp_bling_RKO2, NULL };
+	items[menu.count++] = (menu_item_t ) { "Rotate", "MENU/ROTATE.ICO", "MENU/ROTATE.PRV", &mbp_bling_ROTATE, NULL };
+	items[menu.count++] = (menu_item_t ) { "Sat1", "MENU/SAT1.ICO", "MENU/SAT1.PRV", &mbp_bling_SAT1, NULL };
+	items[menu.count++] = (menu_item_t ) { "Sat2", "MENU/SAT2.ICO", "MENU/SAT2.PRV", &mbp_bling_SAT2, NULL };
+	items[menu.count++] = (menu_item_t ) { "Sponge", "MENU/SBOB.ICO", "MENU/SBOB.PRV", &mbp_bling_SBOB, NULL };
+	items[menu.count++] = (menu_item_t ) { "SDR", "MENU/SDR.ICO", "MENU/SDR.PRV", &mbp_bling_SDR, NULL };
+	items[menu.count++] = (menu_item_t ) { "Snow", "MENU/SNOW.ICO", "MENU/SNOW.PRV", &mbp_bling_SNOW, NULL };
+	items[menu.count++] = (menu_item_t ) { "SouthP1", "MENU/SP1.ICO", "MENU/SP1.PRV", &mbp_bling_SP1, NULL };
+	items[menu.count++] = (menu_item_t ) { "SouthP2", "MENU/SP2.ICO", "MENU/SP2.PRV", &mbp_bling_SP2, NULL };
+	items[menu.count++] = (menu_item_t ) { "Spctrm1", "MENU/SPECT1.ICO", "MENU/SPECT1.PRV", &mbp_bling_SPECT1, NULL };
+	items[menu.count++] = (menu_item_t ) { "Spctrm2", "MENU/SPECT2.ICO", "MENU/SPECT2.PRV", &mbp_bling_SPECT2, NULL };
+	items[menu.count++] = (menu_item_t ) { "Spctrm3", "MENU/SP3.ICO", "MENU/SP3.PRV", &mbp_bling_SP3, NULL };
+	items[menu.count++] = (menu_item_t ) { "Tesla", "MENU/TESLA.ICO", "MENU/TESLA.PRV", &mbp_bling_TESLA, NULL };
+	items[menu.count++] = (menu_item_t ) { "Tower", "MENU/TOWER.ICO", "MENU/TOWER.PRV", &mbp_bling_TOWER, NULL };
+	items[menu.count++] = (menu_item_t ) { "Trek1", "MENU/TREK1.ICO", "MENU/TREK1.PRV", &mbp_bling_TREK1, NULL };
+	items[menu.count++] = (menu_item_t ) { "Trek2", "MENU/TREK2.ICO", "MENU/TREK2.PRV", &mbp_bling_TREK2, NULL };
+	items[menu.count++] = (menu_item_t ) { "Yagi", "MENU/YAGI.ICO", "MENU/YAGI.PRV", &mbp_bling_YAGI, NULL };
+
 	items[menu.count++] = (menu_item_t ) { "Flames", "MENU/FLAMES.ICO", "MENU/FLAMES.PRV", &mbp_bling_flames, NULL };
 	items[menu.count++] = (menu_item_t ) { "Twitter", "MENU/TWITTER.ICO", "MENU/TWITTER.PRV", &mbp_bling_twitter, NULL };
 	items[menu.count++] = (menu_item_t ) { "Matrix", "MENU/MATRIX.ICO", "MENU/MATRIX.PRV", &mbp_bling_matrix, NULL };
