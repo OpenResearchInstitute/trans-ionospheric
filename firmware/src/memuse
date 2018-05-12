@@ -1,0 +1,2 @@
+#!/bin/bash
+nm --print-size --size-sort --radix=d _build/*.out

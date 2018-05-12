@@ -1,0 +1,2 @@
+#!/bin/bash
+size -A -d _build/*.out
