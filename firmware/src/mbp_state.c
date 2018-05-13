@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +53,7 @@ void mbp_state_new() {
 	m_badge_state.master_badge = SETTING_MASTER_DEFAULT;
 	m_badge_state.joco_score = GAME_SCORE_DEFAULT;
 	m_badge_state.joco_last_level_dispensed = GAME_LASTLEVEL_DEFAULT;
+	m_badge_state.game_incoming_ok = SETTING_GAME_INCOMING_OK_DEFAULT;
 
 	strcpy(m_badge_state.pw_riley, "part97");	// Hacker is expected to guess this one.
 	strcpy(m_badge_state.pw_root,  "royalty!");	// This one needn't be guessable.
@@ -211,6 +211,18 @@ void mbp_state_chip8_bg_color_set(uint16_t c) {
 	//sets the current state of the CHIP8 background color
 	m_badge_state.chip8_bg_color = c;
 }
+
+bool mbp_state_game_incoming_ok_get() {
+	//gets the current state of the CHIP8 background color
+	return m_badge_state.game_incoming_ok;
+}
+
+void mbp_state_game_incoming_ok_set(bool b) {
+	//sets the current state of the CHIP8 background color
+	m_badge_state.game_incoming_ok = b;
+}
+
+
 
 bool mbp_state_master_get() {
 	return m_badge_state.master_badge;

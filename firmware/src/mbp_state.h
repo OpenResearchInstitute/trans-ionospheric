@@ -1,7 +1,6 @@
 /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +39,7 @@ typedef struct {
 	bool tilt_enabled;
 	bool game_exit_pop_up;
 	bool game_led_sound;
+	bool game_incoming_ok;
 	uint8_t joco_last_level_dispensed;
 	uint8_t special;
 	uint16_t chip8_fg_color;
@@ -71,6 +71,8 @@ extern bool mbp_state_game_exit_pop_up_get();
 extern void mbp_state_game_exit_pop_up_set(bool b);
 extern bool mbp_state_game_led_sound_get();
 extern void mbp_state_game_led_sound_set(bool b);
+extern bool mbp_state_game_incoming_ok_get();
+extern void mbp_state_game_incoming_ok_set(bool b);
 
 //Get and set the airplane mode setting
 extern bool mbp_state_airplane_mode_get();

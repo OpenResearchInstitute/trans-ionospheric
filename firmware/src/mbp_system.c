@@ -175,9 +175,10 @@ void mbp_system_game_menu() {
 			{ "Foreground Color", NULL, NULL, NULL, NULL },
 			{ "Background Color", NULL, NULL, NULL, NULL },
 			{ "LED Beep Toggle", NULL, NULL, NULL, NULL },
+			{ "Accept Incoming", NULL, NULL, NULL, NULL },
 	};
 	menu_t menu;
-	menu.count = 4;
+	menu.count = 5;
 	menu.items = items;
 	menu.selected = 0;
 	menu.title = "Game CFG";
@@ -223,6 +224,19 @@ void mbp_system_game_menu() {
 			mbp_state_save();
 		}
 		break;
+
+	case 4:
+		; //Decide whether to accept incoming multiplayer game requests
+		if (mbp_state_game_incoming_ok_get()) {
+			mbp_state_game_incoming_ok_set(mbp_ui_toggle_popup("Incoming", 0, "Accept", "Reject", "Currently: Accept incoming game requests from other badges") == 0);
+			mbp_state_save();
+		}
+		else {
+			mbp_state_game_incoming_ok_set(mbp_ui_toggle_popup("Incoming", 1, "Accept", "Reject", "Currently: Reject incoming game requests from other badges") == 0);
+			mbp_state_save();
+		}
+		break;
+
 	}
 
 }
