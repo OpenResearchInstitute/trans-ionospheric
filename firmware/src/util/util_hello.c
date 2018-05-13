@@ -36,10 +36,14 @@ bool try_to_hello(uint16_t company_id, char *name) {
     } else {
 	m_next_hello = now + HELLO_INTERVAL;
 	switch (company_id) {
+        case COMPANY_ID_TRANSIO:
+		//!!! Update to have a different Hello
+		APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_joco_schedule_handler));
+	    break;
 	case COMPANY_ID_JOCO:
 	    APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_joco_schedule_handler));
 	    break;
-	case COMPANY_ID:
+	case COMPANY_ID_ANDNXOR:
 	    APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_bender_schedule_handler));
 	    break;
 	case COMPANY_ID_CPV:
@@ -60,4 +64,3 @@ bool try_to_hello(uint16_t company_id, char *name) {
 	return true;
     }
 }
-

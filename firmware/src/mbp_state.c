@@ -220,6 +220,7 @@ bool mbp_state_game_incoming_ok_get() {
 void mbp_state_game_incoming_ok_set(bool b) {
 	//sets the current state of the CHIP8 background color
 	m_badge_state.game_incoming_ok = b;
+	util_ble_flags_set();
 }
 
 

@@ -1,7 +1,6 @@
  /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (http://openresearch.institute).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +21,18 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
+ *      @abraxas3d
  *
  *****************************************************************************/
 #ifndef UTIL_UTIL_BLE_H_
 #define UTIL_UTIL_BLE_H_
 
-#define COMPANY_ID						0x049E		/** AND!XOR LLC :-) **/
+#define COMPANY_ID_TRANSIO					0x0858
+#define COMPANY_ID_ANDNXOR					0x049E		/** AND!XOR LLC :-) **/
 #define COMPANY_ID_JOCO						0x0B25
 #define COMPANY_ID_CPV						0x0C97
 #define COMPANY_ID_DC503					0x0503
@@ -48,6 +49,7 @@ extern void util_ble_c2_set(master_c2_t *p_c2);
 extern void util_ble_init();
 extern void util_ble_name_get(char *name);
 extern void util_ble_name_set(char *name);
+extern void util_ble_flags_set(void);
 extern uint32_t util_ble_nus_send(char *p_string, uint16_t length);
 extern void util_ble_off();
 extern void util_ble_on();

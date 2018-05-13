@@ -33,10 +33,14 @@
 #define BLE_DATA_LEN                  10
 #define BLE_DATA_INDEX_SCORE          2
 #define BLE_DATA_INDEX_C2             4
-#define BLE_DATA_INDEX_UNUSED0        8
+#define BLE_DATA_INDEX_FLAGS          8
 #define BLE_DATA_INDEX_UNUSED1        9
+
+// Flag values for the byte at BLE_DATA_INDEX_FLAGS:
+#define BLE_DATA_FLAGS_MASK_GAMES     0x01              // 1 if we accept incoming games
+
 #define BLE_TX_POWER                  0                 // 0dbm gain
-#define DEVICE_NAME                   "JOCO2018"
+#define DEVICE_NAME                   "TRANSIO18"
 #define APP_ADV_INTERVAL              0x0320            // Advertising interval in units of 0.625ms
 //#define APP_ADV_TIMEOUT_IN_SECONDS    180
 #define APP_FEATURE_NOT_SUPPORTED     BLE_GATT_STATUS_ATTERR_APP_BEGIN + 2 // Reply when unsupported features are requested.
@@ -116,6 +120,7 @@ typedef struct {
     uint32_t last_seen;                // 4
     int8_t rssi;                       // 1
     uint8_t special;                   // 1
+	uint8_t flags;                     // 1
 } ble_badge_t;
 
 //Declare these early
@@ -133,7 +138,7 @@ static void __advertising_init(void) {
     uint32_t err_code;
     uint16_t device_id = util_get_device_id();
 
-    m_manuf_data.company_identifier = COMPANY_ID_JOCO;
+    m_manuf_data.company_identifier = COMPANY_ID_TRANSIO;
     m_manuf_data.data.p_data = (uint8_t *) malloc(BLE_DATA_LEN);
     memset(m_manuf_data.data.p_data, 0, BLE_DATA_LEN);
     m_manuf_data.data.size = BLE_DATA_LEN;
@@ -348,9 +353,9 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	    char inchar;
 
             for (uint8_t i = 0; i < strlen((char*) field_data); i++) {
-		inchar = field_data[i];
-		if (islower((int)inchar))
-		    badge.special |= (1 << i);
+                inchar = field_data[i];
+                if (islower((int)inchar))
+                    badge.special |= (1 << i);
                 const char *ptr = strchr(INPUT_CHARS, toupper((int)inchar));
                 badge.name[index++] = *ptr;
                 if (index >= SETTING_NAME_LENGTH - 1) {
@@ -364,36 +369,48 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
         else if (field_type == GAP_TYPE_COMPANY_DATA) {
             badge.company_id = field_data[0] | (field_data[1] << 8);
 
-	    switch (badge.company_id) {
-	    case COMPANY_ID_JOCO:
+        switch (badge.company_id) {
+            case COMPANY_ID_TRANSIO:
                 badge.device_id = field_data[2] | (field_data[3] << 8);
-                //Parse C2 data
+                badge.flags = field_data[BLE_DATA_INDEX_FLAGS + 2];
+                //Store C2 data
                 memcpy(&c2, field_data + BLE_DATA_INDEX_C2 + 2, sizeof(master_c2_t));
-		break;
-	    case COMPANY_ID:
+                break;
+            case COMPANY_ID_JOCO:
+                badge.device_id = field_data[2] | (field_data[3] << 8);
+                badge.flags = 0;
+                //Store C2 data
+                memcpy(&c2, field_data + BLE_DATA_INDEX_C2 + 2, sizeof(master_c2_t));
+                break;
+            case COMPANY_ID_ANDNXOR:
                 sprintf(badge.name, "AND!XOR");
                 badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-		break;
-	    case COMPANY_ID_CPV:
+                badge.flags = 0;
+                break;
+            case COMPANY_ID_CPV:
                 sprintf(badge.name, "CPV");
                 badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-		friendly = true;
-		break;
-	    case COMPANY_ID_DC503:
+                badge.flags = 0;
+                friendly = true;
+                break;
+            case COMPANY_ID_DC503:
                 sprintf(badge.name, "DC503");
                 badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-		friendly = true;
-		break;
-	    case COMPANY_ID_DC801:
+                badge.flags = 0;
+                friendly = true;
+                break;
+            case COMPANY_ID_DC801:
                 sprintf(badge.name, "DC801");
                 badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-		friendly = true;
-		break;
-	    case COMPANY_ID_QUEERCON:
+                badge.flags = 0;
+                friendly = true;
+                break;
+            case COMPANY_ID_QUEERCON:
                 sprintf(badge.name, "Queercon");
                 badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-		friendly = true;
-		break;
+                badge.flags = 0;
+                friendly = true;
+                break;
             }
         }
 
@@ -404,7 +421,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
     // Now we're done parsing all the BLE data
 
 	// Process the RSSI if it's a known badge.
-	if ( friendly || (((badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID)) && valid_name)) {
+	if ( friendly || (((badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID_ANDNXOR)) && valid_name)) {
 		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
 	}
 
@@ -472,7 +489,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		try_to_add_to_active(badge.address, badge.device_id, badge.rssi, badge.name);
 	    }
 	}
-    } else if (((badge.company_id == COMPANY_ID) && valid_name) || friendly) {
+} else if (((badge.company_id == COMPANY_ID_ANDNXOR) && valid_name) || friendly) {
 	// NOT joco
 	// put it on the seen list if it's not already, automatic add for PEER type
 	seen_flags = check_and_add_to_seen(badge.address, badge.device_id, badge.name, SEEN_TYPE_PEER);
@@ -987,6 +1004,22 @@ void util_ble_name_set(char *name) {
     BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&sec_mode);
     APP_ERROR_CHECK(sd_ble_gap_device_name_set(&sec_mode, (const uint8_t * ) name_temp, strlen(name_temp)));
     ble_advdata_set(&m_adv_data, NULL);
+}
+
+void util_ble_flags_set(void) {
+	uint8_t flags = 0;
+	ble_gap_conn_sec_mode_t sec_mode;
+	BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
+
+	if (mbp_state_game_incoming_ok_get()) {
+		flags |= BLE_DATA_FLAGS_MASK_GAMES;
+	}
+
+	//Copy flags byte into advertisement
+	m_adv_data.p_manuf_specific_data->data.p_data[BLE_DATA_INDEX_FLAGS] = flags;
+
+	ble_advdata_set(&m_adv_data, NULL);
+
 }
 
 void util_ble_scan_start() {
