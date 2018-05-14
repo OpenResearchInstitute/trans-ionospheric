@@ -279,10 +279,15 @@ static bool __collect_guesses(mm_color_list_t *guess, uint8_t row) {
 	 			+ 1 					// room for the line under the headers
 				+ row * m_row_height	// room for the boxes above this row
 				+ MM_LEADING;			// room for a bit of space between rows
+	uint8_t column = 0;
 
-	// Draw blank boxes where the guesses go
-	for (uint8_t peg = 0; peg < MM_NUM_COLUMNS; peg++) {
-		__draw_peg_outline(y, peg);
+	// Draw the guesses so far
+	for (uint8_t column = 0; column < MM_NUM_COLUMNS; column++) {
+		if (guess->peg[column] == MM_NO_COLOR) {
+			__draw_peg_outline(y, column);
+		} else {
+			__draw_peg_colorbox(y, column, guess->peg[column]);
+		}
 	}
 
 	// Draw other menu choices
@@ -294,7 +299,6 @@ static bool __collect_guesses(mm_color_list_t *guess, uint8_t row) {
 	__disable_go();
 
 	// Handle buttons until the user selects Go or Quit
-	uint8_t column = 0;
 	__mm_arrow(y, column);
 	while (1) {
 		util_button_wait();
@@ -318,6 +322,10 @@ static bool __collect_guesses(mm_color_list_t *guess, uint8_t row) {
 										MM_BACKGROUND_COLOR);
 					__mm_arrow_clear(y);
 					return true;
+				// we'd like to pop this up, but first we'd have to rearchitect
+				// this whole drawing scheme so the screen can be redrawn afterwards!
+				//} else {
+				//	mbp_ui_popup("Not Done", "You must choose a color for every column. An empty black box is not a color!");
 				}
 			} else if (column == MM_NUM_COLUMNS+1) {	// Quit menu item
 				// No need to clean up display, we'll be abandoning it anyway.
@@ -811,11 +819,12 @@ static bool __mm_make_code(void) {
 	util_gfx_print("MASTERMIND");
 
 	util_gfx_set_font(FONT_SMALL);
-	util_gfx_set_cursor(0, 2 + SUBMENU_TITLE_SIZE);
+	util_gfx_set_cursor(0, 4 + SUBMENU_TITLE_SIZE);
 	util_gfx_set_color(COLOR_GREEN);
 	util_gfx_print("Enter your secret    code for the other   player to guess:");
-
-	// util_gfx_draw_line(0, SUBMENU_TITLE_SIZE, GFX_WIDTH, SUBMENU_TITLE_SIZE, SUBMENU_TITLE_FG);
+	util_gfx_set_cursor(0, 100);
+	util_gfx_set_color(COLOR_OLIVE);
+	util_gfx_print("Empty black box meansno color is chosen!");
 
 	for (uint8_t i=0; i < MM_NUM_COLUMNS; i++) {
 		m_our_code.peg[i] = MM_NO_COLOR;
@@ -917,7 +926,7 @@ static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
 	//!!! here we will negotiate with the other badge to see if it will play.
 	//!!! in the meantime, add a delay for comfort.
 	nrf_delay_ms(2000);
-	
+
 	return true;
 }
 
@@ -950,8 +959,13 @@ void mastermind() {
 	uint8_t player_type;
 	char buf[40];
 
+	// Game drawing wasn't designed to accommodate interrupting events,
+	// so take the easy way out and just turn them off for the duration.
+	app_sched_pause();
+
 	// Try to collect the codemaker pegs from the user
 	if (! __mm_make_code()) {
+		app_sched_resume();
 		return;
 	}
 
@@ -960,6 +974,7 @@ void mastermind() {
 
 	switch (player_type) {
 		case MM_USER_QUIT:
+			app_sched_resume();
 			return;
 
 		case MM_REMOTE:
@@ -967,6 +982,7 @@ void mastermind() {
 			uint8_t invite = mbp_ui_toggle_popup("PLAYER", 0, "Invite", "Cancel", buf);
 
 			if (invite != 0) {	// 0 means the left choice, i.e., "Invite"
+				app_sched_resume();
 				return;
 			}
 			// FALLTHROUGH
@@ -984,6 +1000,8 @@ void mastermind() {
 				mbp_ui_popup("FAILURE", "Unable to connect with opponent");
 			}
 	}
+
+	app_sched_resume();
 }
 
 
