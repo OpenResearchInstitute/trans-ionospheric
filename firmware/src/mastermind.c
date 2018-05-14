@@ -858,7 +858,7 @@ static uint8_t __mbp_mastermind_players() {
 	list = malloc(NEARBY_BADGE_LIST_LEN * sizeof( ble_badge_list_menu_text_t));
 	if (!list) {
 		mbp_ui_error("players malloc fail.");
-		return false;
+		return MM_USER_QUIT;
 	}
 
 	badge_list_size = get_nearby_badge_list(NEARBY_BADGE_LIST_LEN, list);
@@ -913,6 +913,11 @@ static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
 	//!!! here we will wait for the connection if it's not already up
 
 	util_gfx_print("CONNECT\n");
+
+	//!!! here we will negotiate with the other badge to see if it will play.
+	//!!! in the meantime, add a delay for comfort.
+	nrf_delay_ms(2000);
+	
 	return true;
 }
 
@@ -924,7 +929,6 @@ static bool __mm_connect_auto_opponent(mm_opponent_t opponent) {
 		m_their_code.peg[i] = util_math_rand8_max(MM_NUM_COLORS);
 	}
 
-	nrf_delay_ms(2000);		// Whew, that was hard work.
 	return true;
 }
 
@@ -943,6 +947,8 @@ static bool __mm_connect_opponent(mm_opponent_t opponent) {
 // if playing a remote opponent, but both users will play as codebreaker.
 // The codemaker function is automatic, except for choosing the code.
 void mastermind() {
+	uint8_t player_type;
+	char buf[40];
 
 	// Try to collect the codemaker pegs from the user
 	if (! __mm_make_code()) {
@@ -950,26 +956,33 @@ void mastermind() {
 	}
 
 	// Try to pick an opponent from the available players
-	if (__mbp_mastermind_players()) {
-		char buf[40];
+	player_type = __mbp_mastermind_players();
 
-		sprintf(buf, "Invite %s to play?", m_opponent.name);
-		uint8_t invite = mbp_ui_toggle_popup("PLAYER", 0, "Invite", "Cancel", buf);
-
-		if (invite != 0) {	// 0 means the left choice, i.e., "Invite"
+	switch (player_type) {
+		case MM_USER_QUIT:
 			return;
-		}
 
-		if (__mm_connect_opponent(m_opponent)) {
-			__mm_codebreaker();	// play the game locally.
+		case MM_REMOTE:
+			sprintf(buf, "Invite %s to play?", m_opponent.name);
+			uint8_t invite = mbp_ui_toggle_popup("PLAYER", 0, "Invite", "Cancel", buf);
 
-			//!!! here we will join up with the codemaker server,
-			// waiting for it to complete if necessary,
-			// and then summarize the game-pair results.
+			if (invite != 0) {	// 0 means the left choice, i.e., "Invite"
+				return;
+			}
+			// FALLTHROUGH
 
-		} else {
-			mbp_ui_popup("FAILURE", "Unable to connect with opponent");
-		}
+		case MM_AUTO_OPPONENT:
+
+			if (__mm_connect_opponent(m_opponent)) {
+				__mm_codebreaker();	// play the game locally.
+
+				//!!! here we will join up with the codemaker server,
+				// waiting for it to complete if necessary,
+				// and then summarize the game-pair results.
+
+			} else {
+				mbp_ui_popup("FAILURE", "Unable to connect with opponent");
+			}
 	}
 }
 
