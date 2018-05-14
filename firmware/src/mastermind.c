@@ -108,7 +108,7 @@ static mm_color_list_t		m_received_answer;
 const uint16_t mm_colors[] = {
 	COLOR_YELLOW, COLOR_RED, COLOR_MAGENTA, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE,
 	MM_BACKGROUND_COLOR,		// MM_NO_COLOR
-	COLOR_PINK, COLOR_WHITE		// Colors for answers
+	COLOR_RED, COLOR_WHITE		// Colors for answers
 };
 
 // The row height on the graphical display varies depending on how many
@@ -739,7 +739,16 @@ static void __mm_codebreaker(void) {
 	while (1) {
 		uint8_t row;
 
-		if (turn == 6) {	// time to squeeze the display vertically
+		if (turn == 1) {	// first time the user sees key pegs
+			util_gfx_set_cursor(0, 80);
+			util_gfx_set_color(COLOR_OLIVE);
+			util_gfx_print("Answer key:\nRed = same place\nWhite = same color");
+		} else if (turn == 2) {	// user is now expert; clear off the hint
+			util_gfx_fill_rect(	0,						// left screen edge
+								80,						// where the hint text is
+								GFX_WIDTH, GFX_HEIGHT,	// to bottom right corner
+								MM_BACKGROUND_COLOR);
+		} else if (turn == 6) {	// time to squeeze the display vertically
 			m_row_height = 8;
 			util_gfx_fill_rect(0,						// left screen edge
 							   SUBMENU_TITLE_SIZE+1,	// just below the line
