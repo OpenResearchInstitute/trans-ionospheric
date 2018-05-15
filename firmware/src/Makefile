@@ -113,6 +113,7 @@ SRC_FILES += \
 	score_ble.c \
 	skifree.c \
 	transio_log.c \
+	transio_qso.c \
 	version.c
 
 # Include folders common to all targets

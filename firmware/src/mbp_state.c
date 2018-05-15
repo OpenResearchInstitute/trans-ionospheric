@@ -64,6 +64,9 @@ void mbp_state_new() {
 	strcpy(m_badge_state.wall_messages[3], "Msg 4 None");
 	strcpy(m_badge_state.wall_messages[4], "Msg 5 None");
 	m_badge_state.wall_current_spot = 0;
+
+	strcpy(m_badge_state.callsign, "N0CALL");
+	m_badge_state.callsign_set = false;
 }
 
 bool mbp_state_load() {
@@ -291,6 +294,20 @@ void mbp_state_pw_root_set(char *pw) {
 
 void mbp_state_pw_root_get(char *pw) {
 	snprintf(pw, SETTING_PW_LENGTH, "%s", m_badge_state.pw_root);
+}
+
+void mbp_state_callsign_set(char *call) {
+	snprintf(m_badge_state.callsign, SETTING_CALLSIGN_LENGTH, "%s", call);
+	if (call[0] != '\0') {
+		m_badge_state.callsign_set = true;
+	} else {
+		m_badge_state.callsign_set = false;
+	}
+}
+
+bool mbp_state_callsign_get(char *call) {
+	snprintf(call, SETTING_CALLSIGN_LENGTH, "%s", m_badge_state.callsign);
+	return m_badge_state.callsign_set;
 }
 
 void mbp_state_wall_show(){
