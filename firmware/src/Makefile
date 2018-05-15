@@ -112,6 +112,7 @@ SRC_FILES += \
 	mbp_ui.c \
 	score_ble.c \
 	skifree.c \
+	transio_log.c \
 	version.c
 
 # Include folders common to all targets

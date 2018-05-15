@@ -67,7 +67,7 @@ int __find_seen_index(uint8_t *address, uint16_t device_id) {
     // run over all entries (backwards)
     for (int i=0; i < SEEN_DB_LEN; i++) {
 
-	
+
 	if (!(seen_db[read_position].flags & SEEN_FLAG_USED)) {
 	    // this entry (and all older ones) are unused
 	    break;
@@ -105,9 +105,9 @@ int __get_seen_next() {
     if (seen_list_walk_count > 0) {
 	if (!(seen_db[seen_list_walk_position].flags & SEEN_FLAG_USED)) {
 	    // this entry (and all older ones) are unused
-	    return -1;;
+	    return -1;
 	}
-        
+
         return_value = seen_list_walk_position;
 
         // position for next read
@@ -300,8 +300,8 @@ int get_nearby_badge_list(int size, ble_badge_list_menu_text_t *list) {
     ble_badge_active_entry_t *p_entry;
     int return_count = 0;
     uint8_t i;
-    uint8_t flags;
-    
+    // uint8_t flags;
+
     if (size < BADGE_ACTIVE_LIST_SIZE)
 	max_count = size;
 
@@ -324,18 +324,21 @@ int get_nearby_badge_list(int size, ble_badge_list_menu_text_t *list) {
             // we're done
             return return_count;
         } else {
-            // we found an entry, ignore if it's not JoCo
-            flags = seen_db[seen_index].flags;
-            if ((flags & SEEN_TYPE_MASK) == SEEN_TYPE_JOCO) {
-                memset(list[i].text, 0x00, SETTING_NAME_LENGTH);
-                strncpy(list[i].text, seen_db[seen_index].name, SETTING_NAME_LENGTH);
-                if (flags & SEEN_FLAG_VISITED)
-                    strcat(list[i].text, " S");
-                if (flags & SEEN_FLAG_SAID_HELLO)
-                    strcat(list[i].text, " H");
-                return_count++;
-                i++;
-            }
+            // we found an entry
+            // flags = seen_db[seen_index].flags;
+
+            memset(list[i].text, 0x00, SETTING_NAME_LENGTH);
+            strncpy(list[i].text, seen_db[seen_index].name, SETTING_NAME_LENGTH);
+
+			// if ((flags & SEEN_TYPE_MASK) == SEEN_TYPE_JOCO) {
+                // if (flags & SEEN_FLAG_VISITED)
+                //     strcat(list[i].text, " S");
+                // if (flags & SEEN_FLAG_SAID_HELLO)
+                //     strcat(list[i].text, " H");
+				// }
+
+            return_count++;
+            i++;
         }
     }
     return return_count;
@@ -346,7 +349,7 @@ int get_nearby_badge_count() {
     ble_badge_active_entry_t *p_entry;
     int return_count = 0;
     uint8_t i;
-    
+
     // TODO no sorting, perhaps sort by rssi
     for (i=0; i<BADGE_ACTIVE_LIST_SIZE; i++) {
 	p_entry = &active[active_index[i]];

@@ -180,38 +180,38 @@ static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
     ble_advertising_on_ble_evt(p_ble_evt);
 }
 
-void __check_for_master_unlock(uint8_t special) {
-    // Four 'master' badges trigger unlocking of bling when visited
-    uint16_t unlock = mbp_state_unlock_get();
-
-    if (!(unlock & UNLOCK_MASK_MASTER_1)) {
-	if (special == MASTER_1_SPECIAL_ID) {
-	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_1);
-	    mbp_state_save();
-	}
-    }
-
-    if (!(unlock & UNLOCK_MASK_MASTER_2)) {
-	if (special == MASTER_2_SPECIAL_ID) {
-	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_2);
-	    mbp_state_save();
-	}
-    }
-
-    if (!(unlock & UNLOCK_MASK_MASTER_3)) {
-	if (special == MASTER_3_SPECIAL_ID) {
-	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_3);
-	    mbp_state_save();
-	}
-    }
-
-    if (!(unlock & UNLOCK_MASK_MASTER_4)) {
-	if (special == MASTER_4_SPECIAL_ID) {
-	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_4);
-	    mbp_state_save();
-	}
-    }
-}
+// void __check_for_master_unlock(uint8_t special) {
+//     // Four 'master' badges trigger unlocking of bling when visited
+//     uint16_t unlock = mbp_state_unlock_get();
+//
+//     if (!(unlock & UNLOCK_MASK_MASTER_1)) {
+// 	if (special == MASTER_1_SPECIAL_ID) {
+// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_1);
+// 	    mbp_state_save();
+// 	}
+//     }
+//
+//     if (!(unlock & UNLOCK_MASK_MASTER_2)) {
+// 	if (special == MASTER_2_SPECIAL_ID) {
+// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_2);
+// 	    mbp_state_save();
+// 	}
+//     }
+//
+//     if (!(unlock & UNLOCK_MASK_MASTER_3)) {
+// 	if (special == MASTER_3_SPECIAL_ID) {
+// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_3);
+// 	    mbp_state_save();
+// 	}
+//     }
+//
+//     if (!(unlock & UNLOCK_MASK_MASTER_4)) {
+// 	if (special == MASTER_4_SPECIAL_ID) {
+// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_4);
+// 	    mbp_state_save();
+// 	}
+//     }
+// }
 
 
 /**@brief Function for handling an event from the Connection Parameters Module.
@@ -435,7 +435,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// add it to the db on disk
 		save_contact(badge.address, badge.device_id);
 		// See if it's one of the master badges
-		__check_for_master_unlock(badge.special);
+		// __check_for_master_unlock(badge.special);
 		// add it to the seen list with visited set
 		if (p_active_entry->said_hello)
 		    flags = (SEEN_FLAG_VISITED | SEEN_FLAG_SAID_HELLO);
@@ -448,7 +448,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// resets all 'first seen' to now.
 		sort_active(true); // INVALIDATES last_entry pointer
 		// add to the badge score
-		add_to_score(POINTS_4_VISIT, badge.name); // schedules a bling automatically
+		// add_to_score(POINTS_4_VISIT, badge.name); // schedules a bling automatically
 	    } else if ((!p_active_entry->said_hello) && ( badge.rssi > HELLO_MIN_RSSI)) {
 		if (try_to_hello(badge.company_id, badge.name))
 		    p_active_entry->said_hello = true;

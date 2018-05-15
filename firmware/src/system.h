@@ -152,6 +152,7 @@
 #include "ntopt.h"
 #include "partcl/tcl.h"
 #include "skifree.h"
+#include "transio_log.h"
 #include "util.h"
 #include "util_ble.h"
 #include "util_ble_lists.h"

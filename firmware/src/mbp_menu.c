@@ -117,7 +117,7 @@ uint8_t mbp_menu(menu_t *p_menu) {
 			}
 
 			if (p_menu->items[p_menu->top + i].icon != NULL) {
-				util_gfx_draw_raw(x + MENU_PADDING, y + MENU_PADDING, MENU_ICON_SIZE, MENU_ICON_SIZE, icons[i]);
+				util_gfx_draw_raw(x + MENU_PADDING + 1, y + MENU_PADDING + 1, MENU_ICON_SIZE, MENU_ICON_SIZE, icons[i]);
 			}
 		}
 
@@ -571,7 +571,7 @@ void mbp_menu_main() {
 	menu_item_t items[10];
 	menu.count = 0;
 	items[menu.count++] = (menu_item_t ) { "Bling!", "MENU/BLING.ICO", NULL, &mbp_menu_bling, NULL };
-	items[menu.count++] = (menu_item_t ) { "Score", "MENU/SCORE.ICO", NULL, &game_status_screen, NULL };
+	items[menu.count++] = (menu_item_t ) { "ViewLog", "MENU/SCORE.ICO", NULL, &transio_log_screen, NULL };
 	items[menu.count++] = (menu_item_t ) { "Games", "MENU/CONTROL.ICO", NULL, &mbp_menu_games, NULL };
 	items[menu.count++] = (menu_item_t ) { "Nearby", "MENU/NEARBY.ICO", NULL, &mbp_menu_nearby, NULL };
         items[menu.count++] = (menu_item_t ) { "TCL", "MENU/TCL.ICO", NULL, &mbp_tcl_menu, NULL };
