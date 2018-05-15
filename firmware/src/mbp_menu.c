@@ -521,7 +521,7 @@ static void mbp_menu_nearby() {
 	}
 
 	for (uint8_t i = 0; i < badge_list_size; i++) {
-		items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, NULL, NULL };
+		items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, &transio_qso_attempt, NULL };
 	}
 
 	//Add bottles

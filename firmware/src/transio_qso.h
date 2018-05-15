@@ -23,5 +23,8 @@
 extern void transio_callsign_edit(void);
 extern void transio_qso_callsign_set(char *callsign);
 extern uint32_t transio_qso_ble_init(void);
+extern void transio_qso_on_ble_evt(const ble_evt_t * p_ble_evt);
+extern void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt);
+extern void transio_qso_attempt();
 
 #endif /* TRANSIO_QSO_H_ */

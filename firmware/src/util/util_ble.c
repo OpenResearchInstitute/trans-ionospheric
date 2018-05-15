@@ -158,14 +158,7 @@ static void __advertising_init(void) {
     APP_ERROR_CHECK(err_code);
 }
 
-/**@brief Function for handling database discovery events.
- *
- * @details This function is callback function to handle events from the database discovery module.
- *          Depending on the UUIDs that are discovered, this function should forward the events
- *          to their respective services.
- *
- * @param[in] p_event  Pointer to the database discovery event.
- */
+
 static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
     ble_conn_state_on_ble_evt(p_ble_evt);
     pm_on_ble_evt(p_ble_evt);
@@ -173,6 +166,7 @@ static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
     ble_conn_params_on_ble_evt(p_ble_evt);
     //mbp_master_ble_on_ble_evt(p_ble_evt);
     score_ble_on_ble_evt(p_ble_evt);
+    transio_qso_on_ble_evt(p_ble_evt);
     mbp_medea_on_ble_evt(p_ble_evt);
     nrf_ble_gatt_on_ble_evt(&m_gatt, p_ble_evt);
     ble_nus_on_ble_evt(&m_nus, p_ble_evt);
@@ -266,6 +260,7 @@ static void __conn_params_init(void) {
 
 static void __db_discovery_handler(ble_db_discovery_evt_t * p_evt) {
     //mbp_master_ble_on_db_disc_evt(p_evt);
+    transio_qso_on_db_disc_evt(p_evt);
     mbp_medea_on_db_disc_evt(p_evt);
 }
 
