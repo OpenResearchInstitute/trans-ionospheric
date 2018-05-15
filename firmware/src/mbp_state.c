@@ -303,6 +303,7 @@ void mbp_state_callsign_set(char *call) {
 	} else {
 		m_badge_state.callsign_set = false;
 	}
+	transio_qso_callsign_set(call);
 }
 
 bool mbp_state_callsign_get(char *call) {

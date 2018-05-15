@@ -151,6 +151,7 @@ int main(void) {
 	//Startup game
 	// TBD
 	score_ble_init();
+	transio_qso_ble_init();
 
 	//Start terminal
 	mbp_term_start();
@@ -161,7 +162,7 @@ int main(void) {
 
 	//Start up RSSI Monitoring
 	mbp_rssi_start();
-	
+
 	//Read seekrit resistor and set unlocked state appropriately
         //State persists across boot
 	if (mbp_system_seekrit_get()) {

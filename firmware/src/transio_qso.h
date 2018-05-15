@@ -21,5 +21,7 @@
 
 
 extern void transio_callsign_edit(void);
+extern void transio_qso_callsign_set(char *callsign);
+extern uint32_t transio_qso_ble_init(void);
 
 #endif /* TRANSIO_QSO_H_ */
