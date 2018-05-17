@@ -416,7 +416,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
     // Now we're done parsing all the BLE data
 
 	// Process the RSSI if it's a known badge.
-	if ( friendly || (((badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID_ANDNXOR)) && valid_name)) {
+	if ( friendly || (((badge.company_id == COMPANY_ID_TRANSIO) || (badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID_ANDNXOR)) && valid_name)) {
 		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
 	}
 
@@ -437,7 +437,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
     }
 #endif
 
-    if ((badge.company_id == COMPANY_ID_JOCO) && valid_name) {
+    if (((badge.company_id == COMPANY_ID_TRANSIO) || (badge.company_id == COMPANY_ID_JOCO)) && valid_name) {
 	p_active_entry = in_active_list(badge.address, badge.device_id, badge.name);
 	if (p_active_entry) {
 	    p_active_entry->last_seen = util_local_millis();

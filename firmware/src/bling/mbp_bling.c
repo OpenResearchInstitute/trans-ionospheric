@@ -746,6 +746,120 @@ void mbp_bling_scroll_cycle() {
 //     util_button_clear();
 // }
 
+// Callback passed to util_gfx_draw_raw_file() to stop playback after one frame.
+static void __play_1_frame_only(uint8_t frame, void *p_data) {
+	util_gfx_draw_raw_file_stop();
+}
+
+void mbp_bling_hello_transio_schedule_handler(void * p_event_data, uint16_t event_size) {
+    char *name = (char *) p_event_data;
+    uint16_t w, h;
+    app_sched_pause();
+    bool background_was_running = mbp_background_led_running();
+    mbp_background_led_stop();
+
+    //Pick colors
+    float h1 = ((float) util_math_rand8_max(100) / 100.0);
+    float h2 = h1 + 0.5;
+    if (h2 >= 1.0) {
+        h2 -= 1.0;
+    }
+    uint32_t color_1 = util_led_hsv_to_rgb(h1, 1, 1);
+    uint32_t color_2 = util_led_hsv_to_rgb(h2, 1, 1);
+
+    util_gfx_draw_raw_file("JINTRO.RAW", 0, 0, GFX_WIDTH, GFX_HEIGHT, __play_1_frame_only, false, NULL);
+    uint16_t fg = util_gfx_rgb_to_565(color_1);
+    uint16_t bg = util_gfx_rgb_to_565(color_2);
+
+    //Compute name coords
+    util_gfx_set_font(FONT_LARGE);
+    util_gfx_get_text_bounds(name, 0, 0, &w, &h);
+    uint16_t y = (GFX_HEIGHT / 2) + 4;
+    uint16_t x = (GFX_WIDTH - w) / 2;
+
+    //Print shadow
+    // util_gfx_set_color(bg);
+	// util_gfx_set_cursor(x + 1, y + 1);
+    // util_gfx_print(name);
+	util_gfx_fill_rect(x-3, y-7, w+7, h+8, bg);
+
+    //Print name
+    util_gfx_set_color(fg);
+    util_gfx_set_cursor(x, y);
+    util_gfx_print(name);
+
+    //Compute hello coords
+    char hello[] = "Hello";
+    util_gfx_get_text_bounds(hello, 0, 0, &w, &h);
+    x = (GFX_WIDTH - w) / 2;
+    y = (GFX_HEIGHT / 2) - 4 - h;
+
+    //Print shadow
+    // util_gfx_set_color(bg);
+    // util_gfx_set_cursor(x + 1, y + 1);
+    // util_gfx_print(hello);
+	util_gfx_fill_rect(x-3, y-7, w+7, h+8, bg);
+
+    //Print hello
+    util_gfx_set_color(fg);
+    util_gfx_set_cursor(x, y);
+    util_gfx_print(hello);
+
+    //Set all LEDs
+    util_led_set_all_rgb(color_1);
+    util_led_show();
+    nrf_delay_ms(2000);
+
+    uint8_t cols[5][4] = {
+            { 8, 4, 0, 12 },
+            { 9, 5, 1, 255 },
+            { 10, 6, 2, 255 },
+            { 11, 7, 3, 13 },
+            { 255, 255, 255, 14 }
+    };
+    uint8_t height[] = { 4, 4, 4, 4, 4 };
+
+    while (1) {
+        //pick a random column to lower
+        uint8_t col = util_math_rand8_max(5);
+        if (height[col] > 0) {
+            height[col]--;
+            uint8_t index = cols[col][height[col]];
+
+            if (index < LED_COUNT) {
+                util_led_set_rgb(index, color_2);
+                util_led_show();
+                nrf_delay_ms(40);
+                util_led_set(index, 0, 0, 0);
+                util_led_show();
+            }
+        }
+
+        nrf_delay_ms(30);
+
+        bool done = true;
+        for (uint8_t i = 0; i < 5; i++) {
+            if (height[i] > 0) {
+                done = false;
+                break;
+            }
+        }
+
+        if (done) {
+            break;
+        }
+    }
+
+    //Cleanup and give control back to user
+    util_gfx_invalidate();
+    if (background_was_running) {
+        mbp_background_led_start();
+    }
+    app_sched_resume();
+    util_button_clear();
+}
+
+
 void mbp_bling_hello_joco_schedule_handler(void * p_event_data, uint16_t event_size) {
     char *name = (char *) p_event_data;
     uint16_t w, h;

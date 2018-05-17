@@ -20,7 +20,7 @@
 #include "../system.h"
 
 //Badge to badge hellos
-#define HELLO_INTERVAL                (1000 * 60) // Limit hellos to 1 per minute
+#define HELLO_INTERVAL                (1000 * 20) // Limit hellos to 3 per minute
 
 static uint32_t m_next_hello;
 
@@ -37,8 +37,7 @@ bool try_to_hello(uint16_t company_id, char *name) {
 	m_next_hello = now + HELLO_INTERVAL;
 	switch (company_id) {
         case COMPANY_ID_TRANSIO:
-		//!!! Update to have a different Hello
-		APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_joco_schedule_handler));
+		APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_transio_schedule_handler));
 	    break;
 	case COMPANY_ID_JOCO:
 	    APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_joco_schedule_handler));
