@@ -36,6 +36,7 @@
 #define SETTING_NAME_DEFAULT				"ELMER"
 #define SETTING_NAME_LENGTH					9
 #define SETTING_PW_LENGTH					9
+#define SETTING_CALLSIGN_LENGTH				7
 #define SETTING_AIRPLANE_MODE_DEFAULT		false
 #define SETTING_TILT_ENABLED_DEFAULT		true
 #define SETTING_GAME_EXIT_POPUP_DEFAULT		true
@@ -153,6 +154,8 @@
 #include "ntopt.h"
 #include "partcl/tcl.h"
 #include "skifree.h"
+#include "transio_log.h"
+#include "transio_qso.h"
 #include "util.h"
 #include "util_ble.h"
 #include "util_ble_lists.h"

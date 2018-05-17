@@ -51,6 +51,8 @@ typedef struct {
 	char pw_root[9];
 	uint16_t wall_current_spot;
 	char wall_messages[5][16];
+	char callsign[7];
+	bool callsign_set;
 } badge_state_t;
 
 extern void mbp_state_wall_show();
@@ -102,6 +104,10 @@ extern void mbp_state_lastlevel_set(uint8_t lastlevel_state);
 //Get and set joco special badge ID
 extern uint8_t mbp_state_special_get();
 extern void mbp_state_special_set(uint8_t lastlevel_state);
+
+//Get and set callsign for Trans-Ionospheric
+extern void mbp_state_callsign_set(char *call);
+extern bool mbp_state_callsign_get(char *call);
 
 //Get and set unlocked state
 extern uint16_t mbp_state_unlock_get();

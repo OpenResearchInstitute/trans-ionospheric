@@ -38,7 +38,7 @@ void add_to_score(int16_t points, char *name) {
     mbp_state_save();
     // schedule a score bling display
     // -spc- TODO change the bling for a level up
-    APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_score_schedule_handler));
+    // APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_score_schedule_handler));
 }
 
 void game_status_screen() {
