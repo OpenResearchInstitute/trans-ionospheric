@@ -127,7 +127,10 @@ int main(void) {
 
 	//Test for SD, if not, then run POST
 	if (!sd_available) {
-		mbp_system_test();
+		while (1) {
+			mbp_system_test();
+			mbp_ui_popup("No Card", "The badge can't do its cool tricks without the right uSD card installed.");
+		}
 	}
 
 	if (!mbp_state_load()) {
