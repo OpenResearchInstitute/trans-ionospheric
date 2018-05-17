@@ -165,7 +165,7 @@ static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
     ble_db_discovery_on_ble_evt(&m_ble_db_discovery, p_ble_evt);
     ble_conn_params_on_ble_evt(p_ble_evt);
     //mbp_master_ble_on_ble_evt(p_ble_evt);
-    score_ble_on_ble_evt(p_ble_evt);
+//!!!    score_ble_on_ble_evt(p_ble_evt);
     transio_qso_on_ble_evt(p_ble_evt);
     mbp_medea_on_ble_evt(p_ble_evt);
     nrf_ble_gatt_on_ble_evt(&m_gatt, p_ble_evt);
@@ -639,6 +639,7 @@ static void __pm_init() {
 static void __services_init() {
     mbp_medea_ble_init();
     //mbp_master_ble_init();
+	transio_qso_ble_init();
 
     //Init NUS
     ble_nus_init_t nus_init;

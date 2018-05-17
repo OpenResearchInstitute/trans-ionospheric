@@ -25,12 +25,12 @@
 static uint8_t m_qso_callsign[SETTING_CALLSIGN_LENGTH] = "NOTSET";
 
 static uint16_t m_qso_service_handle;
-static volatile uint16_t m_s_conn_handle = BLE_CONN_HANDLE_INVALID;
-static volatile uint16_t m_c_conn_handle = BLE_CONN_HANDLE_INVALID;
-static volatile uint16_t m_c_callsign_handle;
-static uint8_t m_c_callsign_result[SETTING_CALLSIGN_LENGTH];
-static volatile bool m_connecting = false;
-static volatile bool m_waiting = false;
+static volatile uint16_t m2_s_conn_handle = BLE_CONN_HANDLE_INVALID;
+static volatile uint16_t m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+static volatile uint16_t m2_c_callsign_handle;
+static uint8_t m2_c_callsign_result[SETTING_CALLSIGN_LENGTH];
+static volatile bool m2_connecting = false;
+static volatile bool m2_waiting = false;
 static volatile bool m_callsign_read_ok = false;
 
 void transio_qso_callsign_set(char *callsign) {
@@ -51,7 +51,7 @@ static uint32_t __init_char_callsign() {
 
 	memset(&char_md, 0, sizeof(char_md));
 
-	//Badge score characteristic
+	//Badge callsign characteristic
 	char_md.char_props.write = 0;			//Writing not allowed
 	char_md.char_props.write_wo_resp = 0;	//Writing not allowed
 	char_md.char_props.read = 1;	//Read the data
@@ -115,34 +115,34 @@ static void __on_read_response(const ble_evt_t *p_ble_evt) {
 	const ble_gattc_evt_read_rsp_t * p_response;
 
 	// Check if the event if on the link for this instance
-	if (m_c_conn_handle != p_ble_evt->evt.gattc_evt.conn_handle) {
+	if (m2_c_conn_handle != p_ble_evt->evt.gattc_evt.conn_handle) {
 		return;
 	}
 
 	p_response = &p_ble_evt->evt.gattc_evt.params.read_rsp;
 
 	//Check the handle of the response and pull the data out
-	if (p_response->handle == m_c_callsign_handle) {
-		memcpy(m_c_callsign_result, p_response->data, SETTING_CALLSIGN_LENGTH);
+	if (p_response->handle == m2_c_callsign_handle) {
+		memcpy(m2_c_callsign_result, p_response->data, SETTING_CALLSIGN_LENGTH);
 		m_callsign_read_ok = true;
-		m_waiting = false;
+		m2_waiting = false;
 	}
 }
 
 
 
 bool transio_qso_callsign_get(void) {
-	m_waiting = true;
+	m2_waiting = true;
 	m_callsign_read_ok = false;
 
 	//Fire off a read request
-	sd_ble_gattc_read(m_c_conn_handle, m_c_callsign_handle, 0);
+	sd_ble_gattc_read(m2_c_conn_handle, m2_c_callsign_handle, 0);
 
 	uint32_t end_time = util_millis() + 5000;
-	while (m_waiting) {
+	while (m2_waiting) {
 		APP_ERROR_CHECK(sd_app_evt_wait());
 		if (util_millis() > end_time) {
-			m_waiting = false;
+			m2_waiting = false;
 		}
 	}
 
@@ -158,18 +158,17 @@ void transio_qso_on_ble_evt(const ble_evt_t * p_ble_evt) {
 	switch (p_ble_evt->header.evt_id) {
 	//Connected to as a service
 		case BLE_GAP_EVT_CONNECTED:
-			m_connecting = false;
-			m_s_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
+			m2_s_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
 			break;
 		case BLE_GAP_EVT_DISCONNECTED:
-			m_connecting = false;
-			m_s_conn_handle = BLE_CONN_HANDLE_INVALID;
-			m_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+			m2_connecting = false;
+			m2_s_conn_handle = BLE_CONN_HANDLE_INVALID;
+			m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
 			break;
 		case BLE_GAP_EVT_TIMEOUT:
-			m_connecting = false;
-			m_s_conn_handle = BLE_CONN_HANDLE_INVALID;
-			m_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+			m2_connecting = false;
+			m2_s_conn_handle = BLE_CONN_HANDLE_INVALID;
+			m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
 			break;
 
 		case BLE_GATTC_EVT_HVX:
@@ -206,33 +205,33 @@ void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt) {
 			&& p_evt->params.discovered_db.srv_uuid.uuid == QSO_SVC_UUID
 			&& p_evt->params.discovered_db.srv_uuid.type == BLE_UUID_TYPE_BLE) {
 
-		m_c_conn_handle = p_evt->conn_handle;
+		m2_c_conn_handle = p_evt->conn_handle;
 
 		for (uint8_t i = 0; i < p_evt->params.discovered_db.char_count; i++) {
 
 			if (p_evt->params.discovered_db.charateristics[i].characteristic.uuid.uuid == QSO_CHAR_CALLSIGN_UUID) {
 				// Found callsign characteristic
-				m_c_callsign_handle = p_evt->params.discovered_db.charateristics[i].characteristic.handle_value;
+				m2_c_callsign_handle = p_evt->params.discovered_db.charateristics[i].characteristic.handle_value;
 			}
 		}
 
-		APP_ERROR_CHECK(pm_conn_secure(m_c_conn_handle, false));
+		APP_ERROR_CHECK(pm_conn_secure(m2_c_conn_handle, false));
 
 		//all done
-		m_connecting = false;
+		m2_connecting = false;
 	}
 }
 
 
 bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
-	m_connecting = true;
-	m_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+	m2_connecting = true;
+	m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
 	util_ble_connect(address);
-	while (m_connecting) {
+	while (m2_connecting) {
 		APP_ERROR_CHECK(sd_app_evt_wait());
 	}
 
-	return m_c_conn_handle != BLE_CONN_HANDLE_INVALID;
+	return m2_c_conn_handle != BLE_CONN_HANDLE_INVALID;
 }
 
 
@@ -248,7 +247,7 @@ void transio_qso_attempt() {
 	util_gfx_set_cursor(0, 0);
 	util_gfx_set_font(FONT_SMALL);
 	util_gfx_set_color(COLOR_WHITE);
-	util_gfx_print("Calling the badge...\n");
+	util_gfx_print("Calling the badge...\ncome in, please!\n");
 
 	//Connect
 	if (transio_qso_connect_blocking(&address)) {
@@ -258,7 +257,7 @@ void transio_qso_attempt() {
 			util_gfx_print("UR 599 TNX QSO\n");
 			//!!! update neighbor list entry with callsign
 			//!!! make logfile entry
-			sprintf(buf, "His callsign: %s\n", m_c_callsign_result);
+			sprintf(buf, "His callsign: %s\n", m2_c_callsign_result);
 		} else {
 			util_gfx_print("Nothing heard!\nTry again later.\n");
 		}
