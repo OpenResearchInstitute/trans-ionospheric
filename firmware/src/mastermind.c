@@ -786,13 +786,13 @@ static void __mm_codebreaker(void) {
 		}
 	}
 
-	char msg_buf[60];
+	char msg_buf[90];
 	switch (status) {
 		case MM_USER_QUIT:
 				sprintf(msg_buf, "You quit the game!");
 				break;
 		case MM_REMOTE_QUIT:
-				sprintf(msg_buf, "Couldn't get an answer from the other player!");
+				sprintf(msg_buf, "Couldn't get an answer from the other player! (Feature not implemented yet! Sorry.)");
 				break;
 		case MM_VICTORY:
 				sprintf(msg_buf, "You got it in %d turn%c!", turn+1, turn == 0 ? '!' : 's');
@@ -936,6 +936,10 @@ static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
 	//!!! in the meantime, add a delay for comfort.
 	nrf_delay_ms(2000);
 
+	util_gfx_print("Not really yet.\nFuture feature.\n");
+
+	nrf_delay_ms(2000);
+
 	return true;
 }
 
@@ -1006,7 +1010,7 @@ void mastermind() {
 				// and then summarize the game-pair results.
 
 			} else {
-				mbp_ui_popup("FAILURE", "Unable to connect with opponent");
+				mbp_ui_popup("FAILURE", "Unable to connect with opponent. (Feature not implemented yet!)");
 			}
 	}
 

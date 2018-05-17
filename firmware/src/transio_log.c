@@ -194,7 +194,8 @@ void file_viewer(char *filename, char *title, char *eof_message, void empty_mess
 
 static void __explain_empty_logfile(void) {
 	util_gfx_print("--- log empty ---\n\n");
-	util_gfx_print("Select neighbors on\nthe Nearby list to\nmake QSOs!");
+	util_gfx_print("Select neighbors on\nthe Nearby list to\nmake QSOs!\n");
+	util_gfx_print("(After we finish\nthat feature.)");
 }
 
 
