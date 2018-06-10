@@ -352,3 +352,8 @@ timestamp:
 	mkdir -p $(OUTPUT_DIRECTORY)
 	touch $(OUTPUT_DIRECTORY)/nrf52832_xxaa_version.c.d
 	$(NO_ECHO)$(CC) -DBUILD_TIME=\"`date +"TI%y%m%d%H%M%S"`\" -MP -MD -std=c99 $(CFLAGS) -c -o $(OUTPUT_DIRECTORY)/nrf52832_xxaa_version.c.o version.c
+
+# Run the debugger (GDB via BlackMagic Probe)
+gdb:
+	@echo Running GDB on the BlackMagic Probe
+	$(GNU_INSTALL_ROOT)/bin/$(GNU_PREFIX)-gdb --silent -nx --command=../gdb-init --se=$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out
