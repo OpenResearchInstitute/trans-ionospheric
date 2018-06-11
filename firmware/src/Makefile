@@ -357,3 +357,13 @@ timestamp:
 gdb:
 	@echo Running GDB on the BlackMagic Probe
 	$(GNU_INSTALL_ROOT)/bin/$(GNU_PREFIX)-gdb --silent -nx --command=../gdb-init --se=$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out
+
+# Run the debugger (GDB via OpenOCD)
+gdb-openocd:
+	@echo Running GDB via OpenOCD -- make sure it is running
+	$(GNU_INSTALL_ROOT)/bin/$(GNU_PREFIX)-gdb --silent -nx --command=../gdb-init-openocd --se=$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out
+
+# Start an OpenOCD process
+openocd:
+	@echo Starting up OpenOCD
+	gnome-terminal --command="$(HOME)/opt/gnu-mcu-eclipse/openocd/0.10.0-8-20180512-1921/bin/openocd --file ../openocd.cfg"
