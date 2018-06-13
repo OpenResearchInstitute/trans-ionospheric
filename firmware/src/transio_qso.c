@@ -237,8 +237,13 @@ bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 
 void transio_qso_attempt() {
 	ble_gap_addr_t address;
-	uint8_t raw_addr[] = { 0, 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};
-	memcpy((uint8_t *)&address, raw_addr, 7);
+	// Hard coded address to use, pending improvements to the neighbor list.
+	// Note: byte order is the opposite order displayed in nRF Connect, etc.
+//	uint8_t raw_addr[] = { 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};	// some badge
+	uint8_t raw_addr[] = { 0x80, 0xe7, 0x2b, 0x10, 0x9c, 0xc7};	// Proto 7
+//	uint8_t raw_addr[] = { 0x06, 0x26, 0x79, 0x86, 0x50, 0xe5};	// Abraxas3D Bender
+	memcpy(address.addr, raw_addr, 6);
+	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
 
 	char buf[32];
 

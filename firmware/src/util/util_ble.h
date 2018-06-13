@@ -31,13 +31,14 @@
 #ifndef UTIL_UTIL_BLE_H_
 #define UTIL_UTIL_BLE_H_
 
-#define COMPANY_ID_TRANSIO					0x0858
-#define COMPANY_ID_ANDNXOR					0x049E		/** AND!XOR LLC :-) **/
-#define COMPANY_ID_JOCO						0x0B25
-#define COMPANY_ID_CPV						0x0C97
-#define COMPANY_ID_DC503					0x0503
-#define COMPANY_ID_DC801					0x0801		/** DC801?? **/
-#define COMPANY_ID_QUEERCON					0x04D3
+#define COMPANY_ID_TRANSIO_TMP				0x0858	// Fake ID used at Hamvention 2018
+#define COMPANY_ID_TRANSIO					0x064A	// Open Research Institute, Inc
+#define COMPANY_ID_ANDNXOR					0x049E	// assigned to AND!XOR LLC :-)
+#define COMPANY_ID_JOCO						0x0B25	// Fake ID used for JoCo 2018
+#define COMPANY_ID_CPV						0x0C97	// Fake
+#define COMPANY_ID_DC503					0x0503	// assigned to Locoroll, Inc
+#define COMPANY_ID_DC801					0x0801	// Fake, DC801??
+#define COMPANY_ID_QUEERCON					0x04D3	// assigned to Queercon, Inc
 
 #define APPEARANCE_ID_ANDNXOR_DC25				0x19DC
 
