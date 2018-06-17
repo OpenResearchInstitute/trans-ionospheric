@@ -89,9 +89,6 @@ int main(void) {
 
 	hello_init();
 
-	// set up the lists we use to track badges we hear
-	ble_lists_init();
-
 	//Start up BLE, this starts the LFCLK needs to happen first
 	//If airplane mode we'll disable later
 	util_ble_init();

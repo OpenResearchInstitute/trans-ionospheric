@@ -37,6 +37,7 @@ bool try_to_hello(uint16_t company_id, char *name) {
 	m_next_hello = now + HELLO_INTERVAL;
 	switch (company_id) {
         case COMPANY_ID_TRANSIO:
+        case COMPANY_ID_TRANSIO_TMP:
 		APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_hello_transio_schedule_handler));
 	    break;
 	case COMPANY_ID_JOCO:
