@@ -542,19 +542,19 @@ void mbp_system_test() {
 		util_gfx_validate();
 
 		if (util_tilt_inverted()) {
-                    util_led_set_all(100, 100, 100);
+                    util_led_set_all(255, 255, 255);
                     util_led_show();
                 } else {
                     //Test LEDs
                     switch (color) {
                     case 0:
-                            util_led_set_all(100, 0, 0);
+                            util_led_set_all(255, 0, 0);
                             break;
                     case 1:
-                            util_led_set_all(0, 100, 0);
+                            util_led_set_all(0, 255, 0);
                             break;
                     case 2:
-                            util_led_set_all(0, 0, 100);
+                            util_led_set_all(0, 0, 255);
                             break;
                     }
                     util_led_show();
