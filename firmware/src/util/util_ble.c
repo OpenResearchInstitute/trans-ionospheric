@@ -337,24 +337,12 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
 		memcpy(field_data, p_data + adv_index + 2, field_length - 1);
 
+		// There is currently no way to see a badge as "special"
+		badge.special = 0;
+
 		//Complete name field must be made available
 		if (field_type == GAP_TYPE_NAME && field_length > 1) {
-			//        snprintf(badge.name, MIN(SETTING_NAME_LENGTH, field_length), "%s", (char *) field_data);
-			memset(badge.name, 0x00, SETTING_NAME_LENGTH);
-			uint8_t index = 0;
-			badge.special = 0;
-			char inchar;
-
-			for (uint8_t i = 0; i < strlen((char*) field_data); i++) {
-				inchar = field_data[i];
-				if (islower((int)inchar))
-					badge.special |= (1 << i);
-				const char *ptr = strchr(INPUT_CHARS, toupper((int)inchar));
-				badge.name[index++] = *ptr;
-				if (index >= SETTING_NAME_LENGTH - 1) {
-					break;
-				}
-			}
+			strncpy(badge.name, field_data, SETTING_NAME_LENGTH);
 			valid_name = true;
 		}
 
@@ -942,7 +930,6 @@ void util_ble_name_get(char *name) {
 }
 
 void util_ble_name_set(char *name) {
-	uint8_t special = mbp_state_special_get();
 	int maxlen = 8;
 	char name_temp[9];
 
@@ -951,12 +938,6 @@ void util_ble_name_set(char *name) {
 	int sl = strlen(name_temp);
 	if (sl < maxlen)
 		maxlen = sl;
-
-	for (int i=0; i<maxlen ; i++) {
-		if ((1<<i) & special) {
-			name_temp[i] = tolower((int) name_temp[i]);
-		}
-	}
 
 	ble_gap_conn_sec_mode_t sec_mode;
 	BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&sec_mode);
