@@ -39,8 +39,15 @@
 #define COMPANY_ID_DC503					0x0503	// assigned to Locoroll, Inc
 #define COMPANY_ID_DC801					0x0801	// Fake, DC801??
 #define COMPANY_ID_QUEERCON					0x04D3	// assigned to Queercon, Inc
+#define COMPANY_ID_DCDARKNET				0x444E	// Fake
+#define COMPANY_ID_DCZIA					0x5050	// Fake
+#define COMPANY_ID_FoB1un7					0x0069	// Fake
+#define COMPANY_ID_TDI						0x1010	// Fake; The Diana Initiative
+#define COMPANY_ID_DCFURS					0x71FF	// Fake
+#define COMPANY_ID_BLINKYBLING				0x4242	// Fake
 
 #define APPEARANCE_ID_ANDNXOR_DC25				0x19DC
+#define APPEARANCE_ID_STANDARD_DC26				0x26DC
 
 extern void util_ble_advertising_start();
 extern void util_ble_score_update();

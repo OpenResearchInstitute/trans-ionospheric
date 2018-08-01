@@ -32,7 +32,7 @@
 
 #define BLE_DATA_LEN                  10
 #define BLE_DATA_INDEX_SCORE          2
-#define BLE_DATA_INDEX_C2             4
+#define BLE_DATA_INDEX_C2_UNUSED      4
 #define BLE_DATA_INDEX_FLAGS          8
 #define BLE_DATA_INDEX_UNUSED1        9
 
@@ -112,14 +112,11 @@ ble_gap_conn_params_t m_conn_params = {
 typedef struct {
 	uint8_t address[BLE_GAP_ADDR_LEN]; // 6
 	uint16_t company_id;               // 2
+	uint16_t appearance;               // 2
 	char name[SETTING_NAME_LENGTH];    // 9
-	bool said_hello;                   // 1
 	uint16_t device_id;                // 2
-	uint32_t first_seen;               // 4
-	uint32_t last_seen;                // 4
 	int8_t rssi;                       // 1
 	uint8_t special;                   // 1
-	uint8_t flags;                     // 1
 } ble_badge_t;
 
 //Declare these early
@@ -177,40 +174,6 @@ static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
 	__on_ble_evt(p_ble_evt);
 	ble_advertising_on_ble_evt(p_ble_evt);
 }
-
-// void __check_for_master_unlock(uint8_t special) {
-//     // Four 'master' badges trigger unlocking of bling when visited
-//     uint16_t unlock = mbp_state_unlock_get();
-//
-//     if (!(unlock & UNLOCK_MASK_MASTER_1)) {
-// 	if (special == MASTER_1_SPECIAL_ID) {
-// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_1);
-// 	    mbp_state_save();
-// 	}
-//     }
-//
-//     if (!(unlock & UNLOCK_MASK_MASTER_2)) {
-// 	if (special == MASTER_2_SPECIAL_ID) {
-// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_2);
-// 	    mbp_state_save();
-// 	}
-//     }
-//
-//     if (!(unlock & UNLOCK_MASK_MASTER_3)) {
-// 	if (special == MASTER_3_SPECIAL_ID) {
-// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_3);
-// 	    mbp_state_save();
-// 	}
-//     }
-//
-//     if (!(unlock & UNLOCK_MASK_MASTER_4)) {
-// 	if (special == MASTER_4_SPECIAL_ID) {
-// 	    mbp_state_unlock_set(unlock | UNLOCK_MASK_MASTER_4);
-// 	    mbp_state_save();
-// 	}
-//     }
-// }
-
 
 /**@brief Function for handling an event from the Connection Parameters Module.
  *
@@ -302,27 +265,24 @@ static void __gatt_init(void) {
  * @retval NRF_ERROR_NOT_FOUND if the data type could not be found.
  */
 
+#define	MAX_AD_FIELD_LEN	26
+#define MIN_AD_FIELD_LEN	2
+
 static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	uint32_t adv_index = 0;
 	uint8_t *p_data;
 
 	p_data = p_report->data;
 	ble_badge_t badge;
-	bool friendly = false;
+	uint8_t mfg_specific_data[MAX_AD_FIELD_LEN];
 	bool valid_name = false;
-	uint8_t seen_flags;
 
+	badge.company_id = 0;
+	badge.appearance = 0;
 	badge.rssi = p_report->rssi;
-	badge.said_hello = false;
 
 	// peer adress includes the address type, we only care about the 6 byte GAP address
 	memcpy(&badge.address, &p_report->peer_addr.addr, BLE_GAP_ADDR_LEN);
-
-	//C2 Data
-	master_c2_t c2;
-	c2.cmd = 0;
-	c2.data = 0;
-	c2.seq = 0;
 
 	while (adv_index < p_report->dlen) {
 		//BLE GAP format is [len][type][data]
@@ -331,7 +291,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		uint8_t field_data[field_length - 1];
 
 		//Reject invalid data
-		if (field_length < 2 || field_length > 26) {
+		if (field_length < MIN_AD_FIELD_LEN || field_length > MAX_AD_FIELD_LEN) {
 			break;
 		}
 
@@ -340,114 +300,142 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// There is currently no way to see a badge as "special"
 		badge.special = 0;
 
-		//Complete name field must be made available
+		// Complete name field must be made available (for badges)
 		if (field_type == GAP_TYPE_NAME && field_length > 1) {
 			strncpy(badge.name, field_data, SETTING_NAME_LENGTH);
 			valid_name = true;
 		}
 
-		//Company data should at least contain an identifier (two bytes) + device id (two bytes)
+		// The appearance is a mandatory field for DC26 (2018) badges.
+		// AND!XOR set it to 0x19DC for DC25.
+		// Standard calls for 0x26DC for DC26.
+		// AND!XOR is using other appearances to multiplex other data
+		//		in rotating advertisements.
+		else if (field_type == GAP_TYPE_APPEARANCE && field_length == 2) {
+			badge.appearance = field_data[0] | (field_data[1] << 8);
+		}
+
+		// Manufacturer-specific data is effectively mandatory, because it's
+		// the only way to identify which other fields are meaningful.
+		// Really, the data is specific to both manufacturer and appearance,
+		// which means it's specific to which DEFCON year.
+
 		else if (field_type == GAP_TYPE_COMPANY_DATA) {
 			badge.company_id = field_data[0] | (field_data[1] << 8);
-
-			switch (badge.company_id) {
-			case COMPANY_ID_TRANSIO:
-			case COMPANY_ID_TRANSIO_TMP:
-				badge.device_id = field_data[2] | (field_data[3] << 8);
-				badge.flags = field_data[BLE_DATA_INDEX_FLAGS + 2];
-				//Store C2 data
-				memcpy(&c2, field_data + BLE_DATA_INDEX_C2 + 2, sizeof(master_c2_t));
-				break;
-			case COMPANY_ID_JOCO:
-				badge.device_id = field_data[2] | (field_data[3] << 8);
-				badge.flags = 0;
-				//Store C2 data
-				memcpy(&c2, field_data + BLE_DATA_INDEX_C2 + 2, sizeof(master_c2_t));
-				break;
-			case COMPANY_ID_ANDNXOR:
-				sprintf(badge.name, "AND!XOR");
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				badge.flags = 0;
-				break;
-			case COMPANY_ID_CPV:
-				sprintf(badge.name, "CPV");
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				badge.flags = 0;
-				friendly = true;
-				break;
-			case COMPANY_ID_DC503:
-				sprintf(badge.name, "DC503");
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				badge.flags = 0;
-				friendly = true;
-				break;
-			case COMPANY_ID_DC801:
-				sprintf(badge.name, "DC801");
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				badge.flags = 0;
-				friendly = true;
-				break;
-			case COMPANY_ID_QUEERCON:
-				sprintf(badge.name, "Queercon");
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				badge.flags = 0;
-				friendly = true;
-				break;
-			}
+			memcpy(mfg_specific_data, field_data, field_length);
 		}
 
 		//Advance the index
 		adv_index += field_length + 1;
 	}
 
+	//************************************************************
 	// Now we're done parsing all the BLE data
+	//************************************************************
 
-	// Process the RSSI if it's a known badge.
-	if ( friendly || (((badge.company_id == COMPANY_ID_TRANSIO) || (badge.company_id == COMPANY_ID_TRANSIO_TMP) || (badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID_ANDNXOR)) && valid_name)) {
-		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
-	}
+	// We will assume it to be a badge if it contains one of the standard
+	// appearance values. (DEFCON standard, not BLE standard!)
 
-	// joco badges we have counted as 'visits' are stored in the SD card database
-	// This is the slowest access, and should only be accessed after checking the seen list
+	if (badge.appearance == APPEARANCE_ID_ANDNXOR_DC25 ||
+		badge.appearance == APPEARANCE_ID_STANDARD_DC26) {
 
-	// joco badges we have counted as 'visits' are cached in the seen list if we've recently seen them
-	// 'friend' badges we consider saying 'hi' to are cached in the seen list
+		// Some badges may choose to omit the BLE-standard name field.
+		// In that case all we can do is provide a fake name derived from
+		// the manufacturer ID. But even badges we've never heard of might
+		// still use the standard name field, in which case we can leave
+		// it alone.
+		if (!valid_name) {
+			switch(badge.company_id) {
+				case COMPANY_ID_TRANSIO:
+				case COMPANY_ID_TRANSIO_TMP:
+				case COMPANY_ID_JOCO:
+				case COMPANY_ID_ANDNXOR:
+					// these badges always provide a name.
+					break;
 
-	//#define FILL_THE_LISTS
-#ifdef FILL_THE_LISTS
-	// For testing, we can randomly munge the address so we never find a match and the lists fill
-	if ( friendly || (((badge.company_id == COMPANY_ID_JOCO) || (badge.company_id == COMPANY_ID)) && valid_name)) {
-		badge.address[0] = util_math_rand8();
-		badge.address[1] = util_math_rand8();
-	}
-#endif
+				case COMPANY_ID_CPV:
+					sprintf(badge.name, "CPV");
+					break;
 
-	if (((badge.company_id == COMPANY_ID_TRANSIO) || (badge.company_id == COMPANY_ID_TRANSIO_TMP)|| (badge.company_id == COMPANY_ID_JOCO)) && valid_name) {
+				case COMPANY_ID_DC503:
+					sprintf(badge.name, "DC503");
+					break;
 
-		seen_flags = check_and_add_to_seen(badge.address, badge.device_id, badge.name, SEEN_TYPE_JOCO);
+				case COMPANY_ID_DC801:
+					sprintf(badge.name, "DC801");
+					break;
 
-		if(seen_flags) {
-			if((!(seen_flags & SEEN_FLAG_SAID_HELLO)) && (badge.rssi > HELLO_MIN_RSSI)) {
-				if (try_to_hello(badge.company_id, badge.name))
-					set_seen_flags(badge.address, badge.device_id, SEEN_FLAG_SAID_HELLO);
+				case COMPANY_ID_QUEERCON:
+					sprintf(badge.name, "Queercon");
+					break;
+
+				case COMPANY_ID_DCDARKNET:
+					sprintf(badge.name, "DarkNet");
+					break;
+
+				case COMPANY_ID_DCZIA:
+					sprintf(badge.name, "DCZIA");
+					break;
+
+				case COMPANY_ID_FoB1un7:
+					sprintf(badge.name, "FoB1un7");
+					break;
+
+				case COMPANY_ID_TDI:
+					sprintf(badge.name, "TheDiana");
+					break;
+
+				case COMPANY_ID_DCFURS:
+					sprintf(badge.name, "DC Furs");
+					break;
+
+				case COMPANY_ID_BLINKYBLING:
+					sprintf(badge.name, "MrBlinky");
+					break;
+
+				default:
+					sprintf(badge.name, "Badge??")
+					break;
 			}
-			// DONE
 		}
 
-	} else if (((badge.company_id == COMPANY_ID_ANDNXOR) && valid_name) || friendly) {
-		// NOT joco
-		// put it on the seen list if it's not already, automatic add for PEER type
-		seen_flags = check_and_add_to_seen(badge.address, badge.device_id, badge.name, SEEN_TYPE_PEER);
-		if (!(seen_flags & SEEN_FLAG_SAID_HELLO)) {
-			if (try_to_hello(badge.company_id, badge.name))
-				set_seen_flags(badge.address, badge.device_id, SEEN_FLAG_SAID_HELLO);
-		}
-	}
+		// Badge ID seemed to be a big deal for DC25, but not DC26.
+		// Fill it in just in case we need it.
+		if (badge.appearance == APPEARANCE_ID_ANDNXOR_DC25) {
+			switch (badge.company_id):
+				case COMPANY_ID_TRANSIO:
+				case COMPANY_ID_TRANSIO_TMP:
+				case COMPANY_ID_JOCO:
+				case COMPANY_ID_ANDNXOR:
+					badge.device_id = field_data[2] | (field_data[3] << 8);
+					break;
 
-	//Look for medea vodka
+				default:
+					badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
+					break;
+			}
+		} else if (badge.appearance == APPEARANCE_ID_STANDARD_DC26) {
+			case COMPANY_ID_ANDNXOR:
+				badge.device_id = field_data[3] | (field_data[4] << 8);
+				break;
+
+			default:
+				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
+				break;
+		}
+
+		// Process the RSSI for meter display
+		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
+
+		// Maintain the neighbor list based on this advertisement
+		ble_lists_process_advertisement(badge.address, badge.name, badge.appearance, badge.company_id);
+
+	}	/* Done with processing advertisement from a badge. */
+
+	// Look for medea vodka
 	mbp_medea_on_advertisement(p_report);
 
-	//Handle beacon scanning
+	// Handle beacon scanning
 	beacon_ble_on_ble_advertisement(p_report);
 }
 
@@ -983,14 +971,4 @@ void util_ble_scan_start() {
 
 	err_code = sd_ble_gap_scan_start(&scan);
 	APP_ERROR_CHECK(err_code);
-}
-
-void util_ble_c2_set(master_c2_t *p_c2) {
-	ble_gap_conn_sec_mode_t sec_mode;
-	BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
-
-	//Copy c2 data packet into advertisement
-	memcpy((m_adv_data.p_manuf_specific_data->data.p_data) + BLE_DATA_INDEX_C2, p_c2, sizeof(master_c2_t));
-
-	ble_advdata_set(&m_adv_data, NULL);
 }
