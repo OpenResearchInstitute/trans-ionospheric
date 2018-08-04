@@ -1,7 +1,6 @@
 /*****************************************************************************
- * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/)
+ * (C) Copyright 2018 Open Research Institute (https://openresearch.institute)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +21,7 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
@@ -39,6 +38,9 @@
 #define TICKS_PER_100MS				APP_TIMER_TICKS(100, 0)
 
 static volatile uint8_t button_state = 0;
+
+APP_TIMER_DEF(m_button_timer);
+uint8_t m_button_wait_expired = false;
 
 void __gpiote_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
 
@@ -69,6 +71,13 @@ void __gpiote_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
 		button_state &= ~mask;
 	}
 }
+
+
+// Helper function for util_button_wait_timeout()
+static void __button_timer_handler(void *p_data) {
+	m_button_wait_expired = true;
+}
+
 
 void util_button_clear() {
 	button_state = 0;
@@ -101,6 +110,8 @@ void util_button_init() {
 	nrf_drv_gpiote_in_event_enable(BUTTON_LEFT, true);
 	nrf_drv_gpiote_in_event_enable(BUTTON_RIGHT, true);
 	nrf_drv_gpiote_in_event_enable(BUTTON_ACTION, true);
+
+	APP_ERROR_CHECK(app_timer_create(&m_button_timer, APP_TIMER_MODE_SINGLE_SHOT, __button_timer_handler));
 }
 
 inline uint8_t util_button_state() {
@@ -114,6 +125,29 @@ uint8_t util_button_wait() {
 	uint32_t err_code;
 	uint8_t button = util_button_state();
 	while (button == 0 && util_gfx_is_valid_state()) {
+		err_code = sd_app_evt_wait();
+		APP_ERROR_CHECK(err_code);
+
+		button = util_button_state();
+
+		//Work on anything in the scheduler queue
+		app_sched_execute();
+	}
+	return button;
+}
+
+
+/**
+ * Block until button press or timeout
+ */
+uint8_t util_button_wait_timeout(uint32_t duration_ms) {
+	uint32_t err_code;
+	uint8_t button = util_button_state();
+
+	m_button_wait_expired = false;
+	while (button == 0 && util_gfx_is_valid_state() && !m_button_wait_expired) {
+		APP_ERROR_CHECK(app_timer_start(m_button_timer, APP_TIMER_TICKS(duration_ms, UTIL_TIMER_PRESCALER), NULL));
+
 		err_code = sd_app_evt_wait();
 		APP_ERROR_CHECK(err_code);
 
@@ -139,4 +173,7 @@ uint8_t util_button_right() {
 }
 uint8_t util_button_action() {
 	return button_state & BUTTON_MASK_ACTION;
+}
+uint8_t util_button_timeout() {
+	return m_button_wait_expired;
 }

@@ -1,7 +1,6 @@
 /*****************************************************************************
- * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/)
+ * (C) Copyright 2018 Open Research Institute (https://openresearch.institute)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +21,11 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
+ *
+ * Further modifications made by
+ *      @sconklin
+ *      @mustbeart
+ *
  *****************************************************************************/
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
@@ -33,8 +37,8 @@
 //#define UNLOCK_ALL_BLING
 
 #define SETTING_INPUT_MAX					8
-#define SETTING_NAME_DEFAULT				"ELMER"
-#define SETTING_NAME_LENGTH					9
+#define SETTING_NAME_DEFAULT				"Phase4"
+#define SETTING_NAME_LENGTH					11		// increased for DC26
 #define SETTING_PW_LENGTH					9
 #define SETTING_CALLSIGN_LENGTH				7
 #define SETTING_AIRPLANE_MODE_DEFAULT		false
@@ -142,7 +146,6 @@
 #include "joco_db.h"
 #include "score_ble.h"
 #include "mastermind.h"
-#include "mbp_medea.h"
 #include "mbp_menu.h"
 #include "mbp_rssi.h"
 #include "mbp_state.h"

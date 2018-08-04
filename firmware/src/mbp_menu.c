@@ -201,7 +201,7 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 	p_menu->selected = 0;
 	p_menu->top = 0;
 
-	//Setup font again to ensure something else hasn't changed it to small
+	//Setup font again in case something else has changed it
 	util_gfx_set_font(FONT_SMALL);
 	util_gfx_set_color(COLOR_WHITE);
 
@@ -241,28 +241,35 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 			draw_title = false;
 		}
 
-		util_gfx_set_font(FONT_SMALL);
-
 		//Draws the menu
 		for (uint8_t i = 0; i < max_visible_items; i++) {
-			if (!draw_menu_valid[i]) {
-				uint16_t y = (i * font_height) + SUBMENU_PADDING;
+			uint16_t y = (i * font_height) + SUBMENU_PADDING;
 
+			if (!draw_menu_valid[i]) {
 				util_gfx_fill_rect(SUBMENU_PADDING - 1, SUBMENU_TITLE_SIZE + y - 1, w - SUBMENU_PADDING, font_height, COLOR_BLACK);
 
 				if (i == selected_button) {
 					util_gfx_draw_rect(SUBMENU_PADDING - 1, SUBMENU_TITLE_SIZE + y - 1, w - SUBMENU_PADDING, font_height, SUBMENU_SELECTED_COLOR);
 				}
 
-				util_gfx_set_cursor(SUBMENU_PADDING, SUBMENU_TITLE_SIZE + y);
-				char title[32];
-				sprintf(title, "%d) %s", p_menu->top + i + 1, p_menu->items[p_menu->top + i].text);
-				util_gfx_print(title);
+				if (p_menu->items != NULL) {
+					util_gfx_set_font(FONT_SMALL);
+					util_gfx_set_color(COLOR_WHITE);
+					util_gfx_set_cursor(SUBMENU_PADDING, SUBMENU_TITLE_SIZE + y);
+					char title[32];
+					sprintf(title, "%d) %s", p_menu->top + i + 1, p_menu->items[p_menu->top + i].text);
+					util_gfx_print(title);
+				} else {
+					p_menu->draw_item(p_menu->top + i, SUBMENU_PADDING, SUBMENU_TITLE_SIZE + y, MENU_DRAW_EVERYTHING);
+				}
 
 				draw_menu_valid[i] = true;
+			} else if (p_menu->items == NULL) {
+				p_menu->draw_item(p_menu->top + i, SUBMENU_PADDING, SUBMENU_TITLE_SIZE + y, MENU_DRAW_UPDATES);
 			}
 		}
 
+		//!!! isn't this redundant?
 		//Highlight selected
 		util_gfx_draw_rect(
 		SUBMENU_PADDING - 1,
@@ -275,7 +282,7 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 		util_gfx_validate();
 
 		//Wait for user interaction
-		util_button_wait();
+		util_button_wait_timeout(500);
 
 		if (util_button_down()) {
 			//Move selected menu item down one if able
@@ -319,15 +326,26 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 				}
 
 				nrf_delay_ms(MENU_SCROLL_DELAY);
+			} else if (p_menu->items == NULL && p_menu->resorter != NULL) {
+				// We tried to scroll up past the top. Re-survey the neighbors.
+				p_menu->count = p_menu->resorter();
+
+				for (uint8_t i = 0; i < max_visible_items; i++) {
+					draw_menu_valid[i] = false;
+				}
 			}
 		} else if (util_button_left()) {
 			util_button_clear();
 			return MENU_QUIT;
 		} else if (util_button_action()) {
 			util_button_clear();
-			menu_item_t item = p_menu->items[p_menu->selected];
-			if (item.callback != NULL) {
-				item.callback(item.data);
+			if (p_menu->items != NULL) {
+				menu_item_t item = p_menu->items[p_menu->selected];
+				if (item.callback != NULL) {
+					item.callback(item.data);		// callback for this item
+				}
+			} else if (p_menu->callback != NULL) {
+				p_menu->callback(p_menu->selected);	// callback for any item
 			}
 			return MENU_OK;
 
@@ -342,7 +360,7 @@ static void mbp_menu_bling_ks() {
 			"BLING/BACKERS/BENDERL.RAW"
 	};
 
-	menu_callback_t backer_callbacks[] = {
+	menu_callback_t (*backer_callbacks[]) = {
 			&mbp_bling_backer_abraxas3d,
 			&mbp_bling_backer_andnxor
 	};
@@ -496,26 +514,24 @@ static void mbp_menu_games() {
 	mbp_submenu(&menu);
 }
 
+
+// Action handler for all entries on the nearby menu
+static void __nearby_callback(uint8_t index) {
+	//!!! write me
+}
+
+
 static void mbp_menu_nearby() {
-	int badge_list_size;
-        ble_badge_list_menu_text_t *list;
-	uint8_t start_of_medea;
-
 	menu_t menu;
-	menu_item_t items[NEARBY_BADGE_LIST_LEN + MEDEA_DB_SIZE];
-	menu.items = items;
-	menu.count = 0;
+
+	menu.items = NULL;
+	menu.count = survey_and_sort_neighbors();
 	menu.title = "Nearby";
+	menu.callback = __nearby_callback;
+	menu.draw_item = ble_lists_draw_callback;
+	menu.resorter = survey_and_sort_neighbors;
 
-	list = malloc(NEARBY_BADGE_LIST_LEN * sizeof( ble_badge_list_menu_text_t));
-	if (!list) {
-	    mbp_ui_error("badge list malloc fail.");
-	    return;
-	}
-
-	badge_list_size = get_nearby_badge_list(NEARBY_BADGE_LIST_LEN, list);
-
-	if (badge_list_size == 0 && mbp_medea_bottle_count() == 0) {
+	if (menu.count == 0) {
 		mbp_ui_popup("Nearby", "Sorry no neighbors :(");
 		return;
 	}
@@ -525,28 +541,12 @@ static void mbp_menu_nearby() {
 	// uint8_t raw_addr[] = { 0, 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};
 	// memcpy((uint8_t *)&hack_address, raw_addr, 7);
 
-	for (uint8_t i = 0; i < badge_list_size; i++) {
-		items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, &transio_qso_attempt, NULL };
+	//for (uint8_t i = 0; i < badge_list_size; i++) {
+	//	items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, &transio_qso_attempt, NULL };
 //		items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, &mbp_medea_hack, &hack_address };
-	}
-
-	//Add bottles
-	start_of_medea = menu.count;
-	medea_bottle_t *bottles = mbp_medea_bottle_db_get();
-	for (uint8_t i = 0; i < mbp_medea_bottle_count(); i++) {
-		uint8_t *a = bottles[i].address.addr;
-		char *addr_str = (char *) malloc(32);
-		sprintf(addr_str, "MEDEA%02X%02X%02X%02X%02X%02X", a[0], a[1], a[2], a[3], a[4], a[5]);
-		items[menu.count++] = (menu_item_t ) { addr_str, NULL, NULL, &mbp_medea_hack, &(bottles[i].address) };
-	}
+	//}
 
 	mbp_submenu(&menu);
-
-	free(list);
-
-	for (uint8_t i = start_of_medea; i < menu.count; i++) {
-		free(items[i].text);
-	}
 }
 
 static void mbp_menu_system() {

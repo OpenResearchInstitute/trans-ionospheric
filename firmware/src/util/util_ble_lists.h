@@ -20,44 +20,18 @@
 #ifndef UTIL_BLE_LISTS_H_
 #define UTIL_BLE_LISTS_H_
 
-// There were once two lists, but the so-called "active" list has been
-// removed.
-//
-// The Seen list is fixed size LIFO. It holds all non-joco badges that we see,
-// plus a cache of joco badges we've recently seen which we've already counted
-// as visited for scoring.
 
+// Function to initialize the data structures.
+extern void ble_lists_init(void);
 
-void ble_lists_init();
+// Update the neighbor list based on a received BLE advertisement
+extern void ble_lists_process_advertisement(uint8_t *ble_address, char *name, uint16_t appearance, uint16_t mfg_code);
 
-//
-// Seen list
-//
-#define SEEN_FLAG_MASK       0xF0
-#define SEEN_FLAG_VISITED    0x10
-#define SEEN_FLAG_SAID_HELLO 0x20
-//#define SEEN_FLAG_FUTURE_USE 0x40
-#define SEEN_FLAG_USED       0x80
+// Create a sorted list of all the nearby badges we've heard since powerup.
+// Return the count.
+extern int survey_and_sort_neighbors(void);
 
-#define SEEN_TYPE_MASK 0x0F
-#define SEEN_TYPE_JOCO 0x01
-#define SEEN_TYPE_PEER 0x02
-
-uint8_t check_and_add_to_seen(uint8_t *address, uint16_t device_id, char *name, uint8_t type);
-int set_seen_flags(uint8_t *address, uint16_t device_id, uint8_t flags);
-
-
-//
-// Prepare list of badges for the "Nearby badges" display
-//
-typedef struct {
-    char text[20];
-} ble_badge_list_menu_text_t;
-
-// the number of badges we fetch to display in teh nearby menu option
-#define NEARBY_BADGE_LIST_LEN 38
-
-extern int get_nearby_badge_list(int size, ble_badge_list_menu_text_t *list); 
-extern int get_nearby_badge_count(); 
+// Drawing function callback from menu handler for neighbor list menus
+extern void ble_lists_draw_callback(uint8_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
 
 #endif /* UTIL_BLE_LISTS_H_ */

@@ -1,7 +1,6 @@
  /*****************************************************************************
- * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/)
+ * (C) Copyright 2018 Open Research Institute (https://openresearch.institute)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +21,7 @@
  * 	@andrewnriley
  * 	@lacosteaef
  * 	@bitstr3m
- * 
+ *
  * Further modifications made by
  *      @sconklin
  *      @mustbeart
@@ -45,10 +44,12 @@ extern void util_button_clear();
 extern void util_button_init();
 extern uint8_t util_button_state();
 extern uint8_t util_button_wait();
+extern uint8_t util_button_wait_timeout(uint32_t duration_ms);
 extern uint8_t util_button_down();
 extern uint8_t util_button_up();
 extern uint8_t util_button_left();
 extern uint8_t util_button_right();
 extern uint8_t util_button_action();
+extern uint8_t util_button_timeout();
 
 #endif

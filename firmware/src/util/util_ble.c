@@ -47,6 +47,7 @@
 
 #define GAP_TYPE_NAME                 0x09
 #define GAP_TYPE_COMPANY_DATA         0xFF
+#define GAP_TYPE_APPEARANCE           0x19
 
 //#define MIN_CONN_INTERVAL             MSEC_TO_UNITS(500, UNIT_1_25_MS)  // Minimum acceptable connection interval (0.5 seconds).
 //#define MAX_CONN_INTERVAL             MSEC_TO_UNITS(1000, UNIT_1_25_MS) // Maximum acceptable connection interval (1 second).
@@ -113,7 +114,7 @@ typedef struct {
 	uint8_t address[BLE_GAP_ADDR_LEN]; // 6
 	uint16_t company_id;               // 2
 	uint16_t appearance;               // 2
-	char name[SETTING_NAME_LENGTH];    // 9
+	char name[SETTING_NAME_LENGTH];    // 11
 	uint16_t device_id;                // 2
 	int8_t rssi;                       // 1
 	uint8_t special;                   // 1
@@ -168,7 +169,6 @@ static void __ble_evt_dispatch(ble_evt_t * p_ble_evt) {
 	//mbp_master_ble_on_ble_evt(p_ble_evt);
 	//!!!    score_ble_on_ble_evt(p_ble_evt);
 	transio_qso_on_ble_evt(p_ble_evt);
-	mbp_medea_on_ble_evt(p_ble_evt);
 	nrf_ble_gatt_on_ble_evt(&m_gatt, p_ble_evt);
 	ble_nus_on_ble_evt(&m_nus, p_ble_evt);
 	__on_ble_evt(p_ble_evt);
@@ -228,7 +228,6 @@ static void __conn_params_init(void) {
 static void __db_discovery_handler(ble_db_discovery_evt_t * p_evt) {
 	//mbp_master_ble_on_db_disc_evt(p_evt);
 	transio_qso_on_db_disc_evt(p_evt);
-	mbp_medea_on_db_disc_evt(p_evt);
 }
 
 /**
@@ -302,7 +301,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
 		// Complete name field must be made available (for badges)
 		if (field_type == GAP_TYPE_NAME && field_length > 1) {
-			strncpy(badge.name, field_data, SETTING_NAME_LENGTH);
+			strncpy(badge.name, (char *)field_data, SETTING_NAME_LENGTH);
 			valid_name = true;
 		}
 
@@ -394,7 +393,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 					break;
 
 				default:
-					sprintf(badge.name, "Badge??")
+					sprintf(badge.name, "Badge??");
 					break;
 			}
 		}
@@ -402,12 +401,12 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// Badge ID seemed to be a big deal for DC25, but not DC26.
 		// Fill it in just in case we need it.
 		if (badge.appearance == APPEARANCE_ID_ANDNXOR_DC25) {
-			switch (badge.company_id):
+			switch (badge.company_id) {
 				case COMPANY_ID_TRANSIO:
 				case COMPANY_ID_TRANSIO_TMP:
 				case COMPANY_ID_JOCO:
 				case COMPANY_ID_ANDNXOR:
-					badge.device_id = field_data[2] | (field_data[3] << 8);
+					badge.device_id = mfg_specific_data[2] | (mfg_specific_data[3] << 8);
 					break;
 
 				default:
@@ -415,13 +414,15 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 					break;
 			}
 		} else if (badge.appearance == APPEARANCE_ID_STANDARD_DC26) {
-			case COMPANY_ID_ANDNXOR:
-				badge.device_id = field_data[3] | (field_data[4] << 8);
-				break;
+			switch (badge.company_id) {
+				case COMPANY_ID_ANDNXOR:
+					badge.device_id = mfg_specific_data[3] | (mfg_specific_data[4] << 8);
+					break;
 
-			default:
-				badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
-				break;
+				default:
+					badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
+					break;
+			}
 		}
 
 		// Process the RSSI for meter display
@@ -431,9 +432,6 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		ble_lists_process_advertisement(badge.address, badge.name, badge.appearance, badge.company_id);
 
 	}	/* Done with processing advertisement from a badge. */
-
-	// Look for medea vodka
-	mbp_medea_on_advertisement(p_report);
 
 	// Handle beacon scanning
 	beacon_ble_on_ble_advertisement(p_report);
@@ -592,8 +590,6 @@ static void __pm_init() {
 }
 
 static void __services_init() {
-	mbp_medea_ble_init();
-	//mbp_master_ble_init();
 	transio_qso_ble_init();
 
 	//Init NUS

@@ -122,6 +122,9 @@ int main(void) {
 	//Init I2C, this also is needed for self test
 	util_i2c_init();
 
+	//Init the neighbor list, also needed for the self test screen
+	ble_lists_init();
+
 	//Test for SD, if not, then run POST
 	if (!sd_available) {
 		while (1) {

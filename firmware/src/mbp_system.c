@@ -531,7 +531,7 @@ void mbp_system_test() {
 		//Show badge db count
 		util_gfx_set_color(COLOR_WHITE);
 		util_gfx_set_cursor(90, 84);
-		sprintf(buffer, "%d", get_nearby_badge_count());
+		sprintf(buffer, "%d", survey_and_sort_neighbors());
 		util_gfx_print(buffer);
 
 		//Current time

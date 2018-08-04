@@ -16,7 +16,7 @@
  *  @mustbeart
  *  @abraxas3d
  *****************************************************************************/
-
+#if 0
 #include "system.h"
 
 #define MM_NUM_COLUMNS	4
@@ -1017,6 +1017,11 @@ void mastermind() {
 	app_sched_resume();
 }
 
+#endif //0
+
+//!!! dummy
+void mastermind() {
+}
 
 // Entry point from an incoming Bluetooth connection.
 void mastermind_rsvp(void) {

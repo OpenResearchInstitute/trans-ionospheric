@@ -35,13 +35,13 @@
 #define COMPANY_ID_TRANSIO					0x064A	// Open Research Institute, Inc
 #define COMPANY_ID_ANDNXOR					0x049E	// assigned to AND!XOR LLC :-)
 #define COMPANY_ID_JOCO						0x0B25	// Fake ID used for JoCo 2018
-#define COMPANY_ID_CPV						0x0C97	// Fake
+#define COMPANY_ID_CPV						0x0C97	// Fake; Crypto Privacy Village
 #define COMPANY_ID_DC503					0x0503	// assigned to Locoroll, Inc
 #define COMPANY_ID_DC801					0x0801	// Fake, DC801??
 #define COMPANY_ID_QUEERCON					0x04D3	// assigned to Queercon, Inc
 #define COMPANY_ID_DCDARKNET				0x444E	// Fake
 #define COMPANY_ID_DCZIA					0x5050	// Fake
-#define COMPANY_ID_FoB1un7					0x0069	// Fake
+#define COMPANY_ID_FoB1un7					0x0069	// Fake; Friends of B1un7
 #define COMPANY_ID_TDI						0x1010	// Fake; The Diana Initiative
 #define COMPANY_ID_DCFURS					0x71FF	// Fake
 #define COMPANY_ID_BLINKYBLING				0x4242	// Fake

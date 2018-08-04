@@ -1,7 +1,6 @@
  /*****************************************************************************
  * (C) Copyright 2017 AND!XOR LLC (http://andnxor.com/).
- *
- * PROPRIETARY AND CONFIDENTIAL UNTIL AUGUST 1ST, 2017 then,
+ * (C) Copyright 2018 Open Research Institute (https://openresearch.institute)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,13 +35,19 @@
 #define MENU_OK		0
 #define MENU_QUIT	1
 
-typedef void (*menu_callback_t)(void *data);
+#define MENU_DRAW_EVERYTHING	0
+#define MENU_DRAW_UPDATES		1
+
+typedef void (menu_callback_t)(void *data);
+typedef void (menu_global_callback_t)(uint8_t itemno);
+typedef void (menu_drawback_t)(uint8_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
+typedef int (menu_resort_t)(void);
 
 typedef struct {
 	char *text;
 	char *icon;
 	char *preview;
-	menu_callback_t callback;
+	menu_callback_t *callback;
 	void *data;
 } menu_item_t;
 
@@ -51,7 +56,10 @@ typedef struct {
 	uint8_t count;
 	uint8_t top;
 	uint8_t selected;
-	menu_item_t *items;
+	menu_item_t *items;			// set to NULL to use custom draw function
+	menu_global_callback_t *callback;	// action callback for all items, only if items is NULL
+	menu_drawback_t *draw_item;	// custom draw function, only if items is NULL
+	menu_resort_t *resorter;	// called on scroll past top, only if items is NULL
 } menu_t;
 
 extern uint8_t mbp_menu(menu_t *p_menu);
