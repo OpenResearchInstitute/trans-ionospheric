@@ -248,10 +248,6 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 			if (!draw_menu_valid[i]) {
 				util_gfx_fill_rect(SUBMENU_PADDING - 1, SUBMENU_TITLE_SIZE + y - 1, w - SUBMENU_PADDING, font_height, COLOR_BLACK);
 
-				if (i == selected_button) {
-					util_gfx_draw_rect(SUBMENU_PADDING - 1, SUBMENU_TITLE_SIZE + y - 1, w - SUBMENU_PADDING, font_height, SUBMENU_SELECTED_COLOR);
-				}
-
 				if (p_menu->items != NULL) {
 					util_gfx_set_font(FONT_SMALL);
 					util_gfx_set_color(COLOR_WHITE);
@@ -269,7 +265,6 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 			}
 		}
 
-		//!!! isn't this redundant?
 		//Highlight selected
 		util_gfx_draw_rect(
 		SUBMENU_PADDING - 1,
