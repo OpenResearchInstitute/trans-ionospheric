@@ -63,9 +63,9 @@ static int compare_neighbor_rssi(const void *a, const void *b) {
 	int8_t a_rssi = neighbor_list[*(const nlindex_t *)a].rssi;
 	int8_t b_rssi = neighbor_list[*(const nlindex_t *)b].rssi;
 
-	if (a_rssi < b_rssi) {
+	if (a_rssi > b_rssi) {
 		return -1;
-	} else if (a_rssi > b_rssi) {
+	} else if (a_rssi < b_rssi) {
 		return 1;
 	} else {
 		return 0;
@@ -105,7 +105,30 @@ int survey_and_sort_neighbors(void) {
 
 // Drawing function callback from menu handler for neighbor list menus
 void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method) {
-//!!! write me
+
+	switch (menu_draw_method) {
+		case MENU_DRAW_EVERYTHING:
+			util_gfx_set_font(FONT_SMALL);
+			util_gfx_set_color(COLOR_WHITE);
+			util_gfx_set_cursor(x, y);
+
+			char title[22];
+			sprintf(title, "%3d %-*s%4d", itemno, SETTING_NAME_LENGTH-1,
+										neighbor_list[sorted_index[itemno]].name,
+										neighbor_list[sorted_index[itemno]].rssi);
+			util_gfx_print(title);
+
+			break;
+
+		case MENU_DRAW_UPDATES:
+			//!!! write me
+
+			break;
+
+		default:
+			mbp_ui_error("Bad redraw");
+			break;
+	}
 }
 
 
@@ -217,6 +240,6 @@ void ble_lists_process_advertisement(uint8_t *ble_address,
 	neighbor_list[index].rssi = rssi;
 	strncpy(neighbor_list[index].name, name, SETTING_NAME_LENGTH);
 	neighbor_list[index].last_heard_millis = timenow;
-	neighbor_list[index].flags = (neighbor_list[index].flags & NLFLAGS_UPDATE_MASK)
-								 | flags;
+	neighbor_list[index].flags = (neighbor_list[index].flags & ~NLFLAGS_UPDATE_MASK)
+							   | (flags & NLFLAGS_UPDATE_MASK);
 }

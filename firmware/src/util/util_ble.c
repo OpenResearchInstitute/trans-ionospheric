@@ -268,6 +268,7 @@ static void __gatt_init(void) {
 #define	MAX_AD_FIELD_LEN	26
 #define MIN_AD_FIELD_LEN	2
 
+
 static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	uint32_t adv_index = 0;
 	uint8_t *p_data;
@@ -302,7 +303,12 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
 		// Complete name field must be made available (for badges)
 		if (field_type == GAP_TYPE_NAME && field_length > 1) {
-			strncpy(badge.name, (char *)field_data, SETTING_NAME_LENGTH);
+			memcpy(badge.name, field_data, SETTING_NAME_LENGTH-1);
+			if (field_length > SETTING_NAME_LENGTH-1) {
+				badge.name[SETTING_NAME_LENGTH-1] = '\0';
+			} else {
+				badge.name[field_length-1] = '\0';
+			}
 			valid_name = true;
 		}
 
@@ -311,7 +317,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// Standard calls for 0x26DC for DC26.
 		// AND!XOR is using other appearances to multiplex other data
 		//		in rotating advertisements.
-		else if (field_type == GAP_TYPE_APPEARANCE && field_length == 2) {
+		else if (field_type == GAP_TYPE_APPEARANCE && field_length == 3) {
 			badge.appearance = field_data[0] | (field_data[1] << 8);
 		}
 
