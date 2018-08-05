@@ -116,6 +116,7 @@ typedef struct {
 	uint16_t appearance;               // 2
 	char name[SETTING_NAME_LENGTH];    // 11
 	uint16_t device_id;                // 2
+	uint8_t flags;                     // 1
 	int8_t rssi;                       // 1
 	uint8_t special;                   // 1
 } ble_badge_t;
@@ -425,11 +426,25 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 			}
 		}
 
+		// Extract the flags byte from Trans-Ionospheric badges
+		if (badge.appearance == APPEARANCE_ID_STANDARD_DC26 &&
+			badge.company_id == COMPANY_ID_TRANSIO) {
+			badge.flags = mfg_specific_data[4];
+		} else {
+			badge.flags = 0x00;
+		}
+
 		// Process the RSSI for meter display
 		mbp_rssi_badge_heard(badge.device_id, badge.rssi);
 
 		// Maintain the neighbor list based on this advertisement
-		ble_lists_process_advertisement(badge.address, badge.name, badge.appearance, badge.company_id);
+		ble_lists_process_advertisement(badge.address,
+										badge.name,
+										badge.appearance,
+										badge.company_id,
+										badge.flags,
+										mfg_specific_data,
+										badge.rssi);
 
 	}	/* Done with processing advertisement from a badge. */
 

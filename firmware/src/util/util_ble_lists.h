@@ -20,18 +20,29 @@
 #ifndef UTIL_BLE_LISTS_H_
 #define UTIL_BLE_LISTS_H_
 
+typedef uint8_t nlindex_t;
+
+#define	NEIGHBOR_LIST_SIZE	255	// must fit in nlindex_t and not use NEIGHBOR_NONE
+#define	NEIGHBOR_NONE	255		// Unused entry in sorted_index
+
 
 // Function to initialize the data structures.
 extern void ble_lists_init(void);
 
 // Update the neighbor list based on a received BLE advertisement
-extern void ble_lists_process_advertisement(uint8_t *ble_address, char *name, uint16_t appearance, uint16_t mfg_code);
+extern void ble_lists_process_advertisement(uint8_t *ble_address,
+											char *name,
+											uint16_t appearance,
+											uint16_t mfg_code,
+											uint8_t flags,
+											uint8_t *mfg_specific_data,
+											int8_t rssi);
 
 // Create a sorted list of all the nearby badges we've heard since powerup.
 // Return the count.
 extern int survey_and_sort_neighbors(void);
 
 // Drawing function callback from menu handler for neighbor list menus
-extern void ble_lists_draw_callback(uint8_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
+extern void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
 
 #endif /* UTIL_BLE_LISTS_H_ */
