@@ -37,6 +37,9 @@ void transio_qso_callsign_set(char *callsign) {
 	memcpy(m_qso_callsign, callsign, SETTING_CALLSIGN_LENGTH);
 }
 
+void transio_qso_callsign_update(void) {
+	mbp_state_callsign_get((char *)m_qso_callsign);
+}
 
 /**
  * Initialize the callsign characteristic

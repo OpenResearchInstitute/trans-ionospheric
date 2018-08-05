@@ -154,6 +154,7 @@ int main(void) {
 	//Startup game
 	// TBD
 //!!!	score_ble_init();
+	transio_qso_callsign_update();
 
 	//Start terminal
 	mbp_term_start();

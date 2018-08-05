@@ -115,6 +115,9 @@ bool mbp_state_load() {
 		util_ble_name_set(m_badge_state.name);
 		util_ble_score_update();
 		score_ble_score_update();
+		if (m_badge_state.callsign_set) {
+			transio_qso_callsign_set(m_badge_state.callsign);
+		}
 		return true;
 	}
 
