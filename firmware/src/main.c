@@ -153,7 +153,7 @@ int main(void) {
 
 	//Startup game
 	// TBD
-//!!!	score_ble_init();
+//!!!	score_ble_init();	with this off, we don't run the score/command services on BLE
 	transio_qso_callsign_update();
 
 	//Start terminal
