@@ -31,6 +31,24 @@
 #ifndef UTIL_UTIL_BLE_H_
 #define UTIL_UTIL_BLE_H_
 
+#define BLE_DATA_LEN                  10
+#define BLE_DATA_INDEX_DC26_MAGIC		0		// 1 byte
+#define BLE_DATA_INDEX_DC26_DEVID		1		// 2 bytes
+#define BLE_DATA_INDEX_DC26_FLAGS		3		// 1 byte
+#define BLE_DATA_INDEX_DC26_SCORE		5		// 2 bytes
+#define BLE_DATA_INDEX_DC26_UNUSED		7		// 4 bytes if name <= 8 bytes
+
+#define BLE_DATA_INDEX_DC25_DEVID		0		// 2 bytes
+#define BLE_DATA_INDEX_DC25_SCORE		2		// 2 bytes
+#define BLE_DATA_INDEX_DC25_C2			4		// 4 bytes
+#define BLE_DATA_INDEX_DC25_GLOBAL_TIME	8		// 2 bytes
+
+// Flag values for the byte at BLE_DATA_INDEX_DC26_FLAGS:
+#define BLE_DATA_FLAGS_MASK_GAMES     0x01              // 1 if we accept incoming games
+#define BLE_DATA_FLAGS_MASK_QSO       0x02              // 1 if we play the QSO game
+#define BLE_DATA_FLAGS_MASK_MM        0x04              // 1 if we play Mastermind
+
+
 #define COMPANY_ID_TRANSIO_TMP				0x0858	// Fake ID used at Hamvention 2018
 #define COMPANY_ID_TRANSIO					0x064A	// Open Research Institute, Inc
 #define COMPANY_ID_ANDNXOR					0x049E	// assigned to AND!XOR LLC :-)

@@ -30,15 +30,6 @@
  *****************************************************************************/
 #include "../system.h"
 
-#define BLE_DATA_LEN                  10
-#define BLE_DATA_INDEX_SCORE          2
-#define BLE_DATA_INDEX_C2_UNUSED      4
-#define BLE_DATA_INDEX_FLAGS          8
-#define BLE_DATA_INDEX_UNUSED1        9
-
-// Flag values for the byte at BLE_DATA_INDEX_FLAGS:
-#define BLE_DATA_FLAGS_MASK_GAMES     0x01              // 1 if we accept incoming games
-
 #define BLE_TX_POWER                  0                 // 0dbm gain
 #define DEVICE_NAME                   "TRANSIO18"
 #define APP_ADV_INTERVAL              0x0320            // Advertising interval in units of 0.625ms
@@ -141,8 +132,8 @@ static void __advertising_init(void) {
 	memset(m_manuf_data.data.p_data, 0, BLE_DATA_LEN);
 	m_manuf_data.data.size = BLE_DATA_LEN;
 
-	m_manuf_data.data.p_data[0] = device_id & 0xFF;
-	m_manuf_data.data.p_data[1] = device_id >> 8;
+	m_manuf_data.data.p_data[BLE_DATA_INDEX_DC26_DEVID] = device_id & 0xFF;
+	m_manuf_data.data.p_data[BLE_DATA_INDEX_DC26_DEVID+1] = device_id >> 8;
 
 	// Build advertising data struct to pass into @ref ble_advertising_init.
 	memset(&m_adv_data, 0, sizeof(m_adv_data));
@@ -328,7 +319,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
 		else if (field_type == GAP_TYPE_COMPANY_DATA) {
 			badge.company_id = field_data[0] | (field_data[1] << 8);
-			memcpy(mfg_specific_data, field_data, field_length);
+			memcpy(mfg_specific_data, field_data+2, field_length-2);
 		}
 
 		//Advance the index
@@ -345,24 +336,14 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	if (badge.appearance == APPEARANCE_ID_ANDNXOR_DC25 ||
 		badge.appearance == APPEARANCE_ID_STANDARD_DC26) {
 
-		// Some badges may choose to omit the BLE-standard name field.
+		// Some badges may choose to omit the BLE-standard name field, or
+		// send only a partial name in the advertisement.
 		// In that case all we can do is provide a fake name derived from
 		// the manufacturer ID. But even badges we've never heard of might
 		// still use the standard name field, in which case we can leave
-		// it alone.
+		// it alone. Thus, no check on company_id here.
 		if (!valid_name) {
-			switch(badge.company_id) {
-				case COMPANY_ID_TRANSIO:
-				case COMPANY_ID_TRANSIO_TMP:
-				case COMPANY_ID_JOCO:
-				case COMPANY_ID_ANDNXOR:
-					// these badges always provide a name.
-					break;
-
-				default:
-					sprintf(badge.name, util_ble_company_id_to_string(badge.company_id));
-					break;
-			}
+			strncpy(badge.name, util_ble_company_id_to_string(badge.company_id), SETTING_NAME_LENGTH);
 		}
 
 		// Badge ID seemed to be a big deal for DC25, but not DC26.
@@ -373,20 +354,25 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 				case COMPANY_ID_TRANSIO_TMP:
 				case COMPANY_ID_JOCO:
 				case COMPANY_ID_ANDNXOR:
-					badge.device_id = mfg_specific_data[2] | (mfg_specific_data[3] << 8);
+					badge.device_id = mfg_specific_data[BLE_DATA_INDEX_DC25_DEVID]
+								   | (mfg_specific_data[BLE_DATA_INDEX_DC25_DEVID+1] << 8);
 					break;
 
 				default:
+					// Synthesize a fake device_id from the GAP address
 					badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
 					break;
 			}
 		} else if (badge.appearance == APPEARANCE_ID_STANDARD_DC26) {
 			switch (badge.company_id) {
 				case COMPANY_ID_ANDNXOR:
-					badge.device_id = mfg_specific_data[3] | (mfg_specific_data[4] << 8);
+				case COMPANY_ID_TRANSIO:
+					badge.device_id = mfg_specific_data[BLE_DATA_INDEX_DC26_DEVID]
+								   | (mfg_specific_data[BLE_DATA_INDEX_DC26_DEVID+1] << 8);
 					break;
 
 				default:
+					// Synthesize a fake device_id from the GAP address
 					badge.device_id = p_report->peer_addr.addr[1] << 8 | p_report->peer_addr.addr[0];
 					break;
 			}
@@ -395,7 +381,7 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 		// Extract the flags byte from Trans-Ionospheric badges
 		if (badge.appearance == APPEARANCE_ID_STANDARD_DC26 &&
 			badge.company_id == COMPANY_ID_TRANSIO) {
-			badge.flags = mfg_specific_data[4];
+			badge.flags = mfg_specific_data[BLE_DATA_INDEX_DC26_FLAGS];
 		} else {
 			badge.flags = 0x00;
 		}
@@ -409,7 +395,6 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 										badge.appearance,
 										badge.company_id,
 										badge.flags,
-										mfg_specific_data,
 										badge.rssi);
 
 	}	/* Done with processing advertisement from a badge. */
@@ -776,8 +761,8 @@ void util_ble_score_update() {
 
 	BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
-	m_manuf_data.data.p_data[BLE_DATA_INDEX_SCORE] = (score >> 8);
-	m_manuf_data.data.p_data[BLE_DATA_INDEX_SCORE + 1] = score;
+	m_manuf_data.data.p_data[BLE_DATA_INDEX_DC26_SCORE] = (score >> 8);
+	m_manuf_data.data.p_data[BLE_DATA_INDEX_DC26_SCORE + 1] = score;
 	ble_advdata_set(&m_adv_data, NULL);
 }
 
@@ -920,7 +905,7 @@ void util_ble_flags_set(void) {
 	}
 
 	//Copy flags byte into advertisement
-	m_adv_data.p_manuf_specific_data->data.p_data[BLE_DATA_INDEX_FLAGS] = flags;
+	m_adv_data.p_manuf_specific_data->data.p_data[BLE_DATA_INDEX_DC26_FLAGS] = flags;
 
 	ble_advdata_set(&m_adv_data, NULL);
 

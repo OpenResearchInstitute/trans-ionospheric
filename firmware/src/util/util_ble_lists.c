@@ -210,7 +210,6 @@ void ble_lists_process_advertisement(uint8_t *ble_address,
 									 uint16_t appearance,
 									 uint16_t company_id,
 									 uint8_t flags,
-									 uint8_t *mfg_specific_data,
 									 int8_t rssi) {
 
 	// In the case where there are very many badges nearby, the neighbor list
