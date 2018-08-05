@@ -35,8 +35,8 @@
 #define BLE_DATA_INDEX_DC26_MAGIC		0		// 1 byte
 #define BLE_DATA_INDEX_DC26_DEVID		1		// 2 bytes
 #define BLE_DATA_INDEX_DC26_FLAGS		3		// 1 byte
-#define BLE_DATA_INDEX_DC26_SCORE		5		// 2 bytes
-#define BLE_DATA_INDEX_DC26_UNUSED		7		// 4 bytes if name <= 8 bytes
+#define BLE_DATA_INDEX_DC26_SCORE		4		// 2 bytes
+#define BLE_DATA_INDEX_DC26_UNUSED		6		// 4 bytes if name <= 8 bytes
 
 #define BLE_DATA_INDEX_DC25_DEVID		0		// 2 bytes
 #define BLE_DATA_INDEX_DC25_SCORE		2		// 2 bytes
