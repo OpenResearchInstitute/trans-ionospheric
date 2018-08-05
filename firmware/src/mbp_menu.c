@@ -329,6 +329,7 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 			} else if (p_menu->items == NULL && p_menu->resorter != NULL) {
 				// We tried to scroll up past the top. Re-survey the neighbors.
 				p_menu->count = p_menu->resorter();
+				max_visible_items = MIN(p_menu->count, (GFX_HEIGHT - SUBMENU_TITLE_SIZE) / font_height);
 
 				for (uint8_t i = 0; i < max_visible_items; i++) {
 					draw_menu_valid[i] = false;
