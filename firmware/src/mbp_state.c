@@ -52,7 +52,7 @@ void mbp_state_new() {
 	m_badge_state.unlock_state = SETTING_UNLOCK_DEFAULT;
 	m_badge_state.master_badge = SETTING_MASTER_DEFAULT;
 	m_badge_state.joco_score = GAME_SCORE_DEFAULT;
-	m_badge_state.joco_last_level_dispensed = GAME_LASTLEVEL_DEFAULT;
+	m_badge_state.qso_count = 0;
 	m_badge_state.game_incoming_ok = SETTING_GAME_INCOMING_OK_DEFAULT;
 
 	strcpy(m_badge_state.pw_riley, "part97");	// Hacker is expected to guess this one.
@@ -266,14 +266,12 @@ void mbp_state_score_set(uint16_t score_state) {
 	score_ble_score_update();
 }
 
-uint8_t mbp_state_lastlevel_get() {
-	return m_badge_state.joco_last_level_dispensed;
+uint8_t mbp_state_qso_count_get() {
+	return m_badge_state.qso_count;
 }
 
-void mbp_state_lastlevel_set(uint8_t lastlevel_state) {
-	m_badge_state.joco_last_level_dispensed = lastlevel_state;
-	util_ble_score_update();
-	score_ble_score_update();
+void mbp_state_qso_count_increment() {
+	m_badge_state.qso_count++;
 }
 
 uint8_t mbp_state_special_get() {

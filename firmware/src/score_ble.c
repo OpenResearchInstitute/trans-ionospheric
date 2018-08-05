@@ -60,7 +60,7 @@ void score_ble_score_update(void) {
 	m_score_ble_readscore.cookie = SCORE_READ_COOKIE;
 	m_score_ble_readscore.device_id = util_get_device_id();
 	m_score_ble_readscore.score = mbp_state_score_get();
-	m_score_ble_readscore.lld = mbp_state_lastlevel_get();
+	m_score_ble_readscore.lld = 0;
 
 	err_code = util_crypto_encrypt(&(m_score_ble_readscore.cryptable));
 	if (NRF_SUCCESS != err_code) {
@@ -68,11 +68,6 @@ void score_ble_score_update(void) {
 	}
 }
 
-void score_increment_lld(void) {
-	uint8_t lld = mbp_state_lastlevel_get();
-
-	mbp_state_lastlevel_set(lld+1);
-}
 
 void score_eval_command(void) {
 	uint32_t err_code;
@@ -83,7 +78,7 @@ void score_eval_command(void) {
 	}
 
 	if ((m_command_code.code & 0xFFFFFFFFFFFFFF00) == SCORE_CMD_SET_LLD) {
-		mbp_state_lastlevel_set((uint8_t)(m_command_code.code & 0xFF));
+		// mbp_state_lastlevel_set((uint8_t)(m_command_code.code & 0xFF));
 		mbp_state_save();
 	} else if ((m_command_code.code & 0xFFFFFFFFFFFF0000) == SCORE_CMD_SET_SCORE) {
 		mbp_state_score_set((uint16_t)(m_command_code.code & 0x7FFF));
@@ -317,7 +312,7 @@ void score_ble_on_ble_evt(const ble_evt_t * p_ble_evt) {
 												   &auth_reply);
 		APP_ERROR_CHECK(err_code);
 
-		score_increment_lld();		// the read triggers the increment
+//		score_increment_lld();		// the read triggers the increment
 		mbp_state_save();
 		}
 		break;

@@ -50,8 +50,7 @@ void game_status_screen() {
 
     while (1) {
 	if (redraw || !util_gfx_is_valid_state()) {
-	    uint8_t level = gamelevel();
-	    uint8_t lastlevel = mbp_state_lastlevel_get();
+	    uint8_t qso_count = mbp_state_qso_count_get();
 
 	    //Make sure there's no clipping
 	    util_gfx_cursor_area_reset();
@@ -72,22 +71,17 @@ void game_status_screen() {
 	    util_gfx_set_cursor(JOCO_UI_MARGIN, 26);
 	    util_gfx_print(temp);
 
-	    //Print their level
+	    //Print their QSO count
 	    util_gfx_set_color(COLOR_YELLOW);
-	    sprintf(temp, "LEVEL %d", level);
+	    sprintf(temp, "QSOs %d", qso_count);
 	    util_gfx_set_cursor(JOCO_UI_MARGIN, 60);
 	    util_gfx_print(temp);
 
 	    //Print points
 	    util_gfx_set_color(COLOR_WHITE);
-	    sprintf(temp, "POINTS: %d\n", mbp_state_score_get());
+	    sprintf(temp, "Points: %d\n", mbp_state_score_get());
 	    util_gfx_set_font(FONT_SMALL);
 	    util_gfx_set_cursor(JOCO_UI_MARGIN, 80);
-	    util_gfx_print(temp);
-
-	    //Print trinkets available
-	    sprintf(temp, "Trinkets avail: %d\n", level - lastlevel);
-	    util_gfx_set_cursor(JOCO_UI_MARGIN, 100);
 	    util_gfx_print(temp);
 
 	    redraw = false;

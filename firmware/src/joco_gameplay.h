@@ -22,7 +22,6 @@
 
 // Start a new badge with these
 #define GAME_SCORE_DEFAULT 0
-#define GAME_LASTLEVEL_DEFAULT 0
 
 // Gameplay definitions
 #define POINTS_PER_LEVEL 250
@@ -36,6 +35,8 @@
 #define POINTS_4_LOCAL_GAME 20
 #define POINTS_4_DISPENSING 100
 #define POINTS_4_ALL_MASTERS 200
+#define POINTS_4_QSO_ATTEMPT 5
+#define POINTS_4_QSO_SUCCESS 25
 #define SCORE_DISPLAY_TIME 6
 // Advertising interval is set to twice per second
 

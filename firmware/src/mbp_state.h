@@ -53,6 +53,7 @@ typedef struct {
 	char wall_messages[5][16];
 	char callsign[7];
 	bool callsign_set;
+	uint16_t qso_count;
 } badge_state_t;
 
 extern void mbp_state_wall_show();
@@ -97,13 +98,13 @@ extern void mbp_state_tilt_set(bool tilt_state);
 extern uint16_t mbp_state_score_get();
 extern void mbp_state_score_set(uint16_t score_state);
 
-//Get and set joco last level dispensed
-extern uint8_t mbp_state_lastlevel_get();
-extern void mbp_state_lastlevel_set(uint8_t lastlevel_state);
+//Get and increment count of QSOs completed
+extern uint8_t mbp_state_qso_count_get();
+extern void mbp_state_qso_count_increment();
 
 //Get and set joco special badge ID
 extern uint8_t mbp_state_special_get();
-extern void mbp_state_special_set(uint8_t lastlevel_state);
+extern void mbp_state_special_set(uint8_t special_state);
 
 //Get and set callsign for Trans-Ionospheric
 extern void mbp_state_callsign_set(char *call);

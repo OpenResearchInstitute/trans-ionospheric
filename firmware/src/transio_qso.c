@@ -265,9 +265,11 @@ void transio_qso_attempt() {
 			util_gfx_print("UR 599 TNX QSO\n");
 			//!!! update neighbor list entry with callsign
 			//!!! make logfile entry
+			add_to_score(POINTS_4_QSO_SUCCESS, "QSO completed");
 			sprintf(buf, "His callsign: %s\n", m2_c_callsign_result);
 		} else {
 			util_gfx_print("Nothing heard!\nTry again later.\n");
+			add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");
 		}
 	}
 	util_ble_disconnect();

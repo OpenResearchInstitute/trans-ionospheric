@@ -755,9 +755,6 @@ void util_ble_score_update() {
 	ble_gap_conn_sec_mode_t sec_mode;
 
 	score = mbp_state_score_get();
-	if (mbp_state_lastlevel_get() < gamelevel()) {
-		score |= 0x8000; // high bit indicates that there are trinkets to be retrieved
-	}
 
 	BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
