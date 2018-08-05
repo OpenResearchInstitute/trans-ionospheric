@@ -32,6 +32,7 @@
 
 #define NEIGHBOR_REUSE_AGE	(3*60000L)	// 3 minutes in milliseconds
 
+
 typedef struct {
 	uint8_t		flags;			// all zero means this entry is empty
 								// This is first for premature optimization purposes
@@ -43,7 +44,6 @@ typedef struct {
 
 static ble_lists_neighborlist_t neighbor_list[NEIGHBOR_LIST_SIZE];
 static nlindex_t sorted_index[NEIGHBOR_LIST_SIZE];
-
 static bool updates_frozen = false;
 
 // Initialize the neighbor list system. Start with no neighbors.
@@ -113,7 +113,7 @@ void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t m
 			util_gfx_set_cursor(x, y);
 
 			char title[22];
-			sprintf(title, "%3d %-*s%4d", itemno, SETTING_NAME_LENGTH-1,
+			sprintf(title, "%3d %-*s%4d", itemno+1, SETTING_NAME_LENGTH-1,
 										neighbor_list[sorted_index[itemno]].name,
 										neighbor_list[sorted_index[itemno]].rssi);
 			util_gfx_print(title);
