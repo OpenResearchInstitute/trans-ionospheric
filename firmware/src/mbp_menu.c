@@ -282,7 +282,7 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 		util_gfx_validate();
 
 		//Wait for user interaction
-		util_button_wait_timeout(500);
+		util_button_wait_timeout(1000);
 
 		if (util_button_down()) {
 			//Move selected menu item down one if able

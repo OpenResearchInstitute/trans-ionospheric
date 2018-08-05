@@ -32,6 +32,10 @@
 
 #define NEIGHBOR_REUSE_AGE	(3*60000L)	// 3 minutes in milliseconds
 
+#define MAX_SCREEN_LINES	9
+
+#define SUBMENU_PADDING		2
+#define SUBMENU_TITLE_SIZE	15
 
 typedef struct {
 	uint8_t		flags;			// all zero means this entry is empty
@@ -42,14 +46,25 @@ typedef struct {
 	uint32_t	last_heard_millis;
 } ble_lists_neighborlist_t;
 
+typedef struct {
+	nlindex_t	itemno;
+	char		name[SETTING_NAME_LENGTH];
+	int8_t		rssi;
+} ble_lists_displayed_info_t;
+
 static ble_lists_neighborlist_t neighbor_list[NEIGHBOR_LIST_SIZE];
 static nlindex_t sorted_index[NEIGHBOR_LIST_SIZE];
+static ble_lists_displayed_info_t displayed[MAX_SCREEN_LINES];
 static bool updates_frozen = false;
+
 
 // Initialize the neighbor list system. Start with no neighbors.
 void ble_lists_init(void) {
 	memset(neighbor_list, 0, sizeof(neighbor_list));
 	memset(sorted_index, NEIGHBOR_NONE, sizeof(sorted_index));
+	for (uint8_t i = 0; i < MAX_SCREEN_LINES; i++) {
+		displayed[i].itemno = NEIGHBOR_NONE;
+	}
 }
 
 
@@ -99,29 +114,72 @@ int survey_and_sort_neighbors(void) {
 
 	updates_frozen = false;
 
+	// Invalidate our saved info about what's on the screen
+	for (uint8_t i = 0; i < MAX_SCREEN_LINES; i++) {
+		displayed[i].itemno = NEIGHBOR_NONE;
+	}
+
 	return count;
 }
 
 
 // Drawing function callback from menu handler for neighbor list menus
 void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method) {
+	char title[22];
 
 	switch (menu_draw_method) {
+		case MENU_DRAW_UPDATES:
+			if (displayed[itemno % MAX_SCREEN_LINES].itemno == itemno) {
+				util_gfx_set_font(FONT_SMALL);
+				util_gfx_set_color(COLOR_WHITE);
+				uint8_t font_width = util_gfx_font_width();
+				uint8_t font_height = util_gfx_font_height();
+
+				if (0 != strcmp(displayed[itemno % MAX_SCREEN_LINES].name,
+								neighbor_list[sorted_index[itemno]].name)) {
+					util_gfx_fill_rect(SUBMENU_PADDING + 4 * font_width,
+									   y,
+									   (SETTING_NAME_LENGTH - 1) * font_width,
+									   font_height,
+									   COLOR_BLACK);
+					util_gfx_set_cursor(x + (4 * font_width), y);
+					sprintf(title, "%-*s", SETTING_NAME_LENGTH-1,
+										   neighbor_list[sorted_index[itemno]].name);
+					util_gfx_print(title);
+					strcpy(displayed[itemno % MAX_SCREEN_LINES].name, neighbor_list[sorted_index[itemno]].name);
+				}
+
+				if (displayed[itemno % MAX_SCREEN_LINES].rssi != neighbor_list[sorted_index[itemno]].rssi) {
+					util_gfx_fill_rect(SUBMENU_PADDING + (4 + SETTING_NAME_LENGTH-1) * font_width,
+									   y,
+									   4 * font_width,
+									   font_height,
+									   COLOR_BLACK);
+					util_gfx_set_cursor(x + ((4 + SETTING_NAME_LENGTH-1) * font_width), y);
+					sprintf(title, "%4d", neighbor_list[sorted_index[itemno]].rssi);
+					util_gfx_print(title);
+					displayed[itemno % MAX_SCREEN_LINES].rssi = neighbor_list[sorted_index[itemno]].rssi;
+				}
+
+				return;
+			}
+		// We didn't have saved info on the screen contents. Treat as DRAW_EVERYTHING.
+		// FALLTHROUGH
+
 		case MENU_DRAW_EVERYTHING:
 			util_gfx_set_font(FONT_SMALL);
 			util_gfx_set_color(COLOR_WHITE);
 			util_gfx_set_cursor(x, y);
 
-			char title[22];
 			sprintf(title, "%3d %-*s%4d", itemno+1, SETTING_NAME_LENGTH-1,
 										neighbor_list[sorted_index[itemno]].name,
 										neighbor_list[sorted_index[itemno]].rssi);
 			util_gfx_print(title);
 
-			break;
-
-		case MENU_DRAW_UPDATES:
-			//!!! write me
+			// update our saved copy of what's displayed on screen
+			displayed[itemno % MAX_SCREEN_LINES].itemno = itemno;
+			strcpy(displayed[itemno % MAX_SCREEN_LINES].name, neighbor_list[sorted_index[itemno]].name);
+			displayed[itemno % MAX_SCREEN_LINES].rssi = neighbor_list[sorted_index[itemno]].rssi;
 
 			break;
 
