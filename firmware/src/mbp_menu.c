@@ -514,8 +514,15 @@ static void mbp_menu_games() {
 // Action handler for all entries on the nearby menu
 static void __nearby_callback(uint8_t index) {
 	//!!! needs enhancement to accommodate the QSO game
-	neighbor_info_screen(index);
 
+	char name[SETTING_NAME_LENGTH];
+	char general_info[120];
+	char combined_info[120];
+
+	neighbor_get_info(index, name, general_info);
+
+	sprintf(combined_info, "%s", general_info);
+	mbp_ui_popup(name, combined_info);
 }
 
 

@@ -305,12 +305,13 @@ void ble_lists_process_advertisement(uint8_t *ble_address,
 }
 
 
-void neighbor_info_screen(uint8_t index) {
+// Generate a text report about a selected neighbor
+void neighbor_get_info(uint8_t index, char *name, char *general_info) {
 	ble_lists_neighborlist_t neighbor = neighbor_list[sorted_index[index]];
-	char *name = neighbor.name;
-	char info[120];
 	char when[20];
 	uint32_t how_long = util_millis() - neighbor.last_heard_millis;
+
+	strcpy(name, neighbor.name);
 
 	if (how_long < 20000) {
 		sprintf(when, "Heard just now");
@@ -322,7 +323,7 @@ void neighbor_info_screen(uint8_t index) {
 		sprintf(when, "%ld hours ago", how_long/(60000L*60));
 	}
 
-	sprintf(info, "%s\nBLE:%02x%02x%02x%02x%02x%02x\nRSSI:   %-4ddBm\n%s\n",
+	sprintf(general_info, "%s\nBLE:%02x%02x%02x%02x%02x%02x\nRSSI:   %-4ddBm\n%s\n",
 		util_ble_company_id_to_string(neighbor.company_id),
 		neighbor.ble_address[0],
 		neighbor.ble_address[1],
@@ -334,5 +335,4 @@ void neighbor_info_screen(uint8_t index) {
 		when
 	);
 
-	mbp_ui_popup(name, info);
 }
