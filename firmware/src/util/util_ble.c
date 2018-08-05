@@ -359,48 +359,8 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 					// these badges always provide a name.
 					break;
 
-				case COMPANY_ID_CPV:
-					sprintf(badge.name, "CPV");
-					break;
-
-				case COMPANY_ID_DC503:
-					sprintf(badge.name, "DC503");
-					break;
-
-				case COMPANY_ID_DC801:
-					sprintf(badge.name, "DC801");
-					break;
-
-				case COMPANY_ID_QUEERCON:
-					sprintf(badge.name, "Queercon");
-					break;
-
-				case COMPANY_ID_DCDARKNET:
-					sprintf(badge.name, "DarkNet");
-					break;
-
-				case COMPANY_ID_DCZIA:
-					sprintf(badge.name, "DCZIA");
-					break;
-
-				case COMPANY_ID_FoB1un7:
-					sprintf(badge.name, "FoB1un7");
-					break;
-
-				case COMPANY_ID_TDI:
-					sprintf(badge.name, "TheDiana");
-					break;
-
-				case COMPANY_ID_DCFURS:
-					sprintf(badge.name, "DC Furs");
-					break;
-
-				case COMPANY_ID_BLINKYBLING:
-					sprintf(badge.name, "MrBlinky");
-					break;
-
 				default:
-					sprintf(badge.name, "Badge??");
+					sprintf(badge.name, util_ble_company_id_to_string(badge.company_id));
 					break;
 			}
 		}
@@ -988,4 +948,53 @@ void util_ble_scan_start() {
 
 	err_code = sd_ble_gap_scan_start(&scan);
 	APP_ERROR_CHECK(err_code);
+}
+
+
+// Translate a company_id into a very short string.
+char *util_ble_company_id_to_string(uint16_t company_id) {
+	switch(company_id) {
+		case COMPANY_ID_TRANSIO:
+		case COMPANY_ID_TRANSIO_TMP:
+			return "TransIonospheric";
+
+		case COMPANY_ID_JOCO:
+			return "JoCo 2018";
+
+		case COMPANY_ID_ANDNXOR:
+			return "AND!XOR";
+
+		case COMPANY_ID_CPV:
+			return "CPV";
+
+		case COMPANY_ID_DC503:
+			return "DC503";
+
+		case COMPANY_ID_DC801:
+			return "DC801";
+
+		case COMPANY_ID_QUEERCON:
+			return "Queercon";
+
+		case COMPANY_ID_DCDARKNET:
+			return "DarkNet";
+
+		case COMPANY_ID_DCZIA:
+			return "DCZIA";
+
+		case COMPANY_ID_FoB1un7:
+			return "FoB1un7";
+
+		case COMPANY_ID_TDI:
+			return "TheDiana";
+
+		case COMPANY_ID_DCFURS:
+			return "DC Furs";
+
+		case COMPANY_ID_BLINKYBLING:
+			return "MrBlinky";
+
+		default:
+			return "Badge??";
+	}
 }

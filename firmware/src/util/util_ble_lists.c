@@ -44,6 +44,7 @@ typedef struct {
 	char	 	name[SETTING_NAME_LENGTH];
 	int8_t		rssi;
 	uint32_t	last_heard_millis;
+	uint16_t	company_id;
 } ble_lists_neighborlist_t;
 
 typedef struct {
@@ -207,7 +208,7 @@ static bool __ble_address_equal(uint8_t *a, uint8_t *b) {
 void ble_lists_process_advertisement(uint8_t *ble_address,
 									 char *name,
 									 uint16_t appearance,
-									 uint16_t mfg_code,
+									 uint16_t company_id,
 									 uint8_t flags,
 									 uint8_t *mfg_specific_data,
 									 int8_t rssi) {
@@ -300,4 +301,38 @@ void ble_lists_process_advertisement(uint8_t *ble_address,
 	neighbor_list[index].last_heard_millis = timenow;
 	neighbor_list[index].flags = (neighbor_list[index].flags & ~NLFLAGS_UPDATE_MASK)
 							   | (flags & NLFLAGS_UPDATE_MASK);
+	neighbor_list[index].company_id = company_id;
+}
+
+
+void neighbor_info_screen(uint8_t index) {
+	ble_lists_neighborlist_t neighbor = neighbor_list[sorted_index[index]];
+	char *name = neighbor.name;
+	char info[120];
+	char when[20];
+	uint32_t how_long = util_millis() - neighbor.last_heard_millis;
+
+	if (how_long < 20000) {
+		sprintf(when, "Heard just now");
+	} else if (how_long < 120000) {
+		sprintf(when, "%ld secs ago", how_long/1000);
+	} else if (how_long < 60000L*120) {
+		sprintf(when, "%ld mins ago", how_long/60000);
+	} else {
+		sprintf(when, "%ld hours ago", how_long/(60000L*60));
+	}
+
+	sprintf(info, "%s\nBLE:%02x%02x%02x%02x%02x%02x\nRSSI:   %-4ddBm\n%s\n",
+		util_ble_company_id_to_string(neighbor.company_id),
+		neighbor.ble_address[0],
+		neighbor.ble_address[1],
+		neighbor.ble_address[2],
+		neighbor.ble_address[3],
+		neighbor.ble_address[4],
+		neighbor.ble_address[5],
+		neighbor.rssi,
+		when
+	);
+
+	mbp_ui_popup(name, info);
 }

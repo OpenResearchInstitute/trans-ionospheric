@@ -62,5 +62,6 @@ extern uint32_t util_ble_nus_send(char *p_string, uint16_t length);
 extern void util_ble_off();
 extern void util_ble_on();
 extern void util_ble_scan_start();
+extern char *util_ble_company_id_to_string(uint16_t company_id);
 
 #endif /* UTIL_UTIL_BLE_H_ */

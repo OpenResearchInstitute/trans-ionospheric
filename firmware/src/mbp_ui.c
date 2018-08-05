@@ -92,7 +92,7 @@ static void __mbp_ui_popup(char *title, char *text, uint16_t title_bg, uint16_t 
 	util_gfx_draw_line(x, body_y, x + w, body_y, title_fg);
 
 	//Print the title
-	util_gfx_set_font(FONT_LARGE);
+	util_gfx_set_font(FONT_MEDIUM);	// was LARGE
 	//Setup space for title text
 	util_gfx_cursor_area_set(cursor_area_title);
 	util_gfx_set_cursor(ix, y + POPUP_PADDING + 3);

@@ -45,4 +45,7 @@ extern int survey_and_sort_neighbors(void);
 // Drawing function callback from menu handler for neighbor list menus
 extern void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
 
+// Pop up an info display about a selected neighbor
+extern void neighbor_info_screen(uint8_t index);
+
 #endif /* UTIL_BLE_LISTS_H_ */
