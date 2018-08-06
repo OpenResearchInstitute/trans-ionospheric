@@ -238,24 +238,38 @@ bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 }
 
 
-void transio_qso_attempt() {
+// Attempt a QSO with a neighbor badge, by index from the sorted_list.
+void transio_qso_attempt(uint8_t index) {
 	ble_gap_addr_t address;
 	// Hard coded address to use, pending improvements to the neighbor list.
 	// Note: byte order is the opposite order displayed in nRF Connect, etc.
-//	uint8_t raw_addr[] = { 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};	// some badge
-	uint8_t raw_addr[] = { 0x80, 0xe7, 0x2b, 0x10, 0x9c, 0xc7};	// Proto 7
-//	uint8_t raw_addr[] = { 0x06, 0x26, 0x79, 0x86, 0x50, 0xe5};	// Abraxas3D Bender
-	memcpy(address.addr, raw_addr, 6);
+// //	uint8_t raw_addr[] = { 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};	// some badge
+// 	uint8_t raw_addr[] = { 0x80, 0xe7, 0x2b, 0x10, 0x9c, 0xc7};	// Proto 7
+// //	uint8_t raw_addr[] = { 0x06, 0x26, 0x79, 0x86, 0x50, 0xe5};	// Abraxas3D Bender
+// 	memcpy(address.addr, raw_addr, 6);
+// 	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
+
+	ble_lists_get_neighbor_address(index, address.addr);
 	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
 
 	char buf[32];
+	sprintf(buf, "BLE:%02x%02x%02x%02x%02x%02x\n",
+		address.addr[0],
+		address.addr[1],
+		address.addr[2],
+		address.addr[3],
+		address.addr[4],
+		address.addr[5]);
 
 	//Connect to the selected badge
 	mbp_ui_cls();
+	util_gfx_cursor_area_reset();
 	util_gfx_set_cursor(0, 0);
 	util_gfx_set_font(FONT_SMALL);
 	util_gfx_set_color(COLOR_WHITE);
-	util_gfx_print("Calling the badge...\ncome in, please!\n");
+	util_gfx_print("Calling the badge...\n");
+	util_gfx_print(buf);
+	util_gfx_print("come in, please!\n");
 
 	//Connect
 	if (transio_qso_connect_blocking(&address)) {
@@ -266,7 +280,8 @@ void transio_qso_attempt() {
 			//!!! update neighbor list entry with callsign
 			//!!! make logfile entry
 			add_to_score(POINTS_4_QSO_SUCCESS, "QSO completed");
-			sprintf(buf, "His callsign: %s\n", m2_c_callsign_result);
+			sprintf(buf, "Good QSO with %s\n", m2_c_callsign_result);
+			util_gfx_print(buf);
 		} else {
 			util_gfx_print("Nothing heard!\nTry again later.\n");
 			add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");

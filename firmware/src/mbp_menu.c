@@ -513,16 +513,27 @@ static void mbp_menu_games() {
 
 // Action handler for all entries on the nearby menu
 static void __nearby_callback(uint8_t index) {
-	//!!! needs enhancement to accommodate the QSO game
-
 	char name[SETTING_NAME_LENGTH];
-	char general_info[120];
 	char combined_info[120];
+	char *buf_p = combined_info;
 
-	neighbor_get_info(index, name, general_info);
+	buf_p += neighbor_get_info(index, name, buf_p);
 
-	sprintf(combined_info, "%s", general_info);
-	mbp_ui_popup(name, combined_info);
+//	if (neighbor_allows_qso_game(index)) {
+//		buf_p += transio_qso_get_info(index, callsign, buf_p);
+//	}
+//
+
+	if (neighbor_allows_qso_game(index)) {
+		uint8_t choice = mbp_ui_toggle_popup(name, 0, "QSO", "Cancel", combined_info);
+
+		if (choice == 0) {
+			transio_qso_attempt(index);
+		}
+
+	} else {
+		mbp_ui_popup(name, combined_info);
+	}
 }
 
 

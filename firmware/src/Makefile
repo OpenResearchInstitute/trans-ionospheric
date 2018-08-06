@@ -99,6 +99,7 @@ SRC_FILES += \
 	drv_apa102.c \
 	drv_st7735.c \
 	drv_ws2812b.c \
+	gamefile.c \
 	joco_db.c \
 	joco_gameplay.c \
 	main.c \

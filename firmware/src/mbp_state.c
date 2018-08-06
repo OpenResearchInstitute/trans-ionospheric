@@ -160,7 +160,7 @@ static void __save_schedule_handler(void *p_data, uint16_t length) {
 }
 
 void mbp_state_save() {
-	app_sched_event_put(NULL, 0, __save_schedule_handler);
+	APP_ERROR_CHECK(app_sched_event_put(NULL, 0, __save_schedule_handler));
 }
 
 bool mbp_state_airplane_mode_get() {

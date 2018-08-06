@@ -44,8 +44,14 @@ extern int survey_and_sort_neighbors(void);
 // Drawing function callback from menu handler for neighbor list menus
 extern void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
 
-// Generate a text report about a selected neighbor
-extern void neighbor_get_info(uint8_t index, char *name, char *general_info);
+// Get the BLE address for a selected neighbor.
+extern void ble_lists_get_neighbor_address(uint8_t index, uint8_t *buf);
 
+// Determine whether a selected neighbor plays the QSO game
+extern bool neighbor_allows_qso_game(uint8_t index);
+
+// Generate a text report about a selected neighbor.
+// Returns number of characters added to buf.
+extern int neighbor_get_info(uint8_t index, char *name, char *buf);
 
 #endif /* UTIL_BLE_LISTS_H_ */

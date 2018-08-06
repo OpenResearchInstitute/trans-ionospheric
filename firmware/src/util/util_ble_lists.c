@@ -27,6 +27,8 @@
 // The rest of the flags are identical to flags in advertisements.
 #define NLFLAGS_UPDATE_MASK		0x7F
 #define NLFLAGS_GAMES_ACCEPTED	BLE_DATA_FLAGS_MASK_GAMES
+#define NLFLAGS_QSO_GAME		BLE_DATA_FLAGS_MASK_QSO
+#define NLFLAGS_MM_GAME			BLE_DATA_FLAGS_MASK_MM
 
 #define NLFLAGS_DEFAULT	(NLFLAGS_VALID)	// start with these flags for new entries
 
@@ -191,6 +193,12 @@ void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t m
 }
 
 
+// Get the BLE address for a selected neighbor.
+void ble_lists_get_neighbor_address(uint8_t itemno, uint8_t *buf) {
+	memcpy(buf, neighbor_list[sorted_index[itemno]].ble_address, BLE_GAP_ADDR_LEN);
+}
+
+
 // Utility function to compare two GAP addresses for equality
 static bool __ble_address_equal(uint8_t *a, uint8_t *b) {
 	for (uint8_t i = 0; i < BLE_GAP_ADDR_LEN; i++) {
@@ -304,8 +312,22 @@ void ble_lists_process_advertisement(uint8_t *ble_address,
 }
 
 
-// Generate a text report about a selected neighbor
-void neighbor_get_info(uint8_t index, char *name, char *general_info) {
+// Determine whether a selected neighbor plays the QSO game
+bool neighbor_allows_qso_game(uint8_t index) {
+	ble_lists_neighborlist_t neighbor = neighbor_list[sorted_index[index]];
+
+	if (   (neighbor.flags & NLFLAGS_GAMES_ACCEPTED)
+		&& (neighbor.flags & NLFLAGS_QSO_GAME)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+// Generate a text report about a selected neighbor.
+// Returns number of characters added to buf.
+int neighbor_get_info(uint8_t index, char *name, char *buf) {
 	ble_lists_neighborlist_t neighbor = neighbor_list[sorted_index[index]];
 	char when[20];
 	uint32_t how_long = util_millis() - neighbor.last_heard_millis;
@@ -322,7 +344,7 @@ void neighbor_get_info(uint8_t index, char *name, char *general_info) {
 		sprintf(when, "%ld hours ago", how_long/(60000L*60));
 	}
 
-	sprintf(general_info, "%s\nBLE:%02x%02x%02x%02x%02x%02x\nRSSI:   %-4ddBm\n%s\n",
+	return sprintf(buf, "%s\nBLE:%02x%02x%02x%02x%02x%02x\nRSSI:   %-4ddBm\n%s\n",
 		util_ble_company_id_to_string(neighbor.company_id),
 		neighbor.ble_address[0],
 		neighbor.ble_address[1],
@@ -333,5 +355,4 @@ void neighbor_get_info(uint8_t index, char *name, char *general_info) {
 		neighbor.rssi,
 		when
 	);
-
 }
