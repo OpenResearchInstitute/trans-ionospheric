@@ -296,7 +296,7 @@ void transio_qso_attempt(uint8_t index) {
 }
 
 
-void transio_callsign_edit(void) {
+void transio_callsign_edit() {
 	char call[SETTING_CALLSIGN_LENGTH];
 	bool already_set = mbp_state_callsign_get(call);
 	char message[64];
@@ -312,7 +312,7 @@ void transio_callsign_edit(void) {
 	}
 
 //Edit the name
-	mbp_ui_input("Callsign", "Enter Callsign:", call, SETTING_CALLSIGN_LENGTH - 1, false);
+	mbp_ui_input("Callsign", "Enter Callsign:", call, SETTING_CALLSIGN_LENGTH - 1, INPUT_FORMAT_CALLSIGN);
 
 	sprintf(message, "Change callsign to: '%s'?", call);
 	if (mbp_ui_toggle_popup("Callsign", 0, "No", "Yes", message) == 1) {

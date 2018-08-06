@@ -567,11 +567,12 @@ static void mbp_menu_nearby() {
 
 static void mbp_menu_system() {
 	menu_t menu;
-	menu_item_t items[10];
+	menu_item_t items[11];
 	menu.items = items;
 	menu.count = 0;
 
 	items[menu.count++] = (menu_item_t ) { "Name", "MENU/NAME.ICO", NULL, &mbp_system_name_edit, NULL };
+	items[menu.count++] = (menu_item_t ) { "Callsgn", "MENU/NAME.ICO", NULL, &transio_callsign_edit, NULL };
 	if (mbp_state_master_get())
 	    items[menu.count++] = (menu_item_t ) { "Special", "MENU/NAME.ICO", NULL, &mbp_system_special_edit, NULL };
 	items[menu.count++] = (menu_item_t ) { "About", "MENU/ABOUT.ICO", NULL, &mbp_system_about, NULL };

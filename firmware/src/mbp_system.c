@@ -69,7 +69,7 @@ void mbp_system_airplane_mode_select() {
 void mbp_system_code() {
 	char code[9];
 	memset(code, 0, 9);
-	mbp_ui_input("Code", "Enter Code:", code, 8, false);
+	mbp_ui_input("Code", "Enter Code:", code, 8, INPUT_FORMAT_SCROLL);
 
 	//Master mode
 	if (strcmp(code, "UP2RIGHT") == 0) {
@@ -256,7 +256,7 @@ void mbp_system_special_edit() {
 
 //Edit the special value
     sprintf(special_buf, "%03d", special);
-    mbp_ui_input("Value", "Enter Value:", special_buf, SPECIAL_STRING_LEN - 1, true);
+    mbp_ui_input("Value", "Enter Value:", special_buf, SPECIAL_STRING_LEN - 1, INPUT_FORMAT_DIGITS);
     special = atoi(special_buf) % 256;
 
     sprintf(message, "Change value to: '%03d'?", special);
@@ -285,7 +285,7 @@ void mbp_system_name_edit() {
 	}
 
 //Edit the name
-	mbp_ui_input("Name", "Enter Name:", name, SETTING_NAME_LENGTH - 1, false);
+	mbp_ui_input("Name", "Enter Name:", name, SETTING_NAME_LENGTH - 1, INPUT_FORMAT_FREE);
 
 	sprintf(message, "Change name to: '%s'?", name);
 	if (mbp_ui_toggle_popup("Name", 0, "No", "Yes", message) == 1) {

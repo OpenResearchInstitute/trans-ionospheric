@@ -36,12 +36,17 @@
 extern char INPUT_CHARS[];
 extern char INPUT_DIGITS[];
 #define INPUT_DIGITS_COUNT	10
-#define INPUT_CHARS_COUNT	64
+#define INPUT_CHARS_COUNT	64		// The limit for SCOLL font only
+
+#define	INPUT_FORMAT_FREE		0
+#define	INPUT_FORMAT_DIGITS		1
+#define	INPUT_FORMAT_CALLSIGN	2
+#define INPUT_FORMAT_SCROLL		3
 
 extern void mbp_ui_button(int16_t x, int16_t y, uint8_t w, uint8_t h, char *text, bool selected);
 extern void mbp_ui_cls();
 extern void mbp_ui_error(char *text);
-extern void mbp_ui_input(char *p_title, char *p_label, char *p_input, uint8_t max_chars, bool numeric);
+extern void mbp_ui_input(char *p_title, char *p_label, char *p_input, uint8_t max_chars, uint8_t format);
 extern void mbp_ui_popup(char * title, char *text);
 extern bool mbp_ui_textbox(int16_t x, int16_t y, uint8_t w, uint8_t h, int16_t scroll_y, char *text);
 extern uint8_t mbp_ui_toggle_popup(char *p_title, uint8_t selected_option, char *p_option1, char *p_option2, char *p_note);

@@ -20,7 +20,7 @@
 #define TRANSIO_QSO_H_
 
 
-extern void transio_callsign_edit(void);
+extern void transio_callsign_edit();
 extern void transio_qso_callsign_set(char *callsign);
 extern void transio_qso_callsign_update(void);
 extern uint32_t transio_qso_ble_init(void);

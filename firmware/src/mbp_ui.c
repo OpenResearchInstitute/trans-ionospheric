@@ -68,6 +68,8 @@
 
 #define BUTTON_DELAY		200 // mS
 
+// Lowercase letters are beyond the limit for the scroll font, but usable
+// in other functions.
 char INPUT_CHARS[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.!?,()[]{}<>/\\|;:&^%$#@*-_+abcdefghijklmnopqrstuvwxyz";
 char INPUT_DIGITS[] = "0123456789";
 
@@ -214,22 +216,43 @@ void mbp_ui_error(char *text) {
 	__mbp_ui_popup("ERROR", text, ERROR_TITLE_BG, ERROR_TITLE_FG);
 }
 
-void mbp_ui_input(char *p_title, char *p_label, char *p_input, uint8_t max_chars, bool numeric) {
+void mbp_ui_input(char *p_title, char *p_label, char *p_input, uint8_t max_chars, uint8_t format) {
 	int8_t cursor = 0;
 	int16_t input_x = INPUT_PADDING;
 	int16_t input_y = 70;
 	char *input_charset;
 	int16_t input_charset_count;
 
-	if (numeric) {
-	    input_charset = INPUT_DIGITS;
-	} else {
-	    input_charset = INPUT_CHARS;
+	switch (format) {
+		case INPUT_FORMAT_FREE:
+			input_charset = INPUT_CHARS;
+			input_charset_count = strlen(INPUT_CHARS);
+			break;
+
+		case INPUT_FORMAT_DIGITS:
+			input_charset = INPUT_DIGITS;
+			input_charset_count = INPUT_DIGITS_COUNT;
+			break;
+
+		case INPUT_FORMAT_CALLSIGN:
+			input_charset = INPUT_CHARS;
+			input_charset_count = 1+26+10;	// space, uppercase, and digits only
+				// we'd like to disallow spaces, but the input routine relies
+				// on trailing spaces to implement variable-length input. Alas.
+			break;
+
+		case INPUT_FORMAT_SCROLL:
+			input_charset = INPUT_CHARS;
+			input_charset_count = INPUT_CHARS_COUNT;
+			break;
+
+		default:
+			mbp_ui_error("wrong input format");
+			break;
 	}
-	input_charset_count = strlen(input_charset);
 
 	if (max_chars > SETTING_INPUT_MAX)
-	    max_chars = SETTING_INPUT_MAX;
+		max_chars = SETTING_INPUT_MAX;
 
 	//Make sure input doesn't extend past max input
 	if (strlen(p_input) > max_chars) {
