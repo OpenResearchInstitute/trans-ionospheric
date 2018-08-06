@@ -68,7 +68,7 @@
 
 #define BUTTON_DELAY		200 // mS
 
-char INPUT_CHARS[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.!?,()[]{}<>/\\|;:&^%$#@*-_+";
+char INPUT_CHARS[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.!?,()[]{}<>/\\|;:&^%$#@*-_+abcdefghijklmnopqrstuvwxyz";
 char INPUT_DIGITS[] = "0123456789";
 
 static void __mbp_ui_popup(char *title, char *text, uint16_t title_bg, uint16_t title_fg) {
@@ -223,11 +223,10 @@ void mbp_ui_input(char *p_title, char *p_label, char *p_input, uint8_t max_chars
 
 	if (numeric) {
 	    input_charset = INPUT_DIGITS;
-	    input_charset_count = INPUT_DIGITS_COUNT;
 	} else {
 	    input_charset = INPUT_CHARS;
-	    input_charset_count = INPUT_CHARS_COUNT;
 	}
+	input_charset_count = strlen(input_charset);
 
 	if (max_chars > SETTING_INPUT_MAX)
 	    max_chars = SETTING_INPUT_MAX;
