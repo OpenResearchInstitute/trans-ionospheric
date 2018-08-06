@@ -22,7 +22,7 @@
 #define QSO_SVC_UUID			0xf264
 #define	QSO_CHAR_CALLSIGN_UUID	0xc91d	// read the badge's callsign
 
-#define QSO_CONNECT_LED_DELAY	800		// ms between LED changes while connecting
+#define QSO_CONNECT_LED_DELAY	200		// ms between LED changes while connecting
 
 static uint8_t m_qso_callsign[SETTING_CALLSIGN_LENGTH] = "NOTSET";
 
@@ -34,6 +34,12 @@ static uint8_t m2_c_callsign_result[SETTING_CALLSIGN_LENGTH];
 static volatile bool m2_connecting = false;
 static volatile bool m2_waiting = false;
 static volatile bool m_callsign_read_ok = false;
+
+typedef struct {
+	uint8_t		led_state;
+	uint8_t		abort_requested;
+} qso_timer_state_t;
+qso_timer_state_t	timer_state;
 
 APP_TIMER_DEF(m_qso_connect_timer);
 
@@ -146,7 +152,7 @@ bool transio_qso_callsign_get(void) {
 	sd_ble_gattc_read(m2_c_conn_handle, m2_c_callsign_handle, 0);
 
 	uint32_t end_time = util_millis() + 5000;
-	while (m2_waiting) {
+	while (m2_waiting && !timer_state.abort_requested) {
 		APP_ERROR_CHECK(sd_app_evt_wait());
 		if (util_millis() > end_time) {
 			m2_waiting = false;
@@ -233,20 +239,88 @@ void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt) {
 static void __qso_connect_timer_handler(void * p_data) {
 
 	// Flash some LEDs while we're waiting.
+	switch (timer_state.led_state) {
+		case 0:
+			util_led_set_rgb(12, LED_COLOR_GREEN);
+			timer_state.led_state++;
+			break;
+
+		case 1:
+			util_led_set_rgb(7, LED_COLOR_GREEN);
+			timer_state.led_state++;
+			break;
+
+		case 2:
+			util_led_set_rgb(13, LED_COLOR_ORANGE);
+			timer_state.led_state++;
+			break;
+
+		case 3:
+			util_led_set_rgb(6, LED_COLOR_ORANGE);
+			timer_state.led_state++;
+			break;
+
+		case 4:
+			util_led_set_rgb(14, LED_COLOR_RED);
+			timer_state.led_state++;
+			break;
+
+		case 5:
+			util_led_set_rgb(5, LED_COLOR_RED);
+			timer_state.led_state++;
+			break;
+
+		case 6:
+			util_led_clear();
+			timer_state.led_state++;
+			break;
+
+		case 7:
+			timer_state.led_state = 0;
+
+	}
+	util_led_show();
 
 	app_sched_execute();
 
 	if (util_button_left()) {
-		//!!! abort the connection
+		timer_state.abort_requested = 1;
 	}
 }
-
-
 
 
 bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 	m2_connecting = true;
 	m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+
+	util_ble_connect(address);
+	while (m2_connecting && !timer_state.abort_requested) {
+		APP_ERROR_CHECK(sd_app_evt_wait());
+	}
+
+	return m2_c_conn_handle != BLE_CONN_HANDLE_INVALID;
+}
+
+
+// Attempt a QSO with a neighbor badge, by index from the sorted_list.
+void transio_qso_attempt(uint8_t index) {
+	ble_gap_addr_t address;
+
+	bool good_qso = false;
+	timer_state.led_state = 0;
+	timer_state.abort_requested = 0;
+
+	ble_lists_get_neighbor_address(index, address.addr);
+	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
+
+	char buf[32];
+	sprintf(buf, "BLE:%02x%02x%02x%02x%02x%02x\n",
+		address.addr[0],
+		address.addr[1],
+		address.addr[2],
+		address.addr[3],
+		address.addr[4],
+		address.addr[5]);
 
 	uint32_t err_code;
 	err_code = app_timer_create(&m_qso_connect_timer, APP_TIMER_MODE_REPEATED, __qso_connect_timer_handler);
@@ -260,41 +334,6 @@ bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 	uint32_t ticks = APP_TIMER_TICKS(QSO_CONNECT_LED_DELAY, UTIL_TIMER_PRESCALER);
 	err_code = app_timer_start(m_qso_connect_timer, ticks, NULL);
 	APP_ERROR_CHECK(err_code);
-
-	util_ble_connect(address);
-	while (m2_connecting) {
-		APP_ERROR_CHECK(sd_app_evt_wait());
-	}
-
-	app_timer_stop(m_qso_connect_timer);
-	util_button_clear();
-
-	//restart background LED display
-	app_sched_resume();
-	mbp_background_led_start();
-	util_led_clear();
-
-	return m2_c_conn_handle != BLE_CONN_HANDLE_INVALID;
-}
-
-
-// Attempt a QSO with a neighbor badge, by index from the sorted_list.
-void transio_qso_attempt(uint8_t index) {
-	ble_gap_addr_t address;
-
-	bool good_qso = false;
-
-	ble_lists_get_neighbor_address(index, address.addr);
-	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
-
-	char buf[32];
-	sprintf(buf, "BLE:%02x%02x%02x%02x%02x%02x\n",
-		address.addr[0],
-		address.addr[1],
-		address.addr[2],
-		address.addr[3],
-		address.addr[4],
-		address.addr[5]);
 
 	//Connect to the selected badge
 	mbp_ui_cls();
@@ -313,13 +352,15 @@ void transio_qso_attempt(uint8_t index) {
 		if (transio_qso_callsign_get()) {
 			util_gfx_print("UR 599 TNX QSO\n");
 			add_to_score(POINTS_4_QSO_SUCCESS, "QSO completed");
+			mbp_state_qso_count_increment();
 			good_qso = true;
-		} else {
-			add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");
 		}
 
 		//!!! attempt a message retrieval too
+	} else {
+		add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");
 	}
+
 	util_ble_disconnect();
 	nrf_delay_ms(1500);
 	util_gfx_print("*** DISCONNECTED\n\n");
@@ -334,10 +375,18 @@ void transio_qso_attempt(uint8_t index) {
 		util_gfx_print("Nothing heard!\nTry again later.\n");
 	}
 
+	app_timer_stop(m_qso_connect_timer);
+	util_led_clear();
+
 	util_button_clear();
 	util_gfx_print("Any key to continue.");
 	util_button_wait();
 	util_button_clear();
+
+	//restart background LED display
+	app_sched_resume();
+	mbp_background_led_start();
+	util_led_clear();
 }
 
 
