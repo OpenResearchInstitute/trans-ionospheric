@@ -220,12 +220,12 @@ void mbp_state_chip8_bg_color_set(uint16_t c) {
 }
 
 bool mbp_state_game_incoming_ok_get() {
-	//gets the current state of the CHIP8 background color
+	//gets the current state of the flag for accepting incoming BLE games
 	return m_badge_state.game_incoming_ok;
 }
 
 void mbp_state_game_incoming_ok_set(bool b) {
-	//sets the current state of the CHIP8 background color
+	//sets the current state of the flag for accepting incoming BLE games
 	m_badge_state.game_incoming_ok = b;
 	util_ble_flags_set();
 }
@@ -307,10 +307,13 @@ void mbp_state_callsign_set(char *call) {
 		m_badge_state.callsign_set = false;
 	}
 	transio_qso_callsign_set(call);
+	util_ble_flags_set();
 }
 
 bool mbp_state_callsign_get(char *call) {
-	snprintf(call, SETTING_CALLSIGN_LENGTH, "%s", m_badge_state.callsign);
+	if (call != NULL) {
+		snprintf(call, SETTING_CALLSIGN_LENGTH, "%s", m_badge_state.callsign);
+	}
 	return m_badge_state.callsign_set;
 }
 

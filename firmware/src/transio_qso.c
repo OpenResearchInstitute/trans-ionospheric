@@ -22,6 +22,8 @@
 #define QSO_SVC_UUID			0xf264
 #define	QSO_CHAR_CALLSIGN_UUID	0xc91d	// read the badge's callsign
 
+#define QSO_CONNECT_LED_DELAY	800		// ms between LED changes while connecting
+
 static uint8_t m_qso_callsign[SETTING_CALLSIGN_LENGTH] = "NOTSET";
 
 static uint16_t m_qso_service_handle;
@@ -32,6 +34,8 @@ static uint8_t m2_c_callsign_result[SETTING_CALLSIGN_LENGTH];
 static volatile bool m2_connecting = false;
 static volatile bool m2_waiting = false;
 static volatile bool m_callsign_read_ok = false;
+
+APP_TIMER_DEF(m_qso_connect_timer);
 
 void transio_qso_callsign_set(char *callsign) {
 	memcpy(m_qso_callsign, callsign, SETTING_CALLSIGN_LENGTH);
@@ -226,13 +230,49 @@ void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt) {
 }
 
 
+static void __qso_connect_timer_handler(void * p_data) {
+
+	// Flash some LEDs while we're waiting.
+
+	app_sched_execute();
+
+	if (util_button_left()) {
+		//!!! abort the connection
+	}
+}
+
+
+
+
 bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 	m2_connecting = true;
 	m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
+
+	uint32_t err_code;
+	err_code = app_timer_create(&m_qso_connect_timer, APP_TIMER_MODE_REPEATED, __qso_connect_timer_handler);
+	APP_ERROR_CHECK(err_code);
+
+	//Stop background LED display
+	util_led_clear();
+	mbp_background_led_stop();
+	app_sched_pause();
+
+	uint32_t ticks = APP_TIMER_TICKS(QSO_CONNECT_LED_DELAY, UTIL_TIMER_PRESCALER);
+	err_code = app_timer_start(m_qso_connect_timer, ticks, NULL);
+	APP_ERROR_CHECK(err_code);
+
 	util_ble_connect(address);
 	while (m2_connecting) {
 		APP_ERROR_CHECK(sd_app_evt_wait());
 	}
+
+	app_timer_stop(m_qso_connect_timer);
+	util_button_clear();
+
+	//restart background LED display
+	app_sched_resume();
+	mbp_background_led_start();
+	util_led_clear();
 
 	return m2_c_conn_handle != BLE_CONN_HANDLE_INVALID;
 }
@@ -241,13 +281,8 @@ bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 // Attempt a QSO with a neighbor badge, by index from the sorted_list.
 void transio_qso_attempt(uint8_t index) {
 	ble_gap_addr_t address;
-	// Hard coded address to use, pending improvements to the neighbor list.
-	// Note: byte order is the opposite order displayed in nRF Connect, etc.
-// //	uint8_t raw_addr[] = { 0x74, 0x50, 0xb9, 0xe1, 0x74, 0xc5};	// some badge
-// 	uint8_t raw_addr[] = { 0x80, 0xe7, 0x2b, 0x10, 0x9c, 0xc7};	// Proto 7
-// //	uint8_t raw_addr[] = { 0x06, 0x26, 0x79, 0x86, 0x50, 0xe5};	// Abraxas3D Bender
-// 	memcpy(address.addr, raw_addr, 6);
-// 	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
+
+	bool good_qso = false;
 
 	ble_lists_get_neighbor_address(index, address.addr);
 	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
@@ -277,20 +312,30 @@ void transio_qso_attempt(uint8_t index) {
 
 		if (transio_qso_callsign_get()) {
 			util_gfx_print("UR 599 TNX QSO\n");
-			//!!! update neighbor list entry with callsign
-			//!!! make logfile entry
 			add_to_score(POINTS_4_QSO_SUCCESS, "QSO completed");
-			sprintf(buf, "Good QSO with %s\n", m2_c_callsign_result);
-			util_gfx_print(buf);
+			good_qso = true;
 		} else {
-			util_gfx_print("Nothing heard!\nTry again later.\n");
 			add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");
 		}
+
+		//!!! attempt a message retrieval too
 	}
 	util_ble_disconnect();
 	nrf_delay_ms(1500);
-	util_gfx_print("*** DISCONNECTED\n\nAny key to continue.");
+	util_gfx_print("*** DISCONNECTED\n\n");
+	if (good_qso) {
+		//!!! add QSO record to gamefile
+		//!!! add QSO record to logfile
+		sprintf(buf, "Good QSO with %s\n", m2_c_callsign_result);
+		util_gfx_print(buf);
+	} else {
+		//!!! add QSO attempt record to gamefile
+		//!!! add QSO attempt record to logfile
+		util_gfx_print("Nothing heard!\nTry again later.\n");
+	}
 
+	util_button_clear();
+	util_gfx_print("Any key to continue.");
 	util_button_wait();
 	util_button_clear();
 }

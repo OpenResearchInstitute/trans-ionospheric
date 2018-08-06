@@ -898,7 +898,10 @@ void util_ble_flags_set(void) {
 	BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
 	if (mbp_state_game_incoming_ok_get()) {
-		flags |= (BLE_DATA_FLAGS_MASK_GAMES | BLE_DATA_FLAGS_MASK_QSO);
+		flags |= BLE_DATA_FLAGS_MASK_GAMES;
+		if (mbp_state_callsign_get(NULL)) {
+		flags |= BLE_DATA_FLAGS_MASK_QSO;
+		}
 	}
 
 	//Copy flags byte into advertisement
