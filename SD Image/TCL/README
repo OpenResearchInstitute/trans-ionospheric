@@ -39,9 +39,9 @@ Bender TCL Language Support
 Bender supports command grouping with double quotes “”, braces {}, and brackets 
 [].
 
-Bender also supports variable substitution with $.
+Bender TCL also supports variable substitution with $.
 
-Bender does not support regular expressions.
+Bender TCL does not support regular expressions.
 
 Note that some commands are executed in RPN (Reverse Polish Notation)
 
@@ -152,7 +152,7 @@ EXAMPLE2.TCL: Scrolls a message on the screen.
 
 EXAMPLE3.TCL: Plays Rick Roll until user holds a button
 
-EXAMPLE4.TCL: Cycles the eye color hues.
+EXAMPLE4.TCL: Color cycles two LEDs on the board.
 
 EXAMPLE5.TCL: Prints text in the middle of the screen using ascii conversions
 
