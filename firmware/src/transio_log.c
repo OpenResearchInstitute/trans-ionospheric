@@ -23,8 +23,6 @@
 #define SCREEN_WIDTH	20	// characters of small font
 #define SCREEN_LINES	9	// rows of small font
 
-#define LOG_FILENAME	"QSOLOG.TXT"
-
 static FIL m_logfile;
 static bool m_logfile_is_open;
 static uint16_t m_first_logfile_record;		// index of record at top of screen
@@ -195,7 +193,6 @@ void file_viewer(char *filename, char *title, char *eof_message, void empty_mess
 static void __explain_empty_logfile(void) {
 	util_gfx_print("--- log empty ---\n\n");
 	util_gfx_print("Select neighbors on\nthe Nearby list to\nmake QSOs!\n");
-	util_gfx_print("(After we finish\nthat feature.)");
 }
 
 
@@ -214,4 +211,30 @@ void transio_log_screen(void) {
 	}
 
 	file_viewer(LOG_FILENAME, "Your QSOs", "--- end of log ---", __explain_empty_logfile);
+}
+
+
+// Add a record to the logfile, creating it if needed.
+void logfile_add_record(char *record) {
+	FIL file;
+	FRESULT result;
+	UINT count;
+	UINT record_length = strlen(record);
+
+	//Write the data to SD
+	result = f_open(&file, LOG_FILENAME, FA_OPEN_APPEND | FA_WRITE);
+	if (result != FR_OK) {
+		mbp_ui_error("Could not open logfile for writing.");
+		return;
+	}
+
+	result = f_write(&file, record, record_length, &count);
+	if (result != FR_OK || count != record_length) {
+		mbp_ui_error("Could not write to logfile.");
+	}
+
+	result = f_close(&file);
+	if (result != FR_OK) {
+		mbp_ui_error("Could not close logfile.");
+	}
 }

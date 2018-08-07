@@ -19,7 +19,11 @@
 #ifndef TRANSIO_LOG_H_
 #define TRANSIO_LOG_H_
 
+#define LOG_FILENAME	"QSOLOG.TXT"
 
 extern void transio_log_screen();
+
+// Add a record to the logfile, creating it if needed.
+extern void logfile_add_record(char *record);
 
 #endif /* TRANSIO_LOG_H_ */

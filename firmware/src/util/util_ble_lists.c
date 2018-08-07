@@ -194,8 +194,20 @@ void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t m
 
 
 // Get the BLE address for a selected neighbor.
-void ble_lists_get_neighbor_address(uint8_t itemno, uint8_t *buf) {
-	memcpy(buf, neighbor_list[sorted_index[itemno]].ble_address, BLE_GAP_ADDR_LEN);
+void ble_lists_get_neighbor_address(uint8_t index, uint8_t *buf) {
+	memcpy(buf, neighbor_list[sorted_index[index]].ble_address, BLE_GAP_ADDR_LEN);
+}
+
+
+// Get the RSSI value for a selected neighbor.
+int8_t ble_lists_get_neighbor_rssi(uint8_t index) {
+	return neighbor_list[sorted_index[index]].rssi;
+}
+
+
+// Get the name for a selected neighbor.
+char *ble_lists_get_neighbor_name(uint8_t index) {
+	return neighbor_list[sorted_index[index]].name;
 }
 
 

@@ -44,8 +44,10 @@ extern int survey_and_sort_neighbors(void);
 // Drawing function callback from menu handler for neighbor list menus
 extern void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
 
-// Get the BLE address for a selected neighbor.
+// Get various parameters for a selected neighbor.
 extern void ble_lists_get_neighbor_address(uint8_t index, uint8_t *buf);
+extern int8_t ble_lists_get_neighbor_rssi(uint8_t index);
+extern char *ble_lists_get_neighbor_name(uint8_t index);
 
 // Determine whether a selected neighbor plays the QSO game
 extern bool neighbor_allows_qso_game(uint8_t index);

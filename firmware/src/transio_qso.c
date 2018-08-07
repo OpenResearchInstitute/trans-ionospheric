@@ -305,6 +305,7 @@ bool transio_qso_connect_blocking(ble_gap_addr_t *address) {
 // Attempt a QSO with a neighbor badge, by index from the sorted_list.
 void transio_qso_attempt(uint8_t index) {
 	ble_gap_addr_t address;
+	char buf[100];
 
 	bool good_qso = false;
 	timer_state.led_state = 0;
@@ -313,8 +314,8 @@ void transio_qso_attempt(uint8_t index) {
 	ble_lists_get_neighbor_address(index, address.addr);
 	address.addr_type = BLE_GAP_ADDR_TYPE_RANDOM_STATIC;
 
-	char buf[32];
-	sprintf(buf, "BLE:%02x%02x%02x%02x%02x%02x\n",
+	char ble_addr_string[18];
+	sprintf(ble_addr_string, "BLE:%02x%02x%02x%02x%02x%02x\n",
 		address.addr[0],
 		address.addr[1],
 		address.addr[2],
@@ -335,6 +336,9 @@ void transio_qso_attempt(uint8_t index) {
 	err_code = app_timer_start(m_qso_connect_timer, ticks, NULL);
 	APP_ERROR_CHECK(err_code);
 
+	uint32_t timenow = util_millis()/1000;	// Log time in seconds since powerup
+											// Unfortunately we don't have real time!
+
 	//Connect to the selected badge
 	mbp_ui_cls();
 	util_gfx_cursor_area_reset();
@@ -342,7 +346,7 @@ void transio_qso_attempt(uint8_t index) {
 	util_gfx_set_font(FONT_SMALL);
 	util_gfx_set_color(COLOR_WHITE);
 	util_gfx_print("Calling the badge...\n");
-	util_gfx_print(buf);
+	util_gfx_print(ble_addr_string);
 	util_gfx_print("come in, please!\n");
 
 	//Connect
@@ -362,18 +366,29 @@ void transio_qso_attempt(uint8_t index) {
 	}
 
 	util_ble_disconnect();
-	nrf_delay_ms(1500);
+	nrf_delay_ms(1500);			// comfort delay
 	util_gfx_print("*** DISCONNECTED\n\n");
+
 	if (good_qso) {
-		//!!! add QSO record to gamefile
-		//!!! add QSO record to logfile
 		sprintf(buf, "Good QSO with %s\n", m2_c_callsign_result);
 		util_gfx_print(buf);
+
+		sprintf(buf, "QSO at T=%ld\nSignal %d dBm\n%s%s op %s\n\n",
+						timenow,
+						ble_lists_get_neighbor_rssi(index),
+						ble_addr_string,
+						m2_c_callsign_result,
+						ble_lists_get_neighbor_name(index));
 	} else {
-		//!!! add QSO attempt record to gamefile
-		//!!! add QSO attempt record to logfile
 		util_gfx_print("Nothing heard!\nTry again later.\n");
+
+		sprintf(buf, "No QSO at T=%ld\nSignal %d dBm\n%s\n",
+						timenow,
+						ble_lists_get_neighbor_rssi(index),
+						ble_addr_string);
 	}
+	gamefile_add_record(address.addr, buf);
+	logfile_add_record(buf);
 
 	app_timer_stop(m_qso_connect_timer);
 	util_led_clear();

@@ -176,9 +176,10 @@ void mbp_system_game_menu() {
 			{ "Background Color", NULL, NULL, NULL, NULL },
 			{ "LED Beep Toggle", NULL, NULL, NULL, NULL },
 			{ "Accept Incoming", NULL, NULL, NULL, NULL },
+			{ "Clear QSO Log", NULL, NULL, NULL, NULL },
 	};
 	menu_t menu;
-	menu.count = 5;
+	menu.count = 6;
 	menu.items = items;
 	menu.selected = 0;
 	menu.title = "Game CFG";
@@ -234,6 +235,14 @@ void mbp_system_game_menu() {
 		else {
 			mbp_state_game_incoming_ok_set(mbp_ui_toggle_popup("Incoming", 1, "Accept", "Reject", "Currently: Reject incoming game requests from other badges") == 0);
 			mbp_state_save();
+		}
+		break;
+
+	case 5:
+		if (mbp_ui_toggle_popup("Erase Log", 1, "Erase", "Cancel", "Do you want to erase the entire QSO log? Really?") == 0) {
+			if (f_unlink(LOG_FILENAME) != FR_OK) {
+				mbp_ui_error("Could not remove logfile");
+			}
 		}
 		break;
 
