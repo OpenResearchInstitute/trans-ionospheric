@@ -1,0 +1,7 @@
+QSO Game unimplemented features wishlist
+
+A way to view the log file for a particular neighbor only. We already have this available in the gamefile, but no access to it from the UI.
+
+Support for free text messages in the QSO.
+
+Display QSO count on the neighbor info screen.
