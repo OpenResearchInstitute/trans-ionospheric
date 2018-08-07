@@ -87,8 +87,6 @@ int main(void) {
 	//Enable terminal
 	mbp_term_init();
 
-	hello_init();
-
 	//Start up BLE, this starts the LFCLK needs to happen first
 	//If airplane mode we'll disable later
 	util_ble_init();

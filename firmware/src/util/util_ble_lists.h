@@ -58,4 +58,9 @@ extern bool neighbor_allows_qso_game(uint8_t index);
 // Returns number of characters added to buf.
 extern int neighbor_get_info(uint8_t index, char *name, char *buf);
 
+// Find a suitable neighbor for sending a Hello to.
+// Returns true if it found one.
+extern bool ble_lists_choose_hello_neighbor(uint16_t *hello_company_id, char *hello_name);
+
+
 #endif /* UTIL_BLE_LISTS_H_ */

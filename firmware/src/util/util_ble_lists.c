@@ -370,3 +370,14 @@ int neighbor_get_info(uint8_t index, char *name, char *buf) {
 		when
 	);
 }
+
+
+// Find a suitable neighbor for sending a Hello to.
+// Returns true if it found one.
+bool ble_lists_choose_hello_neighbor(uint16_t *hello_company_id, char *hello_name) {
+	//!!! testing only, make up a fake neighbor
+	*hello_company_id = COMPANY_ID_DCFURS;
+	strcpy(hello_name, "TestName");
+
+	return true;
+}
