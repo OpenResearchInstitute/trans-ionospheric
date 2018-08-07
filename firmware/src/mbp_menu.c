@@ -572,7 +572,7 @@ static void mbp_menu_system() {
 	menu.count = 0;
 
 	items[menu.count++] = (menu_item_t ) { "Name", "MENU/NAME.ICO", NULL, &mbp_system_name_edit, NULL };
-	items[menu.count++] = (menu_item_t ) { "Callsgn", "MENU/NAME.ICO", NULL, &transio_callsign_edit, NULL };
+	items[menu.count++] = (menu_item_t ) { "Callsgn", "MENU/SETCALL.ICO", NULL, &transio_callsign_edit, NULL };
 	if (mbp_state_master_get())
 	    items[menu.count++] = (menu_item_t ) { "Special", "MENU/NAME.ICO", NULL, &mbp_system_special_edit, NULL };
 	items[menu.count++] = (menu_item_t ) { "About", "MENU/ABOUT.ICO", NULL, &mbp_system_about, NULL };
@@ -594,8 +594,8 @@ void mbp_menu_main() {
 	menu_item_t items[10];
 	menu.count = 0;
 	items[menu.count++] = (menu_item_t ) { "Bling!", "MENU/BLING.ICO", NULL, &mbp_menu_bling, NULL };
-	items[menu.count++] = (menu_item_t ) { "ViewLog", "MENU/SCORE.ICO", NULL, &transio_log_screen, NULL };
-	items[menu.count++] = (menu_item_t ) { "Nearby", "MENU/NEARBY.ICO", NULL, &mbp_menu_nearby, NULL };
+	items[menu.count++] = (menu_item_t ) { "ViewLog", "MENU/VIEWLOG.ICO", NULL, &transio_log_screen, NULL };
+	items[menu.count++] = (menu_item_t ) { "Nearby", "MENU/HOMES.ICO", NULL, &mbp_menu_nearby, NULL };
 	items[menu.count++] = (menu_item_t ) { "Score", "MENU/SCORE.ICO", NULL, &game_status_screen, NULL };
 	items[menu.count++] = (menu_item_t ) { "Games", "MENU/CONTROL.ICO", NULL, &mbp_menu_games, NULL };
 	items[menu.count++] = (menu_item_t ) { "TCL", "MENU/TCL.ICO", NULL, &mbp_tcl_menu, NULL };
