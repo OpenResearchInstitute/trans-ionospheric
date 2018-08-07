@@ -407,7 +407,7 @@ static void mbp_menu_bling() {
 	menu.title = "Bling";
 	menu.count = 0;
 
-	items[menu.count++] = (menu_item_t ) { "Backers", "MENU/KSLOGO.ICO", "MENU/BLACK.PRV", &mbp_menu_bling_ks, NULL };
+	items[menu.count++] = (menu_item_t ) { "VIPs", "MENU/VIP.ICO", "MENU/BLACK.PRV", &mbp_menu_bling_ks, NULL };
 
         // Check for master encounter unlocks
 // 	if ((unlock & UNLOCK_MASK_MASTER_1) > 0) {
