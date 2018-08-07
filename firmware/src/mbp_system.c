@@ -110,6 +110,10 @@ void mbp_system_code() {
 		mbp_ui_popup("Unlocked", "Defrag Bling unlocked.");
 	}
 
+	else if (strcmp(code, "CHEAT") == 0) {
+		cheat_at_mastermind = true;		// not saved!
+	}
+
 	//Everything else
 	else {
 		mbp_ui_error(":(");
@@ -540,7 +544,7 @@ void mbp_system_test() {
 		//Show badge db count
 		util_gfx_set_color(COLOR_WHITE);
 		util_gfx_set_cursor(90, 84);
-		sprintf(buffer, "%d", survey_and_sort_neighbors());
+		sprintf(buffer, "%d", survey_and_sort_neighbors(NEIGHBOR_FILTER_NONE));
 		util_gfx_print(buffer);
 
 		//Current time

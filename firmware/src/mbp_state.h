@@ -54,6 +54,7 @@ typedef struct {
 	char callsign[7];
 	bool callsign_set;
 	uint16_t qso_count;
+	uint16_t mm_count;
 } badge_state_t;
 
 extern void mbp_state_wall_show();
@@ -99,8 +100,12 @@ extern uint16_t mbp_state_score_get();
 extern void mbp_state_score_set(uint16_t score_state);
 
 //Get and increment count of QSOs completed
-extern uint8_t mbp_state_qso_count_get();
+extern uint16_t mbp_state_qso_count_get();
 extern void mbp_state_qso_count_increment();
+
+//Get and increment count of Mastermind puzzles solved
+extern uint16_t mbp_state_mm_count_get();
+extern void mbp_state_mm_count_increment();
 
 //Get and set joco special badge ID
 extern uint8_t mbp_state_special_get();

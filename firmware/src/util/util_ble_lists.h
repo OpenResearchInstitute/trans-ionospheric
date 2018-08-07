@@ -25,6 +25,8 @@ typedef uint8_t nlindex_t;
 #define	NEIGHBOR_LIST_SIZE	255	// must fit in nlindex_t and not use NEIGHBOR_NONE
 #define	NEIGHBOR_NONE	255		// Unused entry in sorted_index
 
+#define NEIGHBOR_FILTER_NONE	0xFF			// any valid neighbor will do
+#define NEIGHBOR_FILTER_MM		BLE_DATA_FLAGS_MASK_MM
 
 // Function to initialize the data structures.
 extern void ble_lists_init(void);
@@ -39,7 +41,7 @@ extern void ble_lists_process_advertisement(uint8_t *ble_address,
 
 // Create a sorted list of all the nearby badges we've heard since powerup.
 // Return the count.
-extern int survey_and_sort_neighbors(void);
+extern int survey_and_sort_neighbors(uint8_t filter_flags);
 
 // Drawing function callback from menu handler for neighbor list menus
 extern void ble_lists_draw_callback(nlindex_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);

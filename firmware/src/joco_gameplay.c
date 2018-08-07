@@ -36,6 +36,7 @@ void add_to_score(int16_t points, char *name) {
     }
     mbp_state_score_set(scorenow);
     mbp_state_save();
+
     // schedule a score bling display
     // -spc- TODO change the bling for a level up
     // APP_ERROR_CHECK(app_sched_event_put(name, strlen(name), mbp_bling_score_schedule_handler));
@@ -50,7 +51,8 @@ void game_status_screen() {
 
     while (1) {
 	if (redraw || !util_gfx_is_valid_state()) {
-	    uint8_t qso_count = mbp_state_qso_count_get();
+	    uint16_t qso_count = mbp_state_qso_count_get();
+		uint16_t mm_count = mbp_state_mm_count_get();
 
 	    //Make sure there's no clipping
 	    util_gfx_cursor_area_reset();
@@ -73,18 +75,25 @@ void game_status_screen() {
 
 	    //Print their QSO count
 	    util_gfx_set_color(COLOR_YELLOW);
-	    sprintf(temp, "QSOs %d", qso_count);
+	    sprintf(temp, "QSOs %u", qso_count);
 	    util_gfx_set_cursor(JOCO_UI_MARGIN, 60);
 	    util_gfx_print(temp);
 
-	    //Print points
-	    util_gfx_set_color(COLOR_WHITE);
-	    sprintf(temp, "Points: %d\n", mbp_state_score_get());
-	    util_gfx_set_font(FONT_SMALL);
-	    util_gfx_set_cursor(JOCO_UI_MARGIN, 80);
-	    util_gfx_print(temp);
+		//Print the number of Mastermind puzzles solved
+		sprintf(temp, "Codes %u", mm_count);
+		util_gfx_set_cursor(JOCO_UI_MARGIN, 75);
+		util_gfx_print(temp);
 
-	    redraw = false;
+	    //Print points
+	    util_gfx_set_color(COLOR_RED);
+	    util_gfx_set_cursor(JOCO_UI_MARGIN, 95);
+	    util_gfx_print("Points:");
+
+		sprintf(temp, "    %u", mbp_state_score_get());
+		util_gfx_set_cursor(JOCO_UI_MARGIN, 110);
+		util_gfx_print(temp);
+
+		redraw = false;
 	}
 
 	//validate screen state

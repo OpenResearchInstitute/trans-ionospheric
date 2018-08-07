@@ -16,7 +16,6 @@
  *  @mustbeart
  *  @abraxas3d
  *****************************************************************************/
-#if 0
 #include "system.h"
 
 #define MM_NUM_COLUMNS	4
@@ -56,6 +55,8 @@
 #define MM_ANIMATION_MS		100
 APP_TIMER_DEF(m_mm_animation_timer);
 
+bool cheat_at_mastermind = false;
+
 // Structure that holds a single row of color choices,
 // which may be guesses or answers.
 // Each entry should be a color index from 0 to MM_NUM_COLORS for guesses,
@@ -88,11 +89,10 @@ static mm_game_t game;
 typedef struct {
 	bool	remote;
 	char	name[20];
+	uint8_t	index;
 } mm_opponent_t;
 
 // Identity of our worthy opponent.
-//!!! right now the badge identity is text; soon it will need to contain either a
-//!!! Bluetooth address or a flag that play is to proceed locally.
 static mm_opponent_t m_opponent;
 
 // Secret code for local play against the badge
@@ -554,7 +554,9 @@ static void __mm_score_guess(mm_color_list_t *guess_struct, mm_color_list_t *cod
 	// return pegs[0]+pegs[1]+pegs[2]+pegs[3];
 
 	// Key pegs need to be scrambled up to hide position information
-	__shuffle(pegs, 4);
+	if (!cheat_at_mastermind) {
+		__shuffle(pegs, 4);
+	}
 
 	// Convert output of existing code to our color convention
 	// and copy it into m_received_answer.
@@ -709,6 +711,7 @@ static bool __check_for_victory(uint8_t row) {
 static void __mm_codebreaker(void) {
 	uint8_t turn = 0;
 	uint8_t status = MM_PLAYING;
+	int points;
 
 	m_row_height = 16;	// nice big boxes to start with (height in pixels)
 
@@ -789,16 +792,24 @@ static void __mm_codebreaker(void) {
 	char msg_buf[90];
 	switch (status) {
 		case MM_USER_QUIT:
-				sprintf(msg_buf, "You quit the game!");
+				sprintf(msg_buf, "You quit the game!\nNo points for you.");
 				break;
 		case MM_REMOTE_QUIT:
 				sprintf(msg_buf, "Couldn't get an answer from the other player! (Feature not implemented yet! Sorry.)");
 				break;
 		case MM_VICTORY:
-				sprintf(msg_buf, "You got it in %d turn%c!", turn+1, turn == 0 ? '!' : 's');
+				points = turn < 4 ? 200 : 100;
+				sprintf(msg_buf, "You got it in %d turn%c!\n%d points",
+										turn+1,
+										turn == 0 ? '!' : 's',
+										points);
+				mbp_state_mm_count_increment();
+				add_to_score(points, "Mastermind win");
+				mbp_state_save();
 				break;
 		case MM_DEFEAT:
-				sprintf(msg_buf, "You had %d tries but still didn't get it!", MM_MAX_TURNS);
+				sprintf(msg_buf, "You had %d tries but still didn't get it!\n5 points", MM_MAX_TURNS);
+				add_to_score(5, "Mastermind fail");
 				break;
 		default:
 				sprintf(msg_buf, "Why is the game over?");
@@ -844,13 +855,13 @@ static bool __mm_make_code(void) {
 
 
 // Handle the action of selecting an opponent from the menu.
-static void __set_remote_opponent(void *p_data) {
-	memcpy(m_opponent.name, ((ble_badge_list_menu_text_t *)p_data)->text, 20);
+static void __players_callback(uint8_t index) {
+	strcpy(m_opponent.name, ble_lists_get_neighbor_name(index));
 	m_opponent.remote = true;
+	m_opponent.index = index;
 }
 
-
-static void __set_auto_opponent(void *p_data) {
+static void __init_auto_opponent(void) {
 	strcpy(m_opponent.name, "the Badge");
 	m_opponent.remote = false;
 }
@@ -863,41 +874,39 @@ static void __set_auto_opponent(void *p_data) {
 //			MM_AUTO_OPPONENT if the user chose to play against the badge
 //			MM_USER_QUIT if the user canceled.
 static uint8_t __mbp_mastermind_players() {
-	int badge_list_size;
-	ble_badge_list_menu_text_t *list;
+	uint8_t badge_list_size;
 	uint8_t status;
 
-	menu_t menu;
-	menu_item_t items[NEARBY_BADGE_LIST_LEN];
-	menu.items = items;
-	menu.count = 0;
-	menu.title = "Players";
-
-	list = malloc(NEARBY_BADGE_LIST_LEN * sizeof( ble_badge_list_menu_text_t));
-	if (!list) {
-		mbp_ui_error("players malloc fail.");
-		return MM_USER_QUIT;
-	}
-
-	badge_list_size = get_nearby_badge_list(NEARBY_BADGE_LIST_LEN, list);
+	badge_list_size = survey_and_sort_neighbors(NEIGHBOR_FILTER_MM);
 
 	if (badge_list_size == 0) {
-		status = mbp_ui_toggle_popup("ALONE!", 0, "Play", "Quit", "No other badges are nearby. Play against the badge?");
+		status = mbp_ui_toggle_popup("ALONE!", 0, "Play", "Quit", "No other players are nearby. Play against the badge?");
 		if (status == 0) {
+			__init_auto_opponent();
 			return MM_AUTO_OPPONENT;
 		} else {
 			return MM_USER_QUIT;
 		}
 	}
 
-	items[menu.count++] = (menu_item_t) { "Play the badge", NULL, NULL, __set_auto_opponent, NULL};
-	for (uint8_t i = 0; i < badge_list_size; i++) {
-		items[menu.count++] = (menu_item_t ) { list[i].text, NULL, NULL, __set_remote_opponent, &list[i].text };
+	char msg_buf[80];
+	sprintf(msg_buf, "%d other players nearby right now. Play one of them, or play the badge?", badge_list_size);
+	status = mbp_ui_toggle_popup("Opponent?", 0, "Player", "Badge", msg_buf);
+	if (status == 1) {
+		__init_auto_opponent();
+		return MM_AUTO_OPPONENT;
 	}
 
-	status = mbp_submenu(&menu);
+	menu_t menu;
+	menu.items = NULL;
+	menu.count = badge_list_size;
+	menu.title = "MM Players";
+	menu.callback = __players_callback;
+	menu.draw_item = ble_lists_draw_callback;
+	menu.resorter = survey_and_sort_neighbors;
+	menu.resort_filter = NEIGHBOR_FILTER_MM;
 
-	free(list);
+	status = mbp_submenu(&menu);
 
 	if (status == MENU_QUIT) {
 		return MM_USER_QUIT;
@@ -911,6 +920,11 @@ static uint8_t __mbp_mastermind_players() {
 
 // Make a connection to the remote opponent.
 static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
+	char buf[20];
+	uint8_t address[BLE_GAP_ADDR_LEN];
+
+	ble_lists_get_neighbor_address(opponent.index, address);
+
 	util_gfx_cursor_area_reset();
 	mbp_ui_cls();
 
@@ -925,7 +939,16 @@ static bool __mm_connect_remote_opponent(mm_opponent_t opponent) {
 	nrf_delay_ms(800);
 	util_gfx_print("\nOK\nATZ\n");
 	nrf_delay_ms(800);
-	util_gfx_print("OK\nATDT8675309\n");
+	sprintf(buf, "%02x%02x%02x%02x%02x%02x\n",
+					address[0],
+					address[1],
+					address[2],
+					address[3],
+					address[4],
+					address[5]);
+
+	util_gfx_print("OK\nATDT ");
+	util_gfx_print(buf);	// use BLE address as fake phone number!
 	nrf_delay_ms(1700);
 
 	//!!! here we will wait for the connection if it's not already up
@@ -974,11 +997,15 @@ void mastermind() {
 
 	// Game drawing wasn't designed to accommodate interrupting events,
 	// so take the easy way out and just turn them off for the duration.
+	// But we'd better also stop the periodic events that are likely to
+	// fill up the queue.
+	mbp_background_led_stop();
 	app_sched_pause();
 
 	// Try to collect the codemaker pegs from the user
 	if (! __mm_make_code()) {
 		app_sched_resume();
+		mbp_background_led_start();
 		return;
 	}
 
@@ -988,6 +1015,7 @@ void mastermind() {
 	switch (player_type) {
 		case MM_USER_QUIT:
 			app_sched_resume();
+			mbp_background_led_start();
 			return;
 
 		case MM_REMOTE:
@@ -996,6 +1024,7 @@ void mastermind() {
 
 			if (invite != 0) {	// 0 means the left choice, i.e., "Invite"
 				app_sched_resume();
+				mbp_background_led_start();
 				return;
 			}
 			// FALLTHROUGH
@@ -1015,13 +1044,9 @@ void mastermind() {
 	}
 
 	app_sched_resume();
+	mbp_background_led_start();
 }
 
-#endif //0
-
-//!!! dummy
-void mastermind() {
-}
 
 // Entry point from an incoming Bluetooth connection.
 void mastermind_rsvp(void) {

@@ -357,6 +357,7 @@ void transio_qso_attempt(uint8_t index) {
 			util_gfx_print("UR 599 TNX QSO\n");
 			add_to_score(POINTS_4_QSO_SUCCESS, "QSO completed");
 			mbp_state_qso_count_increment();
+			mbp_state_save();
 			good_qso = true;
 		}
 

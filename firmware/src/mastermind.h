@@ -20,5 +20,7 @@
 
 #include "system.h"
 
+extern bool cheat_at_mastermind;
+
 extern void mastermind();
 extern void mastermind_rsvp(void);

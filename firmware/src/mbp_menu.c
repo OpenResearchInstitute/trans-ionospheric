@@ -323,7 +323,7 @@ uint8_t mbp_submenu(menu_t *p_menu) {
 				nrf_delay_ms(MENU_SCROLL_DELAY);
 			} else if (p_menu->items == NULL && p_menu->resorter != NULL) {
 				// We tried to scroll up past the top. Re-survey the neighbors.
-				p_menu->count = p_menu->resorter();
+				p_menu->count = p_menu->resorter(p_menu->resort_filter);
 				max_visible_items = MIN(p_menu->count, (GFX_HEIGHT - SUBMENU_TITLE_SIZE) / font_height);
 
 				for (uint8_t i = 0; i < max_visible_items; i++) {
@@ -541,11 +541,12 @@ static void mbp_menu_nearby() {
 	menu_t menu;
 
 	menu.items = NULL;
-	menu.count = survey_and_sort_neighbors();
+	menu.count = survey_and_sort_neighbors(NEIGHBOR_FILTER_NONE);
 	menu.title = "Nearby";
 	menu.callback = __nearby_callback;
 	menu.draw_item = ble_lists_draw_callback;
 	menu.resorter = survey_and_sort_neighbors;
+	menu.resort_filter = NEIGHBOR_FILTER_NONE;
 
 	if (menu.count == 0) {
 		mbp_ui_popup("Nearby", "Sorry no neighbors :(");

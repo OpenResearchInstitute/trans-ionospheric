@@ -41,7 +41,7 @@
 typedef void (menu_callback_t)(void *data);
 typedef void (menu_global_callback_t)(uint8_t itemno);
 typedef void (menu_drawback_t)(uint8_t itemno, uint16_t x, uint16_t y, uint8_t menu_draw_method);
-typedef int (menu_resort_t)(void);
+typedef int (menu_resort_t)(uint8_t filter);
 
 typedef struct {
 	char *text;
@@ -60,6 +60,7 @@ typedef struct {
 	menu_global_callback_t *callback;	// action callback for all items, only if items is NULL
 	menu_drawback_t *draw_item;	// custom draw function, only if items is NULL
 	menu_resort_t *resorter;	// called on scroll past top, only if items is NULL
+	uint8_t resort_filter;		// argument to resorter
 } menu_t;
 
 extern uint8_t mbp_menu(menu_t *p_menu);

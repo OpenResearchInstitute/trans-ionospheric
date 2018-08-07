@@ -92,16 +92,18 @@ static int compare_neighbor_rssi(const void *a, const void *b) {
 
 
 // Resort the neighbor list. This consists of populating the sorted_index
-// with the indexes of all the valid neighbors, and then sorting them by
-// RSSI.
-int survey_and_sort_neighbors(void) {
+// with the indexes of all the valid neighbors (or of those neighbors that
+// have a certain flag set, as specified by filter_flags), and then sorting
+// them by RSSI.
+int survey_and_sort_neighbors(uint8_t filter_flags) {
 	uint8_t count = 0;
 
 	updates_frozen = true;
 
 	// Scan the neighbor list and write down the indices of the neighbors.
 	for (int i=0; i < NEIGHBOR_LIST_SIZE; i++) {
-		if (neighbor_list[i].flags != NLFLAGS_EMPTY) {
+		if (neighbor_list[i].flags != NLFLAGS_EMPTY
+			&& ((neighbor_list[i].flags & filter_flags) != 0)) {
 			sorted_index[count++] = i;
 		}
 	}
