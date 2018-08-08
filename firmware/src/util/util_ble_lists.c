@@ -21,11 +21,12 @@
 
 #define	NLFLAGS_EMPTY	0x00	// means this record is empty
 
+// Local flags. Must be different from any flags in advertisements!
 #define NLFLAGS_VALID	0x80	// set for all non-empty records
-								// Must be different from any flags in advertisements
+#define NLFLAGS_HELLOED	0x40	// we've Helloed this badge already
 
 // The rest of the flags are identical to flags in advertisements.
-#define NLFLAGS_UPDATE_MASK		0x7F
+#define NLFLAGS_UPDATE_MASK		0x3F	// all the non-local flags
 #define NLFLAGS_GAMES_ACCEPTED	BLE_DATA_FLAGS_MASK_GAMES
 #define NLFLAGS_QSO_GAME		BLE_DATA_FLAGS_MASK_QSO
 #define NLFLAGS_MM_GAME			BLE_DATA_FLAGS_MASK_MM
@@ -38,6 +39,22 @@
 
 #define SUBMENU_PADDING		2
 #define SUBMENU_TITLE_SIZE	15
+
+
+// If the badge is/was really strong, we will hello it even if stale.
+#define HELLO_THRESHOLD_IMMEDIATE	(-50)
+
+// If the badge is still there and pretty strong, we will hello it.
+#define HELLO_THRESHOLD_RECENT		(-80)
+
+// If the badge isn't too weak, and we're in a dry spell for hellos, we hello it.
+#define HELLO_THRESHOLD_CATCHALL	(-95)
+
+// Milliseconds before the badge is considered stale for threshold purposes
+#define HELLO_RECENCY_MS	15000L
+
+// Milliseconds before we think Hellos are getting scarce
+#define HELLO_CATCHALL_MS	60000L		// 1 minute
 
 typedef struct {
 	uint8_t		flags;			// all zero means this entry is empty
@@ -372,12 +389,92 @@ int neighbor_get_info(uint8_t index, char *name, char *buf) {
 }
 
 
+// Randomly pick a neighbor
+static nlindex_t __random_neighbor(void) {
+nlindex_t count = 0;
+
+	// First count the neighbors
+	for (nlindex_t index = 0; index < NEIGHBOR_LIST_SIZE; index++) {
+		if (neighbor_list[index].flags != NLFLAGS_EMPTY) {
+			count++;
+		}
+	}
+
+	if (count > 0) {
+		nlindex_t neighbor = util_math_rand8() % count;
+		count = 0;
+		for (nlindex_t index=0; index < NEIGHBOR_LIST_SIZE; index++) {
+			if (count == neighbor) {
+				return index;
+			}
+			if (neighbor_list[index].flags != NLFLAGS_EMPTY) {
+				count++;
+			}
+		}
+	}
+
+	return NEIGHBOR_NONE;	// can't happen
+}
+
+
+// Randomly mark a neighbor as un-Helloed
+void ble_lists_randomly_unhello_neighbor(void) {
+	nlindex_t random_neighbor = __random_neighbor();
+
+	if (random_neighbor != NEIGHBOR_NONE) {
+		neighbor_list[random_neighbor].flags &= !NLFLAGS_HELLOED;
+	}
+}
+
+
 // Find a suitable neighbor for sending a Hello to.
 // Returns true if it found one.
 bool ble_lists_choose_hello_neighbor(uint16_t *hello_company_id, char *hello_name) {
-	//!!! testing only, make up a fake neighbor
-	*hello_company_id = COMPANY_ID_DCFURS;
-	strcpy(hello_name, "TestName");
+	static uint32_t last_hello_time = 0;
 
-	return true;
+	nlindex_t candidate = NEIGHBOR_NONE;
+	int8_t highest_rssi = INT8_MIN;
+
+	for (nlindex_t index = 0; index < NEIGHBOR_LIST_SIZE; index++) {
+		// skip over empty entries
+		if (neighbor_list[index].flags == NLFLAGS_EMPTY) {
+			continue;
+		}
+
+		// skip over neighbors we've already helloed
+		if ((neighbor_list[index].flags & NLFLAGS_HELLOED) != 0) {
+			continue;
+		}
+
+		if (neighbor_list[index].rssi > highest_rssi) {
+			highest_rssi = neighbor_list[index].rssi;
+			candidate = index;
+		}
+	}
+
+	uint32_t timenow = util_millis();
+	bool hello_found = false;
+
+	// If we found a candidate, check thresholds to decide whether to Hello it
+	if (candidate != NEIGHBOR_NONE) {
+		if (highest_rssi > HELLO_THRESHOLD_IMMEDIATE) {
+			hello_found = true;
+		} else if ((highest_rssi > HELLO_THRESHOLD_RECENT)
+					&& ((timenow - neighbor_list[candidate].last_heard_millis) < HELLO_RECENCY_MS)) {
+			hello_found = true;
+		} else if ((highest_rssi > HELLO_THRESHOLD_CATCHALL)
+					&& ((timenow - last_hello_time) > HELLO_CATCHALL_MS)) {
+			hello_found = true;
+		}
+	}
+
+	if (hello_found) {
+		*hello_company_id = neighbor_list[candidate].company_id;
+		strcpy(hello_name, neighbor_list[candidate].name);	// could be changing!
+
+		last_hello_time = timenow;
+		neighbor_list[candidate].flags |= NLFLAGS_HELLOED;
+	}
+
+	return hello_found;
 }

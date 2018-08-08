@@ -20,6 +20,10 @@
 #include "../system.h"
 
 
+// Milliseconds before we randomly mark a neighbor as un-Helloed
+#define HELLO_UNMARK_MS		600000L		// 10 minutes
+
+
 // Callback passed to util_gfx_draw_raw_file() to stop playback after one frame.
 static void __play_1_frame_only(uint8_t frame, void *p_data) {
 	util_gfx_draw_raw_file_stop();
@@ -46,7 +50,7 @@ static void __do_hello(char *name, char *lcd_file) {
     uint16_t bg = util_gfx_rgb_to_565(color_2);
 
     //Compute name coords
-    util_gfx_set_font(FONT_LARGE);
+    util_gfx_set_font(FONT_MEDIUM);
     util_gfx_get_text_bounds(name, 0, 0, &w, &h);
     uint16_t y = (GFX_HEIGHT / 2) + 4;
     uint16_t x = (GFX_WIDTH - w) / 2;
@@ -180,5 +184,12 @@ void hello_background_handler(void * p_event_data, uint16_t event_size) {
 				__do_hello(hello_name, "B2B/GHELLO.RAW");
 				break;
 		}
+	}
+
+	static uint32_t last_random_unmark = 0;
+	uint32_t timenow = util_millis();
+	if ((timenow - last_random_unmark) > HELLO_UNMARK_MS) {
+		ble_lists_randomly_unhello_neighbor();
+		last_random_unmark = timenow;
 	}
 }

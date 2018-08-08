@@ -62,5 +62,7 @@ extern int neighbor_get_info(uint8_t index, char *name, char *buf);
 // Returns true if it found one.
 extern bool ble_lists_choose_hello_neighbor(uint16_t *hello_company_id, char *hello_name);
 
+// Randomly mark a neighbor as un-Helloed
+extern void ble_lists_randomly_unhello_neighbor(void);
 
 #endif /* UTIL_BLE_LISTS_H_ */
