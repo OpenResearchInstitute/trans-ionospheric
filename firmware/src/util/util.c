@@ -74,12 +74,13 @@ void util_millis_offset_set(uint32_t offset) {
 }
 
 void util_timers_start() {
-//	uint32_t err_code;
-	APP_TIMER_INIT(UTIL_TIMER_PRESCALER, UTIL_TIMER_OP_QUEUE_SIZE, false);
+	uint32_t err_code;
+	err_code = app_timer_init();
+	APP_ERROR_CHECK(err_code);
 //	err_code = app_timer_create(&m_timer_1, APP_TIMER_MODE_REPEATED, __timer_handler);
 //	APP_ERROR_CHECK(err_code);
 //
-//	err_code = app_timer_start(m_timer_1, APP_TIMER_TICKS(1, UTIL_TIMER_PRESCALER), NULL);
+//	err_code = app_timer_start(m_timer_1, APP_TIMER_TICKS(1), NULL);
 //	APP_ERROR_CHECK(err_code);
 }
 

@@ -84,7 +84,7 @@ static uint8_t *p_large_tx_data = NULL;
 /**
  * Handler for unblocked SPI transfers that assumes the transfer is complete
  */
-static void __spi_event_handler(nrf_drv_spi_evt_t const * p_event) {
+static void __spi_event_handler(nrf_drv_spi_evt_t const * p_event, void *p_context) {
 	//If we're in the middle of a large transfer, setup the next chunk
 	if (m_large_tx) {
 		if (m_large_tx_size == 0) {
@@ -257,7 +257,7 @@ void st7735_init() {
 	spi_config0.mode = NRF_DRV_SPI_MODE_0;
 	spi_config0.bit_order = NRF_DRV_SPI_BIT_ORDER_MSB_FIRST;
 
-	err_code = nrf_drv_spi_init(&spi0, &spi_config0, __spi_event_handler);
+	err_code = nrf_drv_spi_init(&spi0, &spi_config0, __spi_event_handler, NULL);
 	APP_ERROR_CHECK(err_code);
 
 	nrf_gpio_cfg_output(ST7735_PIN_CS);

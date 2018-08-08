@@ -78,7 +78,7 @@ void mbp_rssi_start(void) {
 	if (util_i2c_smeter_start()) {
 		err_code = app_timer_create(&m_rssi_timer, APP_TIMER_MODE_REPEATED, __rssi_timer_handler);
 		APP_ERROR_CHECK(err_code);
-		err_code = app_timer_start(m_rssi_timer, APP_TIMER_TICKS(100, UTIL_TIMER_PRESCALER), NULL);
+		err_code = app_timer_start(m_rssi_timer, APP_TIMER_TICKS(100), NULL);
 		APP_ERROR_CHECK(err_code);
 	}
 }

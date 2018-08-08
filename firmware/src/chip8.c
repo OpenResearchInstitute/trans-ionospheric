@@ -683,7 +683,7 @@ void chip8_run(chip8_game_t *p_game) {
 	mbp_background_led_stop();
 	app_sched_pause();
 
-	uint32_t ticks = APP_TIMER_TICKS(1000 / p_game->hz, UTIL_TIMER_PRESCALER);
+	uint32_t ticks = APP_TIMER_TICKS(1000 / p_game->hz);
 	err_code = app_timer_start(m_chip8_timer, ticks, (void *) &c8);
 	APP_ERROR_CHECK(err_code);
 

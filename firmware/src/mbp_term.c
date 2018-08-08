@@ -939,7 +939,7 @@ void mbp_term_start() {
 	uint32_t err_code;
 	err_code = app_timer_create(&m_terminal_inactivity_timer, APP_TIMER_MODE_REPEATED, __inactivity_timer_handler);
 	APP_ERROR_CHECK(err_code);
-	err_code = app_timer_start(m_terminal_inactivity_timer, APP_TIMER_TICKS(1000, UTIL_TIMER_PRESCALER), NULL);
+	err_code = app_timer_start(m_terminal_inactivity_timer, APP_TIMER_TICKS(1000), NULL);
 	APP_ERROR_CHECK(err_code);
 }
 

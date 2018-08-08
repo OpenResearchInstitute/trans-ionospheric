@@ -271,7 +271,7 @@ void ski() {
 	util_gfx_invalidate();
 
 	//Start main game timer
-	uint32_t ticks = APP_TIMER_TICKS(SKI_STEP_MS, UTIL_TIMER_PRESCALER);
+	uint32_t ticks = APP_TIMER_TICKS(SKI_STEP_MS);
 	err_code = app_timer_start(m_ski_timer, ticks, (void *) &state);
 	APP_ERROR_CHECK(err_code);
 

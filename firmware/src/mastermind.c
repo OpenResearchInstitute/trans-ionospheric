@@ -642,7 +642,7 @@ static void __animate_answers(uint8_t row, bool run) {
 		err_code = app_timer_create(&m_mm_animation_timer, APP_TIMER_MODE_REPEATED, __mm_animation_timer_handler);
 		APP_ERROR_CHECK(err_code);
 
-		uint32_t ticks = APP_TIMER_TICKS(MM_ANIMATION_MS, UTIL_TIMER_PRESCALER);
+		uint32_t ticks = APP_TIMER_TICKS(MM_ANIMATION_MS);
 		err_code = app_timer_start(m_mm_animation_timer, ticks, NULL);
 		APP_ERROR_CHECK(err_code);
 

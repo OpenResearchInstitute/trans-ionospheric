@@ -76,5 +76,5 @@ void util_tilt_start() {
 	nrf_gpio_cfg_input(TILT_PIN, NRF_GPIO_PIN_PULLUP);
 
 	APP_ERROR_CHECK(app_timer_create(&m_tilt_timer, APP_TIMER_MODE_REPEATED, __tilt_timer_handler));
-	APP_ERROR_CHECK(app_timer_start(m_tilt_timer, APP_TIMER_TICKS(TILT_CHECK_TIME_MS, UTIL_TIMER_PRESCALER), NULL));
+	APP_ERROR_CHECK(app_timer_start(m_tilt_timer, APP_TIMER_TICKS(TILT_CHECK_TIME_MS), NULL));
 }

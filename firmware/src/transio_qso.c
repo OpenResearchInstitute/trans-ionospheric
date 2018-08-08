@@ -332,7 +332,7 @@ void transio_qso_attempt(uint8_t index) {
 	mbp_background_led_stop();
 	app_sched_pause();
 
-	uint32_t ticks = APP_TIMER_TICKS(QSO_CONNECT_LED_DELAY, UTIL_TIMER_PRESCALER);
+	uint32_t ticks = APP_TIMER_TICKS(QSO_CONNECT_LED_DELAY);
 	err_code = app_timer_start(m_qso_connect_timer, ticks, NULL);
 	APP_ERROR_CHECK(err_code);
 

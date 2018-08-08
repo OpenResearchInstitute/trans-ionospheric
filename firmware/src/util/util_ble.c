@@ -43,7 +43,7 @@
 //#define MIN_CONN_INTERVAL             MSEC_TO_UNITS(500, UNIT_1_25_MS)  // Minimum acceptable connection interval (0.5 seconds).
 //#define MAX_CONN_INTERVAL             MSEC_TO_UNITS(1000, UNIT_1_25_MS) // Maximum acceptable connection interval (1 second).
 
-#if (NRF_SD_BLE_API_VERSION == 3)
+#if (NRF_SD_BLE_API_VERSION >= 3)
 #define NRF_BLE_MAX_MTU_SIZE          GATT_MTU_SIZE_DEFAULT // MTU size used in the softdevice enabling and to reply to a BLE_GATTS_EVT_EXCHANGE_MTU_REQUEST event.
 #endif
 
@@ -51,8 +51,8 @@
 #define PERIPHERAL_LINK_COUNT         1 // Number of peripheral links used by the application. When changing this number remember to adjust the RAM settings
 
 //Connection parameters
-#define FIRST_CONN_PARAMS_UPDATE_DELAY  APP_TIMER_TICKS(5000, UTIL_TIMER_PRESCALER)  // Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds).
-#define NEXT_CONN_PARAMS_UPDATE_DELAY   APP_TIMER_TICKS(30000, UTIL_TIMER_PRESCALER) // Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds).
+#define FIRST_CONN_PARAMS_UPDATE_DELAY  APP_TIMER_TICKS(5000)  // Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds).
+#define NEXT_CONN_PARAMS_UPDATE_DELAY   APP_TIMER_TICKS(30000) // Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds).
 #define MAX_CONN_PARAMS_UPDATE_COUNT  3 // Number of attempts before giving up the connection parameter negotiation.
 
 //Scan settings
@@ -83,6 +83,8 @@
 #define MAX_CONNECTION_INTERVAL       MSEC_TO_UNITS(30, UNIT_1_25_MS)  // Determines maximum connection interval in millisecond.
 #define SLAVE_LATENCY                 0                                // Determines slave latency in counts of connection events.
 #define CONN_SUPERVISION_TIMEOUT      MSEC_TO_UNITS(1000, UNIT_10_MS)  // Determines supervision time-out in units of 10 millisecond.
+
+#define CONN_CFG_TAG 1
 
 static ble_advdata_t m_adv_data;                // Structure containing advertising parameters
 static nrf_ble_gatt_t m_gatt;                   // Structure for gatt module
@@ -231,17 +233,10 @@ static void __db_discovery_init(void) {
 }
 
 /**
- * GATT Event handler
- */
-void __gatt_evt_handler(nrf_ble_gatt_t * p_gatt, nrf_ble_gatt_evt_t * p_evt) {
-	//do something here?
-}
-
-/**
  * GATT module init
  */
 static void __gatt_init(void) {
-	ret_code_t err_code = nrf_ble_gatt_init(&m_gatt, __gatt_evt_handler);
+	ret_code_t err_code = nrf_ble_gatt_init(&m_gatt, NULL);
 	APP_ERROR_CHECK(err_code);
 }
 
@@ -512,10 +507,10 @@ static void __on_ble_evt(ble_evt_t * p_ble_evt) {
 	}
 	break; // BLE_GATTS_EVT_RW_AUTHORIZE_REQUEST
 
-#if (NRF_SD_BLE_API_VERSION == 3)
+#if (NRF_SD_BLE_API_VERSION >= 3)
 	case BLE_GATTS_EVT_EXCHANGE_MTU_REQUEST:
 		err_code = sd_ble_gatts_exchange_mtu_reply(p_ble_evt->evt.gatts_evt.conn_handle,
-				NRF_BLE_MAX_MTU_SIZE);
+				NRF_BLE_GATT_MAX_MTU_SIZE);
 		APP_ERROR_CHECK(err_code);
 		break; // BLE_GATTS_EVT_EXCHANGE_MTU_REQUEST
 #endif
@@ -777,7 +772,7 @@ uint32_t util_ble_connect(ble_gap_addr_t *p_address) {
 	scan.window = SCAN_WINDOW;
 
 	// Don't use whitelist.
-#if (NRF_SD_BLE_API_VERSION == 3)
+#if (NRF_SD_BLE_API_VERSION >= 3)
 	scan.use_whitelist = 0;
 	scan.adv_dir_report = 0;
 #else
@@ -786,7 +781,7 @@ uint32_t util_ble_connect(ble_gap_addr_t *p_address) {
 #endif
 	scan.timeout = 5; // seconds
 
-	uint32_t result = sd_ble_gap_connect(p_address, &scan, &m_conn_params);
+	uint32_t result = sd_ble_gap_connect(p_address, &scan, &m_conn_params, BLE_CONN_CFG_TAG_DEFAULT);
 	return result;
 }
 
@@ -800,24 +795,50 @@ uint32_t util_ble_disconnect() {
 
 void util_ble_init() {
 	uint32_t err_code;
+	uint32_t ram_start;
 
 	nrf_clock_lf_cfg_t clock_lf_cfg = MBP_CLOCK_LFCLKSRC;
 
 	// Initialize the SoftDevice handler module.
 	SOFTDEVICE_HANDLER_INIT(&clock_lf_cfg, NULL);
 
-	ble_enable_params_t ble_enable_params;
-	err_code = softdevice_enable_get_default_config(CENTRAL_LINK_COUNT, PERIPHERAL_LINK_COUNT, &ble_enable_params);
+	err_code = softdevice_app_ram_start_get(&ram_start);
 	APP_ERROR_CHECK(err_code);
 
-	// Check the ram settings against the used number of links
-	CHECK_RAM_START_ADDR(CENTRAL_LINK_COUNT, PERIPHERAL_LINK_COUNT);
+	// Overwrite some of the default configurations for the BLE stack.
+	ble_cfg_t ble_cfg;
+
+	// Configure the number of custom UUIDS.
+	memset(&ble_cfg, 0, sizeof(ble_cfg));
+	ble_cfg.common_cfg.vs_uuid_cfg.vs_uuid_count = 0;
+	err_code = sd_ble_cfg_set(BLE_COMMON_CFG_VS_UUID, &ble_cfg, ram_start);
+	APP_ERROR_CHECK(err_code);
+
+	// Configure the maximum number of connections.
+	memset(&ble_cfg, 0, sizeof(ble_cfg));
+	ble_cfg.gap_cfg.role_count_cfg.periph_role_count  = 0;
+	ble_cfg.gap_cfg.role_count_cfg.central_role_count = 1;
+	ble_cfg.gap_cfg.role_count_cfg.central_sec_count  = BLE_GAP_ROLE_COUNT_CENTRAL_SEC_DEFAULT;
+	err_code = sd_ble_cfg_set(BLE_GAP_CFG_ROLE_COUNT, &ble_cfg, ram_start);
+	APP_ERROR_CHECK(err_code);
+
+	// Configure the maximum ATT MTU.
+	memset(&ble_cfg, 0x00, sizeof(ble_cfg));
+	ble_cfg.conn_cfg.conn_cfg_tag                 = CONN_CFG_TAG;
+	ble_cfg.conn_cfg.params.gatt_conn_cfg.att_mtu = NRF_BLE_GATT_MAX_MTU_SIZE;
+	err_code = sd_ble_cfg_set(BLE_CONN_CFG_GATT, &ble_cfg, ram_start);
+	APP_ERROR_CHECK(err_code);
+
+	// Configure the maximum event length.
+	memset(&ble_cfg, 0x00, sizeof(ble_cfg));
+	ble_cfg.conn_cfg.conn_cfg_tag                     = CONN_CFG_TAG;
+	ble_cfg.conn_cfg.params.gap_conn_cfg.event_length = 320;
+	ble_cfg.conn_cfg.params.gap_conn_cfg.conn_count   = BLE_GAP_CONN_COUNT_DEFAULT;
+	err_code = sd_ble_cfg_set(BLE_CONN_CFG_GAP, &ble_cfg, ram_start);
+	APP_ERROR_CHECK(err_code);
 
 	// Enable BLE stack.
-#if (NRF_SD_BLE_API_VERSION == 3)
-	ble_enable_params.gatt_enable_params.att_mtu = NRF_BLE_MAX_MTU_SIZE;
-#endif
-	err_code = softdevice_enable(&ble_enable_params);
+	err_code = softdevice_enable(&ram_start);
 	APP_ERROR_CHECK(err_code);
 
 	// Register with the SoftDevice handler module for BLE events.
@@ -925,7 +946,7 @@ void util_ble_scan_start() {
 	scan.window = SCAN_WINDOW;
 
 	// Don't use whitelist.
-#if (NRF_SD_BLE_API_VERSION == 3)
+#if (NRF_SD_BLE_API_VERSION >= 3)
 	scan.use_whitelist = 0;
 	scan.adv_dir_report = 0;
 #else

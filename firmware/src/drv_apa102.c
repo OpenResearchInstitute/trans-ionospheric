@@ -55,7 +55,7 @@ void apa102_init() {
 		brightness = strtol(b_str, NULL, 10);
 	}
 
-	APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL));
+	APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL));
 }
 
 void apa102_send(uint8_t *leds) {

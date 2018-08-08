@@ -63,7 +63,7 @@ bool ws2812b_init() {
 	spi_config.mode = NRF_DRV_SPI_MODE_1;
 	spi_config.bit_order = NRF_DRV_SPI_BIT_ORDER_MSB_FIRST;
 
-	uint32_t err_code = nrf_drv_spi_init(&spi2, &spi_config, NULL);
+	uint32_t err_code = nrf_drv_spi_init(&spi2, &spi_config, NULL, NULL);
 	APP_ERROR_CHECK(err_code);
 
 

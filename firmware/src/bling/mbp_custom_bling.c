@@ -235,7 +235,7 @@ static void __menu_custom_anim_callback(void *p_data) {
 
 	//Start the LED timer
 	if (led_callback != NULL) {
-		uint32_t ticks = APP_TIMER_TICKS(1000 / LED_FPS, UTIL_TIMER_PRESCALER);
+		uint32_t ticks = APP_TIMER_TICKS(1000 / LED_FPS);
 		err_code = app_timer_create(&m_timer, APP_TIMER_MODE_REPEATED, led_callback);
 		APP_ERROR_CHECK(err_code);
 		err_code = app_timer_start(m_timer, ticks, p_timer_data);

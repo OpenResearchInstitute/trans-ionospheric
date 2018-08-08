@@ -21,8 +21,8 @@ to do any of this setup over again.
 Choose a place to install these on your file system. For example,
 we'll use "/src/badge-support/".
 
-Download the version 12.3 of the Nordic SDK
-[from here](https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v12.x.x/nRF5_SDK_12.3.0_d7731ad.zip)
+Download the version 13.1.0 of the Nordic SDK
+[from here](https://developer.nordicsemi.com/nRF5_SDK/)
 and unzip it into the directory you chose.
 
 It's known that later versions of the SDK are not compatible with the
@@ -33,7 +33,7 @@ Now edit your shell init or rc file to set the following environment
 variable when you create a shell, substituting your chosen path:
 
 ```
-export SDK_ROOT=/src/badge-support/nRF5_SDK_12.3.0_d7731ad
+export SDK_ROOT=/src/badge-support/nRF5_SDK_13.1.0_7ca7556/
 ```
 
 ### Ubuntu Installation (non-ARM host)

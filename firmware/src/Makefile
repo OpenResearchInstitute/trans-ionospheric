@@ -152,7 +152,6 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/components/ble/nrf_ble_qwr \
 	$(SDK_ROOT)/components/ble/peer_manager \
 	$(SDK_ROOT)/components/device \
-	$(SDK_ROOT)/components/drivers_nrf/adc \
 	$(SDK_ROOT)/components/drivers_nrf/clock \
 	$(SDK_ROOT)/components/drivers_nrf/common \
 	$(SDK_ROOT)/components/drivers_nrf/comp \
@@ -193,7 +192,6 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/components/libraries/log \
 	$(SDK_ROOT)/components/libraries/log/src \
 	$(SDK_ROOT)/components/libraries/low_power_pwm \
-	$(SDK_ROOT)/components/libraries/mailbox \
 	$(SDK_ROOT)/components/libraries/mem_manager \
 	$(SDK_ROOT)/components/libraries/pwm \
 	$(SDK_ROOT)/components/libraries/queue \
@@ -258,7 +256,7 @@ CFLAGS += -DS132
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 #CFLAGS += -DCONFIG_NFCT_PINS_AS_GPIOS
 CFLAGS += -DBLE_STACK_SUPPORT_REQD
-CFLAGS += -DNRF_SD_BLE_API_VERSION=3
+CFLAGS += -DNRF_SD_BLE_API_VERSION=4
 CFLAGS += -DSWI_DISABLE0
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -mcpu=cortex-m4
@@ -296,7 +294,7 @@ ASMFLAGS += -DS132
 #ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DCONFIG_NFCT_PINS_AS_GPIOS
 ASMFLAGS += -DBLE_STACK_SUPPORT_REQD
-ASMFLAGS += -DNRF_SD_BLE_API_VERSION=3
+ASMFLAGS += -DNRF_SD_BLE_API_VERSION=4
 ASMFLAGS += -DSWI_DISABLE0
 ASMFLAGS += -DNRF52_PAN_20
 ASMFLAGS += -DSOFTDEVICE_PRESENT

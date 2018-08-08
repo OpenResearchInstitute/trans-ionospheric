@@ -35,7 +35,7 @@
 #define BUTTON_LEFT					26
 #define BUTTON_RIGHT				27
 #define BUTTON_ACTION				20
-#define TICKS_PER_100MS				APP_TIMER_TICKS(100, 0)
+#define TICKS_PER_100MS				APP_TIMER_TICKS(100)
 
 static volatile uint8_t button_state = 0;
 
@@ -146,7 +146,7 @@ uint8_t util_button_wait_timeout(uint32_t duration_ms) {
 
 	m_button_wait_expired = false;
 	while (button == 0 && util_gfx_is_valid_state() && !m_button_wait_expired) {
-		APP_ERROR_CHECK(app_timer_start(m_button_timer, APP_TIMER_TICKS(duration_ms, UTIL_TIMER_PRESCALER), NULL));
+		APP_ERROR_CHECK(app_timer_start(m_button_timer, APP_TIMER_TICKS(duration_ms), NULL));
 
 		err_code = sd_app_evt_wait();
 		APP_ERROR_CHECK(err_code);

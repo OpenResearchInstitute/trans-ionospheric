@@ -690,7 +690,7 @@ void mbp_bling_scroll_cycle() {
 
     //Start up led timer for scroll
     APP_ERROR_CHECK(app_timer_create(&m_scroll_led_timer, APP_TIMER_MODE_REPEATED, __scroll_callback));
-    APP_ERROR_CHECK(app_timer_start(m_scroll_led_timer, APP_TIMER_TICKS(1000/20, UTIL_TIMER_PRESCALER), &anim));
+    APP_ERROR_CHECK(app_timer_start(m_scroll_led_timer, APP_TIMER_TICKS(1000/20), &anim));
 
     while (1) {
         uint8_t button = mbp_bling_scroll(messages[index], false);
@@ -893,7 +893,7 @@ void mbp_background_led_start() {
     if (!m_background_led_running) {
         //Start up timer for updating the background LED display
         APP_ERROR_CHECK(app_timer_create(&m_background_led_timer, APP_TIMER_MODE_REPEATED, __background_led_timer_handler));
-        APP_ERROR_CHECK(app_timer_start(m_background_led_timer, APP_TIMER_TICKS(BACKGROUND_LED_TIME_MS, UTIL_TIMER_PRESCALER), NULL));
+        APP_ERROR_CHECK(app_timer_start(m_background_led_timer, APP_TIMER_TICKS(BACKGROUND_LED_TIME_MS), NULL));
 
         m_background_led_running = true;
     }
