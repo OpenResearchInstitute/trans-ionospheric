@@ -365,9 +365,20 @@ void mbp_system_shouts() {
 			"Shouts",
 			"@ANDnXOR\n"
 			"Partners\n"
-			"JoCo badge team\n"
+			"ORI badge team\n"
 			"#badgelife\n"
 			"... and you!\n");
+}
+
+void mbp_system_bugreports() {
+	mbp_ui_popup(
+			"BugReports",
+			"Found bugs?\n"
+			"Find us at\n"
+			"Open Research\n"
+			"Institute in\n"
+			"DC26 Wireless\n"
+			"Village");
 }
 
 void mbp_system_test() {

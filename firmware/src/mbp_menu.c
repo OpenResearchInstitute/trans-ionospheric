@@ -568,7 +568,7 @@ static void mbp_menu_nearby() {
 
 static void mbp_menu_system() {
 	menu_t menu;
-	menu_item_t items[11];
+	menu_item_t items[12];
 	menu.items = items;
 	menu.count = 0;
 
@@ -582,6 +582,7 @@ static void mbp_menu_system() {
 	items[menu.count++] = (menu_item_t ) { "Plane", "MENU/AIRPLANE.ICO", NULL, &mbp_system_airplane_mode_select, NULL };
 	items[menu.count++] = (menu_item_t ) { "Test", "MENU/TEST.ICO", NULL, &mbp_system_test, NULL };
 	items[menu.count++] = (menu_item_t ) { "Tilt", "MENU/TILT.ICO", NULL, &mbp_system_tilt_mode_select, NULL };
+	items[menu.count++] = (menu_item_t ) { "Bugs", "MENU/ANT.ICO", NULL, &mbp_system_bugreports, NULL };
 	items[menu.count++] = (menu_item_t ) { "Reset", "MENU/RESET.ICO", NULL, &mbp_system_reset, NULL };
 
 	menu.selected = 0;
