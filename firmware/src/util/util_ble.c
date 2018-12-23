@@ -796,49 +796,20 @@ uint32_t util_ble_disconnect() {
 void util_ble_init() {
 	uint32_t err_code;
 	uint32_t ram_start;
-
+	uint32_t const conn_cfg_tag = 1; // A tag that identifies the BLE stack configuration.
+	
 	nrf_clock_lf_cfg_t clock_lf_cfg = MBP_CLOCK_LFCLKSRC;
 
 	// Initialize the SoftDevice handler module.
-	SOFTDEVICE_HANDLER_INIT(&clock_lf_cfg, NULL);
+	nrf_sdh_enable_request(&clock_lf_cfg, NULL);
 
-	err_code = softdevice_app_ram_start_get(&ram_start);
+	err_code = nrf_sdh_ble_app_ram_start_get(&ram_start);
 	APP_ERROR_CHECK(err_code);
 
-	// Overwrite some of the default configurations for the BLE stack.
-	ble_cfg_t ble_cfg;
-
-	// Configure the number of custom UUIDS.
-	memset(&ble_cfg, 0, sizeof(ble_cfg));
-	ble_cfg.common_cfg.vs_uuid_cfg.vs_uuid_count = 0;
-	err_code = sd_ble_cfg_set(BLE_COMMON_CFG_VS_UUID, &ble_cfg, ram_start);
-	APP_ERROR_CHECK(err_code);
-
-	// Configure the maximum number of connections.
-	memset(&ble_cfg, 0, sizeof(ble_cfg));
-	ble_cfg.gap_cfg.role_count_cfg.periph_role_count  = 0;
-	ble_cfg.gap_cfg.role_count_cfg.central_role_count = 1;
-	ble_cfg.gap_cfg.role_count_cfg.central_sec_count  = BLE_GAP_ROLE_COUNT_CENTRAL_SEC_DEFAULT;
-	err_code = sd_ble_cfg_set(BLE_GAP_CFG_ROLE_COUNT, &ble_cfg, ram_start);
-	APP_ERROR_CHECK(err_code);
-
-	// Configure the maximum ATT MTU.
-	memset(&ble_cfg, 0x00, sizeof(ble_cfg));
-	ble_cfg.conn_cfg.conn_cfg_tag                 = CONN_CFG_TAG;
-	ble_cfg.conn_cfg.params.gatt_conn_cfg.att_mtu = NRF_BLE_GATT_MAX_MTU_SIZE;
-	err_code = sd_ble_cfg_set(BLE_CONN_CFG_GATT, &ble_cfg, ram_start);
-	APP_ERROR_CHECK(err_code);
-
-	// Configure the maximum event length.
-	memset(&ble_cfg, 0x00, sizeof(ble_cfg));
-	ble_cfg.conn_cfg.conn_cfg_tag                     = CONN_CFG_TAG;
-	ble_cfg.conn_cfg.params.gap_conn_cfg.event_length = 320;
-	ble_cfg.conn_cfg.params.gap_conn_cfg.conn_count   = BLE_GAP_CONN_COUNT_DEFAULT;
-	err_code = sd_ble_cfg_set(BLE_CONN_CFG_GAP, &ble_cfg, ram_start);
-	APP_ERROR_CHECK(err_code);
+	nrf_sdh_ble_default_cfg_set(conn_cfg_tag, &ram_start);  // Configure the BLE stack with the settings specified in sdk_config.
 
 	// Enable BLE stack.
-	err_code = softdevice_enable(&ram_start);
+	err_code = nrf_sdh_ble_enable(&ram_start);
 	APP_ERROR_CHECK(err_code);
 
 	// Register with the SoftDevice handler module for BLE events.

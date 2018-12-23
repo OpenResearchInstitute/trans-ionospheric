@@ -405,7 +405,7 @@ void mbp_bling_PRISM() {
     util_gfx_draw_raw_file("BLING/TRANSIO/PRISM.RAW", 0, 0, 128, 128, &__mbp_bling_glitter_callback, true, &hue);
 }
 
-void mbp_bling_RADIO(void *data) { simple_filebased_bling("BLING/TRANSIO/RADIO.RAW", "BLING/PINKBLUE.RGB"); }
+/* void mbp_bling_RADIO(void *data) { simple_filebased_bling("BLING/TRANSIO/RADIO.RAW", "BLING/PINKBLUE.RGB"); } */
 void mbp_bling_RKO1(void *data) { simple_filebased_bling("BLING/TRANSIO/RKO1.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_RKO2(void *data) { simple_filebased_bling("BLING/TRANSIO/RKO2.RAW", "BLING/PINKBLUE.RGB"); }
 void mbp_bling_ROTATE(void *data) { simple_filebased_bling("BLING/TRANSIO/ROTATE.RAW", "BLING/PINKBLUE.RGB"); }

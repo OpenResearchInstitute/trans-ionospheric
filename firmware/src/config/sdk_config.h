@@ -1406,7 +1406,7 @@
 
 //==========================================================
 // <q> BLE_ADVERTISING_ENABLED  - ble_advertising - Advertising module
-#define NRF_SD_BLE_API_VERSION 4
+#define NRF_SD_BLE_API_VERSION 5
 
 #define NRF_BLE_GATT_MAX_MTU_SIZE 23
 

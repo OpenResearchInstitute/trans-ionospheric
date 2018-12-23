@@ -1,0 +1,9 @@
+SDK v14 uses:
+  GCC ARM Embedded 4.9 2015q3
+  S132 V5 softdevice 
+
+SDK v14 adds:
+  NFC type 4 tags
+  
+TODO:
+Update ble stack config as needed in sdk_config.h

@@ -3,9 +3,9 @@
 : "${SDK_ROOT:?Need to set SDK_ROOT env variable (see project README)}"
 
 cp src/_build/nrf52832_xxaa.hex .
-cp $SDK_ROOT/components/softdevice/s132/hex/s132_nrf52_4.0.2_softdevice.hex .
+cp $SDK_ROOT/components/softdevice/s132/hex/s132_nrf52_5.0.0_softdevice.hex .
 
-$NRFJ_BIN/mergehex/mergehex -m nrf52832_xxaa.hex s132_nrf52_4.0.2_softdevice.hex -o t-i_2018_1.9.hex
+$NRFJ_BIN/mergehex/mergehex -m nrf52832_xxaa.hex s132_nrf52_5.0.0_softdevice.hex -o t-i_2018_1.9.hex
 
 rm nrf52832_xxaa.hex
-rm s132_nrf52_4.0.2_softdevice.hex
+rm s132_nrf52_5.0.0_softdevice.hex
