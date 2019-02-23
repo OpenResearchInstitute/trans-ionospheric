@@ -130,6 +130,9 @@
 #include "diskio.h"
 #include "ff.h"
 
+//JLink debug print capability
+#include "SEGGER_RTT.h"
+
 //Libraries
 #include "gfxfont.h"
 
