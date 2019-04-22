@@ -40,7 +40,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2019-04-22 03:54:12 +0000</string>
+	<string>2019-04-22 04:15:36 +0000</string>
 	<key>Modifier</key>
 	<string>Michelle Thompson</string>
 	<key>NotesVisible</key>
@@ -10153,7 +10153,7 @@ Green &amp; Black}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{28.346457481384277, 1720.3898122310638}, {634.96064758300781, 86}}</string>
+					<string>{{28.346457481384277, 1720.3898122310638}, {623.6220645904541, 86}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -10569,7 +10569,7 @@ and the book  \
 						BAtzdHJlYW10eXBlZIHoA4QBQISE
 						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
 						hIQITlNPYmplY3QAhZKEhIQITlNT
-						dHJpbmcBlIQBK4FqAkFib3ZlIGlz
+						dHJpbmcBlIQBK4FvAkFib3ZlIGlz
 						IHRoZSBjdXJyZW50IGJhY2tncm91
 						bmQgTEVEIGFuaW1hdGlvbiBmb3Ig
 						dGhlIFRyYW5zLUlvbm9zcGhlcmlj
@@ -10586,38 +10586,39 @@ and the book  \
 						YWQuIFdlIHVzZSBpdCB0byBkZW1v
 						bnN0cmF0ZSB3aGF0IHRoZSBiYWRn
 						ZSBtaWdodCBsb29rIGxpa2UgYXMg
-						YSDigJxyZWFs4oCdIHJhZGlvIHBl
-						cmlwaGVyYWwsIGFuZCB0byB0ZWFj
-						aCBiYXNpYyBjb25jZXB0cyBvZiBz
-						eXN0ZW0gYWNxdWlzaXRpb24uIElu
-						IG9yZGVyIHRvIHJlZmxlY3QgcmVh
-						bCBzeXN0ZW0gc3RhdHVzLCB3ZSBy
-						ZXBsYWNlIHRoZSBGYXV4IFN0YXR1
-						cyBDb25kaXRpb25zIHdpdGggcmVh
-						bCBvbmVzLCB0cmFuc21pdHRlZCBm
-						cm9tIGEgUGhhc2UgNCBHcm91bmQg
-						cmFkaW8gZGV2ZWxvcG1lbnQgYm9h
-						cmQuIEZvciB0aGlzIHN0YWdlLCB3
-						ZSBzZWxlY3RlZCB0aGUgRVNQMzIu
-						IIaEAmlJAYFgApKEhIQMTlNEaWN0
-						aW9uYXJ5AJSEAWkDkoSWlgdOU0Nv
-						bG9yhpKEhIQHTlNDb2xvcgCUhAFj
-						AYQEZmZmZoNy4eA+g0GCAj+DtoQE
-						PwGGkoSWlhBOU1BhcmFncmFwaFN0
-						eWxlhpKEhIQXTlNNdXRhYmxlUGFy
-						YWdyYXBoU3R5bGUAhIQQTlNQYXJh
-						Z3JhcGhTdHlsZQCUhARDQ0BTAACE
-						hIQHTlNBcnJheQCUmQyShISECU5T
-						VGV4dFRhYgCUhAJDZgAchpKEo6IA
-						OIaShKOiAFSGkoSjogBwhpKEo6IA
-						gYwAhpKEo6IAgagAhpKEo6IAgcQA
-						hpKEo6IAgeAAhpKEo6IAgfwAhpKE
-						o6IAgRgBhpKEo6IAgTQBhpKEo6IA
-						gVABhoYAhpKElpYGTlNGb250hpKE
-						hIQGTlNGb250HpSZMIQFWzQ4Y10G
-						AAAAJgAAAP/+QQB2AGUAbgBpAHIA
-						TgBlAHgAdAAtAFIAZQBnAHUAbABh
-						AHIAAACEAWYOmwCbAZsAmwCGhoY=
+						YSBmdW5jdGlvbmFsIHJhZGlvIHBl
+						cmlwaGVyYWwsIGFuZCBhbHNvIHRv
+						IHRlYWNoIGJhc2ljIGNvbmNlcHRz
+						IG9mIHN5c3RlbSBhY3F1aXNpdGlv
+						bi4gSW4gb3JkZXIgdG8gcmVmbGVj
+						dCByZWFsIHN5c3RlbSBzdGF0dXMs
+						IHdlIHJlcGxhY2UgdGhlIEZhdXgg
+						U3RhdHVzIENvbmRpdGlvbnMgd2l0
+						aCByZWFsIG9uZXMsIHRyYW5zbWl0
+						dGVkIGZyb20gYSBQaGFzZSA0IEdy
+						b3VuZCByYWRpbyBkZXZlbG9wbWVu
+						dCBib2FyZC4gRm9yIHRoaXMgc3Rh
+						Z2UsIHdlIHNlbGVjdGVkIHRoZSBF
+						U1AzMi4ghoQCaUkBgWkCkoSEhAxO
+						U0RpY3Rpb25hcnkAlIQBaQOShJaW
+						B05TQ29sb3KGkoSEhAdOU0NvbG9y
+						AJSEAWMBhARmZmZmg3Lh4D6DQYIC
+						P4O2hAQ/AYaShJaWEE5TUGFyYWdy
+						YXBoU3R5bGWGkoSEhBdOU011dGFi
+						bGVQYXJhZ3JhcGhTdHlsZQCEhBBO
+						U1BhcmFncmFwaFN0eWxlAJSEBEND
+						QFMAAISEhAdOU0FycmF5AJSZDJKE
+						hIQJTlNUZXh0VGFiAJSEAkNmAByG
+						koSjogA4hpKEo6IAVIaShKOiAHCG
+						koSjogCBjACGkoSjogCBqACGkoSj
+						ogCBxACGkoSjogCB4ACGkoSjogCB
+						/ACGkoSjogCBGAGGkoSjogCBNAGG
+						koSjogCBUAGGhgCGkoSWlgZOU0Zv
+						bnSGkoSEhAZOU0ZvbnQelJkwhAVb
+						NDhjXQYAAAAmAAAA//5BAHYAZQBu
+						AGkAcgBOAGUAeAB0AC0AUgBlAGcA
+						dQBsAGEAcgAAAIQBZg6bAJsBmwCb
+						AIaGhg==
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -10626,7 +10627,7 @@ and the book  \
 {\*\expandedcolortbl;;\csgenericrgb\c43922\c50980\c51765;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs28 \cf2 Above is the current background LED animation for the Trans-Ionospheric badge. It is \'93faux status\'94 in that it\'92s a simulation of powering up, receiving the channel list, attempting to authenticate and authorize, getting  channel assigned, and sending traffic through the payload. We use it to demonstrate what the badge might look like as a \'93real\'94 radio peripheral, and to teach basic concepts of system acquisition. In order to reflect real system status, we replace the Faux Status Conditions with real ones, transmitted from a Phase 4 Ground radio development board. For this stage, we selected the ESP32. }</string>
+\f0\fs28 \cf2 Above is the current background LED animation for the Trans-Ionospheric badge. It is \'93faux status\'94 in that it\'92s a simulation of powering up, receiving the channel list, attempting to authenticate and authorize, getting  channel assigned, and sending traffic through the payload. We use it to demonstrate what the badge might look like as a functional radio peripheral, and also to teach basic concepts of system acquisition. In order to reflect real system status, we replace the Faux Status Conditions with real ones, transmitted from a Phase 4 Ground radio development board. For this stage, we selected the ESP32. }</string>
 					</dict>
 					<key>VFlip</key>
 					<string>YES</string>
@@ -11863,7 +11864,7 @@ and the book  \
 		<key>TopSlabHeight</key>
 		<real>471</real>
 		<key>VisibleRegion</key>
-		<string>{{0, 170}, {1393, 914}}</string>
+		<string>{{0, 1253}, {1393, 914}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
