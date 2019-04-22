@@ -40,7 +40,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2019-04-22 03:47:37 +0000</string>
+	<string>2019-04-22 03:54:12 +0000</string>
 	<key>Modifier</key>
 	<string>Michelle Thompson</string>
 	<key>NotesVisible</key>
@@ -10510,7 +10510,7 @@ and the book  \
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{34.015748977661133, 867.40159893035889}, {547.08662939071655, 124}}</string>
+					<string>{{34.015748977661133, 867.40159893035889}, {547.08662939071655, 162}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -10569,48 +10569,56 @@ and the book  \
 						BAtzdHJlYW10eXBlZIHoA4QBQISE
 						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
 						hIQITlNPYmplY3QAhZKEhIQITlNT
-						dHJpbmcBlIQBK4HVAUFib3ZlIGlz
-						IHRoZSBiYWNrZ3JvdW5kIExFRCBh
-						bmltYXRpb24gZm9yIHRoZSBUcmFu
-						cy1Jb25vc3BoZXJpYyBiYWRnZS4g
-						SXQgaXMg4oCcZmF1eCBzdGF0dXPi
-						gJ0gaW4gdGhhdCBpdOKAmXMgYSBz
-						aW11bGF0aW9uIG9mIHBvd2VyaW5n
-						IHVwLCByZWNlaXZpbmcgdGhlIGNo
 						YW5uZWwgbGlzdCwgYXR0ZW1wdGlu
-						ZyB0byBhdXRoZW50aWNhdGUgYW5k
-						IGF1dGhvcml6ZSwgZ2V0dGluZyAg
-						Y2hhbm5lbCBhc3NpZ25lZCwgYW5k
-						IHNlbmRpbmcgdHJhZmZpYyB0aHJv
-						dWdoIHRoZSBwYXlsb2FkLiBJbiBv
-						cmRlciB0byByZWZsZWN0IHJlYWwg
-						c3lzdGVtIHN0YXR1cywgd2UgcmVw
-						bGFjZSB0aGUgRmF1eCBTdGF0dXMg
-						Q29uZGl0aW9ucyB3aXRoIHJlYWwg
-						b25lcywgdHJhbnNtaXR0ZWQgZnJv
-						bSBhIFBoYXNlIDQgR3JvdW5kIHJh
-						ZGlvIGRldmVsb3BtZW50IGJvYXJk
-						LiBGb3IgdGhpcyBzdGFnZSwgd2Ug
-						c2VsZWN0ZWQgdGhlIEVTUDMyLiCG
-						hAJpSQGBzwGShISEDE5TRGljdGlv
-						bmFyeQCUhAFpA5KElpYHTlNDb2xv
-						coaShISEB05TQ29sb3IAlIQBYwGE
-						BGZmZmaDcuHgPoNBggI/g7aEBD8B
-						hpKElpYQTlNQYXJhZ3JhcGhTdHls
-						ZYaShISEF05TTXV0YWJsZVBhcmFn
-						cmFwaFN0eWxlAISEEE5TUGFyYWdy
-						YXBoU3R5bGUAlIQEQ0NAUwAAhISE
-						B05TQXJyYXkAlJkMkoSEhAlOU1Rl
-						eHRUYWIAlIQCQ2YAHIaShKOiADiG
-						koSjogBUhpKEo6IAcIaShKOiAIGM
-						AIaShKOiAIGoAIaShKOiAIHEAIaS
-						hKOiAIHgAIaShKOiAIH8AIaShKOi
-						AIEYAYaShKOiAIE0AYaShKOiAIFQ
-						AYaGAIaShJaWBk5TRm9udIaShISE
-						Bk5TRm9udB6UmTCEBVs0OGNdBgAA
-						ACYAAAD//kEAdgBlAG4AaQByAE4A
-						ZQB4AHQALQBSAGUAZwB1AGwAYQBy
-						AAAAhAFmDpsAmwGbAJsAhoaG
+						dHJpbmcBlIQBK4FqAkFib3ZlIGlz
+						IHRoZSBjdXJyZW50IGJhY2tncm91
+						bmQgTEVEIGFuaW1hdGlvbiBmb3Ig
+						dGhlIFRyYW5zLUlvbm9zcGhlcmlj
+						IGJhZGdlLiBJdCBpcyDigJxmYXV4
+						IHN0YXR1c+KAnSBpbiB0aGF0IGl0
+						4oCZcyBhIHNpbXVsYXRpb24gb2Yg
+						cG93ZXJpbmcgdXAsIHJlY2Vpdmlu
+						ZyB0aGUgY2hhbm5lbCBsaXN0LCBh
+						dHRlbXB0aW5nIHRvIGF1dGhlbnRp
+						Y2F0ZSBhbmQgYXV0aG9yaXplLCBn
+						ZXR0aW5nICBjaGFubmVsIGFzc2ln
+						bmVkLCBhbmQgc2VuZGluZyB0cmFm
+						ZmljIHRocm91Z2ggdGhlIHBheWxv
+						YWQuIFdlIHVzZSBpdCB0byBkZW1v
+						bnN0cmF0ZSB3aGF0IHRoZSBiYWRn
+						ZSBtaWdodCBsb29rIGxpa2UgYXMg
+						YSDigJxyZWFs4oCdIHJhZGlvIHBl
+						cmlwaGVyYWwsIGFuZCB0byB0ZWFj
+						aCBiYXNpYyBjb25jZXB0cyBvZiBz
+						eXN0ZW0gYWNxdWlzaXRpb24uIElu
+						IG9yZGVyIHRvIHJlZmxlY3QgcmVh
+						bCBzeXN0ZW0gc3RhdHVzLCB3ZSBy
+						ZXBsYWNlIHRoZSBGYXV4IFN0YXR1
+						cyBDb25kaXRpb25zIHdpdGggcmVh
+						bCBvbmVzLCB0cmFuc21pdHRlZCBm
+						cm9tIGEgUGhhc2UgNCBHcm91bmQg
+						cmFkaW8gZGV2ZWxvcG1lbnQgYm9h
+						cmQuIEZvciB0aGlzIHN0YWdlLCB3
+						ZSBzZWxlY3RlZCB0aGUgRVNQMzIu
+						IIaEAmlJAYFgApKEhIQMTlNEaWN0
+						aW9uYXJ5AJSEAWkDkoSWlgdOU0Nv
+						bG9yhpKEhIQHTlNDb2xvcgCUhAFj
+						AYQEZmZmZoNy4eA+g0GCAj+DtoQE
+						PwGGkoSWlhBOU1BhcmFncmFwaFN0
+						eWxlhpKEhIQXTlNNdXRhYmxlUGFy
+						YWdyYXBoU3R5bGUAhIQQTlNQYXJh
+						Z3JhcGhTdHlsZQCUhARDQ0BTAACE
+						hIQHTlNBcnJheQCUmQyShISECU5T
+						VGV4dFRhYgCUhAJDZgAchpKEo6IA
+						OIaShKOiAFSGkoSjogBwhpKEo6IA
+						gYwAhpKEo6IAgagAhpKEo6IAgcQA
+						hpKEo6IAgeAAhpKEo6IAgfwAhpKE
+						o6IAgRgBhpKEo6IAgTQBhpKEo6IA
+						gVABhoYAhpKElpYGTlNGb250hpKE
+						hIQGTlNGb250HpSZMIQFWzQ4Y10G
+						AAAAJgAAAP/+QQB2AGUAbgBpAHIA
+						TgBlAHgAdAAtAFIAZQBnAHUAbABh
+						AHIAAACEAWYOmwCbAZsAmwCGhoY=
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -10619,7 +10627,7 @@ and the book  \
 {\*\expandedcolortbl;;\csgenericrgb\c43922\c50980\c51765;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs28 \cf2 Above is the background LED animation for the Trans-Ionospheric badge. It is \'93faux status\'94 in that it\'92s a simulation of powering up, receiving the channel list, attempting to authenticate and authorize, getting  channel assigned, and sending traffic through the payload. In order to reflect real system status, we replace the Faux Status Conditions with real ones, transmitted from a Phase 4 Ground radio development board. For this stage, we selected the ESP32. }</string>
+\f0\fs28 \cf2 Above is the current background LED animation for the Trans-Ionospheric badge. It is \'93faux status\'94 in that it\'92s a simulation of powering up, receiving the channel list, attempting to authenticate and authorize, getting  channel assigned, and sending traffic through the payload. We use it to demonstrate what the badge might look like as a \'93real\'94 radio peripheral, and to teach basic concepts of system acquisition. In order to reflect real system status, we replace the Faux Status Conditions with real ones, transmitted from a Phase 4 Ground radio development board. For this stage, we selected the ESP32. }</string>
 					</dict>
 					<key>VFlip</key>
 					<string>YES</string>
@@ -11856,7 +11864,7 @@ and the book  \
 		<key>TopSlabHeight</key>
 		<real>471</real>
 		<key>VisibleRegion</key>
-		<string>{{0, 1435}, {1393, 914}}</string>
+		<string>{{0, 170}, {1393, 914}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
