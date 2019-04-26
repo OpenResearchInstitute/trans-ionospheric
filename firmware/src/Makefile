@@ -115,6 +115,7 @@ SRC_FILES += \
 	skifree.c \
 	transio_log.c \
 	transio_qso.c \
+	transio_radio.c \
 	version.c
 
 # Include folders common to all targets

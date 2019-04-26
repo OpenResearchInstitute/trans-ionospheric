@@ -593,9 +593,10 @@ static void mbp_menu_system() {
 
 void mbp_menu_main() {
 	menu_t menu;
-	menu_item_t items[10];
+	menu_item_t items[11];
 	menu.count = 0;
 	items[menu.count++] = (menu_item_t ) { "Bling!", "MENU/BLING.ICO", NULL, &mbp_menu_bling, NULL };
+	items[menu.count++] = (menu_item_t ) { "Radio", "MENU/PHASE4.ICO", NULL, &transio_radio_screen, NULL };
 	items[menu.count++] = (menu_item_t ) { "ViewLog", "MENU/VIEWLOG.ICO", NULL, &transio_log_screen, NULL };
 	items[menu.count++] = (menu_item_t ) { "Nearby", "MENU/HOMES.ICO", NULL, &mbp_menu_nearby, NULL };
 	items[menu.count++] = (menu_item_t ) { "Score", "MENU/SCORE.ICO", NULL, &game_status_screen, NULL };
