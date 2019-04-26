@@ -1,0 +1,38 @@
+{
+    "name": "Debug BMP",
+    "type": "cppdbg",
+    "request": "launch",
+    "preLaunchTask": "build",
+    "cwd": "${workspaceRoot}/firmware/src",
+    "MIMode": "gdb",
+    "targetArchitecture": "arm",
+    "logging": {
+        "engineLogging": true
+    },
+    "program": "${workspaceRoot}/firmware/src/_build/nrf52832_xxaa.out",
+    "miDebuggerPath": "arm-none-eabi-gdb",
+    "customLaunchSetupCommands": [
+        {
+            "text": "target extended-remote /dev/ttyACM0"
+        },
+        {
+            "text": "monitor swdp_scan"
+        },
+        {
+            "text": "attach 1"
+        },
+        {
+            "text": "echo Type 'load' to program the flash"
+        },
+        {
+            "text": "set mem inaccessible-by-default off"
+        },
+        {
+            "text": "break main"
+        }
+    ],
+    "serverLaunchTimeout": 10000,
+    "windows": {
+        "miDebuggerPath": "arm-none-eabi-gdb"
+    }
+}
