@@ -200,7 +200,18 @@ static void hci_cmd_send_ble_set_adv_data(void)
         adv_data[9 + i] = (uint8_t)adv_name[i];
     }
 	
-    adv_data_len = 9 + name_len;
+    //0xff, 0x4a, 0x06, 0xde, 0xad manufacturer's ID plus four bytes of payload
+    adv_data[9+name_len] = 0x07;
+    adv_data[9+name_len+1] = 0xff;
+    adv_data[9+name_len+2] = 0x4a;
+    adv_data[9+name_len+3] = 0x06;
+    adv_data[9+name_len+4] = 0xde;
+    adv_data[9+name_len+5] = 0xad;
+    adv_data[9+name_len+6] = 0xbe;
+    adv_data[9+name_len+7] = 0xef;
+
+
+    adv_data_len = 7 + name_len + 2 + 8;
 
 
 
