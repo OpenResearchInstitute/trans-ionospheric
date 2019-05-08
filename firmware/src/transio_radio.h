@@ -20,6 +20,14 @@
 #define TRANSIO_RADIO_H_
 
 
+#define TRANSIO_RADIO_MSD_LEN   16
+
 extern void transio_radio_screen();
+extern void transio_radio_process_advertisement(uint8_t address[],
+										 char name[],
+										 uint16_t appearance,
+                                         uint8_t msd_length,
+										 uint8_t mfg_specific_data[],
+										 int8_t rssi);
 
 #endif /* TRANSIO_RADIO_H_ */
