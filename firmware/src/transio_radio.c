@@ -25,6 +25,10 @@
 
 #define	MAX_AD_FIELD_LEN	26
 
+#define TRANSIO_RADIO_INTERVAL_MS	 1000
+#define TRANSIO_RADIO_TIMEOUT_MS	15000
+APP_TIMER_DEF(transio_radio_timer);
+
 uint32_t transio_radio_timestamp = 0;           // timestamp of last received radio info
 uint8_t transio_radio_address[BLE_GAP_ADDR_LEN];// BLE address of the radio
 int8_t transio_radio_rssi = INT8_MIN;           // received signal strength of the radio
@@ -34,6 +38,40 @@ uint8_t transio_radio_msd_length;               // length of manufacturer-specif
 
 bool transio_radio_redraw;
 bool transio_radio_update;
+
+
+// Age out radio if we haven't seen it for a while
+static void __transio_radio_timer_handler(void *p_data) {
+	uint32_t timenow = util_millis();
+
+	if (timenow - transio_radio_timestamp > TRANSIO_RADIO_TIMEOUT_MS) {
+		transio_radio_rssi = INT8_MIN;			// flag the radio as unheard
+		memset(transio_radio_address, 0, BLE_GAP_ADDR_LEN);
+		app_timer_stop(transio_radio_timer);	// and stop checking for now
+
+		transio_radio_redraw = true;			// screen needs updating
+
+	}
+
+}
+
+
+// Run a timer for radio aging
+static void __transio_radio_timer_start(void) {
+	uint32_t err_code;
+	static bool setup = false;
+
+	if (!setup) {
+		err_code = app_timer_create(&transio_radio_timer, APP_TIMER_MODE_REPEATED, __transio_radio_timer_handler);
+		APP_ERROR_CHECK(err_code);
+	}
+
+	uint32_t ticks = APP_TIMER_TICKS(TRANSIO_RADIO_INTERVAL_MS, UTIL_TIMER_PRESCALER);
+	err_code = app_timer_start(transio_radio_timer, ticks, NULL);
+	APP_ERROR_CHECK(err_code);
+
+}
+
 
 void transio_radio_screen() {
  	char buffer[32];
@@ -54,8 +92,6 @@ void transio_radio_screen() {
 
     while (1) {
 		if (transio_radio_redraw || !util_gfx_is_valid_state()) {
-			transio_radio_update = true;
-
 		    //Make sure there's no clipping
 		    util_gfx_cursor_area_reset();
 
@@ -75,23 +111,24 @@ void transio_radio_screen() {
             if (transio_radio_rssi == INT8_MIN) {
                 util_gfx_print("None detected");
             } else {
-                util_gfx_set_cursor(0, 12);
+                util_gfx_set_cursor(0, 20);
                 util_gfx_print("Name: ");
                 util_gfx_print(transio_radio_name);
+				transio_radio_update = true;
             }
 
 			transio_radio_redraw = false;
 		}
 
 		if (transio_radio_update) {
-			util_gfx_fill_rect(6*5, 24, 100, 24, COLOR_BLACK);
+			util_gfx_fill_rect(6*5, 32, 100, 24, COLOR_BLACK);
 
-			util_gfx_set_cursor(0, 24);
+			util_gfx_set_cursor(0, 32);
 			util_gfx_print("RSSI: ");
 			sprintf(buffer, "%d", transio_radio_rssi);
 			util_gfx_print(buffer);
 
-			util_gfx_set_cursor(0, 36);
+			util_gfx_set_cursor(0, 44);
 			util_gfx_print("Data: ");
 			util_hex_encode((uint8_t *)buffer, transio_radio_msd, transio_radio_msd_length);
 			util_gfx_print(buffer);
@@ -116,6 +153,7 @@ void transio_radio_screen() {
 		nrf_delay_ms(300);
 	}
 
+	app_timer_stop(transio_radio_timer);
 	if (!smeter_was_on) {
 		util_i2c_smeter_stop();
 	}
@@ -148,6 +186,7 @@ void transio_radio_process_advertisement(uint8_t address[],
             memcpy(transio_radio_address, address, BLE_GAP_ADDR_LEN);
             memcpy(transio_radio_name, name, SETTING_NAME_LENGTH);
 			transio_radio_redraw = true;
+			__transio_radio_timer_start();	// start checking radio's age
         } else {
             return;     // disregard a radio that's new and weaker than the old one
         }
