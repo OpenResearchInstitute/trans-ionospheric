@@ -108,7 +108,7 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {559.0000007504741, 782.99968433973959}}</string>
+				<string>{{0, 0}, {559, 782.99969999999996}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -2594,7 +2594,7 @@ http://johnscullen.com}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {559.0000007504741, 782.99968433973959}}</string>
+				<string>{{0, 0}, {559, 782.99969999999996}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -7923,7 +7923,7 @@ Emphasis}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {1118.0000015009482, 2348.999053019219}}</string>
+				<string>{{0, 0}, {1118, 2348.9991}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -10168,11 +10168,14 @@ https://github.com/phase4ground/trans-ionospheric/tree/master/firmware\
 						mTCEBVs0OGNdBgAAACYAAAD//kEA
 						dgBlAG4AaQByAE4AZQB4AHQALQBS
 						AGUAZwB1AGwAYQByAAAAhAFmDpsA
-						mwGbAJsAhoaXAimShJiZA5KZkpqS
-						nJKdkq+ShLGZKIQFWzQwY10GAAAA
-						IAAAAP/+QQB2AGUAbgBpAHIATgBl
-						AHgAdAAtAEIAbwBsAGQApQ6bAJsB
-						mwCbAIaGlwFyhg==
+						mwGbAJsAhoaXAimShJiZA5KZkoSb
+						mwGcg3Lh4D6DQYICP4O2hAQ/AYaS
+						nJKEnp8AAIShmQySopKkkqWSppKn
+						kqiSqZKqkquSrJKtkq6GAIaSr5KE
+						sZkohAVbNDBjXQYAAAAgAAAA//5B
+						AHYAZQBuAGkAcgBOAGUAeAB0AC0A
+						QgBvAGwAZAClDpsAmwGbAJsAhoaX
+						AXKG
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -10190,8 +10193,8 @@ From https://usabilla.com/blog/how-to-design-for-color-blindness/\
 3. Use texture and patterns to show contrast\
 4. Carefully select any contrasting colors and shades\
 5. 
-\b Avoid using these bad color combinations:
-\b0 \
+\b \cf2 Avoid using these bad color combinations:
+\b0 \cf2 \
 \
 Green &amp; Red\
 Green &amp; Brown\
@@ -10524,11 +10527,13 @@ Green &amp; Black}</string>
 						AAD//kEAdgBlAG4AaQByAE4AZQB4
 						AHQALQBSAGUAZwB1AGwAYQByAAAA
 						hAFmDpsAmwGbAJsAhoaXAiaShJiZ
-						A5KZkpqSnJKdkq+ShLGZLIQFWzQ0
-						Y10GAAAAJAAAAP/+QQB2AGUAbgBp
-						AHIATgBlAHgAdAAtAEkAdABhAGwA
-						aQBjAKUOmwCbAZsAmwCGhpcBgecC
-						hg==
+						A5KZkoSbmwGcg3Lh4D6DQYICP4O2
+						hAQ/AYaSnJKEnp8AAIShmQySopKk
+						kqWSppKnkqiSqZKqkquSrJKtkq6G
+						AIaSr5KEsZkshAVbNDRjXQYAAAAk
+						AAAA//5BAHYAZQBuAGkAcgBOAGUA
+						eAB0AC0ASQB0AGEAbABpAGMApQ6b
+						AJsBmwCbAIaGlwGB5wKG
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -10540,9 +10545,10 @@ Green &amp; Black}</string>
 \f0\fs28 \cf2 The first reference used was the Getting Started Guide at \
 https://docs.espressif.com/projects/esp-idf/en/latest/get-started/\
 and the book  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\i Internet of Things Projects with ESP32
-\i0  by Agus Kurniawan Published by Packt Publishing, 2019\
+\i \cf2 Internet of Things Projects with ESP32
+\i0 \cf2  by Agus Kurniawan Published by Packt Publishing, 2019\
 \
 The Arduino IDE was tested first, and it works. It will get you up and running with the ESP32 quickly. There are a lot of libraries available, it\'92s familiar, and easy to use. The downside is that the libraries, especially like BlueTooth Low Energy, are large enough to consume all the memory space in the ESP32. \
 \
@@ -12123,7 +12129,7 @@ The Espressif IDE requires only a small amount of additional effort to set up. I
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {1118.0000015009482, 2348.999053019219}}</string>
+				<string>{{0, 0}, {1118, 2348.9991}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -14368,11 +14374,14 @@ https://github.com/phase4ground/trans-ionospheric/tree/master/firmware\
 						mTCEBVs0OGNdBgAAACYAAAD//kEA
 						dgBlAG4AaQByAE4AZQB4AHQALQBS
 						AGUAZwB1AGwAYQByAAAAhAFmDpsA
-						mwGbAJsAhoaXAimShJiZA5KZkpqS
-						nJKdkq+ShLGZKIQFWzQwY10GAAAA
-						IAAAAP/+QQB2AGUAbgBpAHIATgBl
-						AHgAdAAtAEIAbwBsAGQApQ6bAJsB
-						mwCbAIaGlwFyhg==
+						mwGbAJsAhoaXAimShJiZA5KZkoSb
+						mwGcg3Lh4D6DQYICP4O2hAQ/AYaS
+						nJKEnp8AAIShmQySopKkkqWSppKn
+						kqiSqZKqkquSrJKtkq6GAIaSr5KE
+						sZkohAVbNDBjXQYAAAAgAAAA//5B
+						AHYAZQBuAGkAcgBOAGUAeAB0AC0A
+						QgBvAGwAZAClDpsAmwGbAJsAhoaX
+						AXKG
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -14390,8 +14399,8 @@ From https://usabilla.com/blog/how-to-design-for-color-blindness/\
 3. Use texture and patterns to show contrast\
 4. Carefully select any contrasting colors and shades\
 5. 
-\b Avoid using these bad color combinations:
-\b0 \
+\b \cf2 Avoid using these bad color combinations:
+\b0 \cf2 \
 \
 Green &amp; Red\
 Green &amp; Brown\
@@ -14724,11 +14733,13 @@ Green &amp; Black}</string>
 						AAD//kEAdgBlAG4AaQByAE4AZQB4
 						AHQALQBSAGUAZwB1AGwAYQByAAAA
 						hAFmDpsAmwGbAJsAhoaXAiaShJiZ
-						A5KZkpqSnJKdkq+ShLGZLIQFWzQ0
-						Y10GAAAAJAAAAP/+QQB2AGUAbgBp
-						AHIATgBlAHgAdAAtAEkAdABhAGwA
-						aQBjAKUOmwCbAZsAmwCGhpcBgecC
-						hg==
+						A5KZkoSbmwGcg3Lh4D6DQYICP4O2
+						hAQ/AYaSnJKEnp8AAIShmQySopKk
+						kqWSppKnkqiSqZKqkquSrJKtkq6G
+						AIaSr5KEsZkshAVbNDRjXQYAAAAk
+						AAAA//5BAHYAZQBuAGkAcgBOAGUA
+						eAB0AC0ASQB0AGEAbABpAGMApQ6b
+						AJsBmwCbAIaGlwGB5wKG
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
@@ -14740,9 +14751,10 @@ Green &amp; Black}</string>
 \f0\fs28 \cf2 The first reference used was the Getting Started Guide at \
 https://docs.espressif.com/projects/esp-idf/en/latest/get-started/\
 and the book  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\i Internet of Things Projects with ESP32
-\i0  by Agus Kurniawan Published by Packt Publishing, 2019\
+\i \cf2 Internet of Things Projects with ESP32
+\i0 \cf2  by Agus Kurniawan Published by Packt Publishing, 2019\
 \
 The Arduino IDE was tested first, and it works. It will get you up and running with the ESP32 quickly. There are a lot of libraries available, it\'92s familiar, and easy to use. The downside is that the libraries, especially like BlueTooth Low Energy, are large enough to consume all the memory space in the ESP32. \
 \
@@ -16352,7 +16364,7 @@ The Espressif IDE requires only a small amount of additional effort to set up. I
 		<key>TopSlabHeight</key>
 		<real>471</real>
 		<key>VisibleRegion</key>
-		<string>{{-75, 0}, {1284, 929}}</string>
+		<string>{{-75, 259.5}, {1284, 929}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
