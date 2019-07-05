@@ -26,10 +26,10 @@
 #define QSO_CONNECT_LED_DELAY	200		// ms between LED changes while connecting
 
 #define BRAG_FILE_PATH "BRAGTAPE.TXT"
-#define TRANSIO_QSO_BRAG_MAX	512		// Must be <= 512 (BLE characteristic size limit)
-static uint8_t *transio_qso_brag_buffer;
+#define TRANSIO_QSO_BRAG_MAX	BLE_GATTS_FIX_ATTR_LEN_MAX	// 510 bytes
 
 static uint8_t m_qso_callsign[SETTING_CALLSIGN_LENGTH] = "NOTSET";
+static uint8_t transio_qso_brag_buffer[TRANSIO_QSO_BRAG_MAX];
 
 static uint16_t m_qso_service_handle;
 static volatile uint16_t m2_s_conn_handle = BLE_CONN_HANDLE_INVALID;
@@ -112,7 +112,7 @@ static uint32_t __init_char_callsign() {
  * and has already been read into a buffer.
  * No security here, we trust hams.
  */
-static uint32_t __init_char_brag() {
+static uint32_t __init_char_bragtape() {
 	ble_gatts_char_md_t char_md;
 	ble_gatts_attr_t attr_char_value;
 	ble_uuid_t ble_uuid;
@@ -162,9 +162,6 @@ static uint32_t __init_char_brag() {
 uint32_t transio_qso_ble_init(void) {
 	uint32_t err_code;
 	ble_uuid_t ble_uuid;
-	FILINFO info;
-	FIL	file;
-	UINT count;
 
 	// Add service
 	BLE_UUID_BLE_ASSIGN(ble_uuid, QSO_SVC_UUID);
@@ -179,22 +176,31 @@ uint32_t transio_qso_ble_init(void) {
 	// We always have a callsign characteristic (even if it's a dummy value)
 	__init_char_callsign();
 
+	// We always have a bragtape characteristic (but it starts out blank)
+	memset(transio_qso_brag_buffer, 0, TRANSIO_QSO_BRAG_MAX);
+	__init_char_bragtape();
+
+	return err_code;
+}
+
+
+/**
+ * Load the bragtape file into the bragtape characteristic
+ */
+void transio_qso_bragtape_update(void) {
+	FILINFO info;
+	FIL	file;
+	UINT count;
+
 	// Check and see if we have a "brag tape" available, and init characteristic if so.
 	if (f_stat(BRAG_FILE_PATH, &info) == FR_OK) {
     	if (f_open(&file, BRAG_FILE_PATH, FA_READ | FA_OPEN_EXISTING) == FR_OK) {
-			transio_qso_brag_buffer = (uint8_t *)malloc(TRANSIO_QSO_BRAG_MAX);
-			if (transio_qso_brag_buffer != NULL) {
-				memset(transio_qso_brag_buffer, 0, TRANSIO_QSO_BRAG_MAX);
-				if (f_read(&file, transio_qso_brag_buffer, TRANSIO_QSO_BRAG_MAX-1, &count) == FR_OK) {
-					__init_char_brag();
-				}
-			}
-			f_close(&file);
+			memset(transio_qso_brag_buffer, 0, TRANSIO_QSO_BRAG_MAX);
+			f_read(&file, transio_qso_brag_buffer, TRANSIO_QSO_BRAG_MAX-1, &count);
+			// If this fails, we can't do anything about it, so ignore the error.
 		}
+		f_close(&file);
 	}
-
-
-	return err_code;
 }
 
 

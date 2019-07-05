@@ -530,7 +530,6 @@ static void __on_ble_evt(ble_evt_t * p_ble_evt) {
 	case BLE_GATTS_EVT_EXCHANGE_MTU_REQUEST:
 		err_code = sd_ble_gatts_exchange_mtu_reply(p_ble_evt->evt.gatts_evt.conn_handle,
 				NRF_BLE_MAX_MTU_SIZE);
-		APP_ERROR_CHECK(err_code);
 		break; // BLE_GATTS_EVT_EXCHANGE_MTU_REQUEST
 #endif
 
@@ -570,13 +569,14 @@ static void __pm_init() {
 }
 
 static void __services_init() {
-	transio_qso_ble_init();
-
 	//Init NUS
 	ble_nus_init_t nus_init;
 	memset(&nus_init, 0, sizeof(nus_init));
 	nus_init.data_handler = mbp_term_nus_data_handler;
 	APP_ERROR_CHECK(ble_nus_init(&m_nus, &nus_init));
+
+	//Init QSO service
+	transio_qso_ble_init();
 }
 
 /**@brief Function for handling the Application's BLE Stack events.
