@@ -63,9 +63,14 @@ static bool __get_line_from_file(char *buf) {
 		f_read(&m_logfile, &char_read, 1, &count);
 		if (count == 1) {
 			buf[i] = char_read;
+			// detect end of line
 			if (char_read == '\n') {
 				buf[i+1] = '\0';
 				return true;
+			}
+			// detect and replace non-printable characters
+			else if (char_read < 0x20 || char_read > 0x7e) {
+				buf[i] = '_';
 			}
 		} else {
 			return false;
@@ -90,23 +95,6 @@ void file_viewer(char *filename, char *title, char *eof_message, void empty_mess
     char buf[SCREEN_WIDTH+2];	// room for CR and null termination
 
 	m_logfile_is_open = false;
-
-
-    // result = f_read(&file, (void *) &record, sizeof(contact_db_data_t), &count);
-    // while ((result == FR_OK) && (count == sizeof(contact_db_data_t))) {
-	// // see if this block of data matches
-	// // -spc- TODO decrypt here in the future
-	// if (__db_data_valid(&record, address, device_id)) {
-	//     result = f_close(&file);
-	//     if (result != FR_OK)
-	// 	mbp_ui_error("Could not close db 1.");
-	//     return true;
-	// }
-	// // if we haven't found the matching record, try again
-	// result = f_read(&file, (void *) &record, sizeof(contact_db_data_t), &count);
-    // }
-
-
 
     bool redraw = true;
 	bool at_eof = false;

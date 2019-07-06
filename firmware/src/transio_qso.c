@@ -21,7 +21,7 @@
 
 #define QSO_SVC_UUID			0xf264
 #define	QSO_CHAR_CALLSIGN_UUID	0xc91d	// read the badge's callsign
-#define QSO_CHAR_BRAG_UUID		0x8f26	// read the brag tape if available
+#define QSO_CHAR_BRAGTAPE_UUID	0x8f26	// read the brag tape if available
 
 #define QSO_CONNECT_LED_DELAY	200		// ms between LED changes while connecting
 
@@ -35,10 +35,15 @@ static uint16_t m_qso_service_handle;
 static volatile uint16_t m2_s_conn_handle = BLE_CONN_HANDLE_INVALID;
 static volatile uint16_t m2_c_conn_handle = BLE_CONN_HANDLE_INVALID;
 static volatile uint16_t m2_c_callsign_handle;
+static volatile uint16_t m2_c_bragtape_handle;
 static uint8_t m2_c_callsign_result[SETTING_CALLSIGN_LENGTH];
+static uint8_t *m2_c_bragtape_result;		// buffer dynamically allocated
 static volatile bool m2_connecting = false;
 static volatile bool m2_waiting = false;
 static volatile bool m_callsign_read_ok = false;
+static volatile bool m_bragtape_read_ok = false;
+static int m2_c_bragtape_count;
+static int m2_c_segment_size;
 
 typedef struct {
 	uint8_t		led_state;
@@ -131,7 +136,7 @@ static uint32_t __init_char_bragtape() {
 	char_md.p_cccd_md = NULL;
 	char_md.p_sccd_md = NULL;
 
-	BLE_UUID_BLE_ASSIGN(ble_uuid, QSO_CHAR_BRAG_UUID);
+	BLE_UUID_BLE_ASSIGN(ble_uuid, QSO_CHAR_BRAGTAPE_UUID);
 
 	memset(&attr_md, 0, sizeof(attr_md));
 
@@ -204,26 +209,6 @@ void transio_qso_bragtape_update(void) {
 }
 
 
-static void __on_read_response(const ble_evt_t *p_ble_evt) {
-	const ble_gattc_evt_read_rsp_t * p_response;
-
-	// Check if the event if on the link for this instance
-	if (m2_c_conn_handle != p_ble_evt->evt.gattc_evt.conn_handle) {
-		return;
-	}
-
-	p_response = &p_ble_evt->evt.gattc_evt.params.read_rsp;
-
-	//Check the handle of the response and pull the data out
-	if (p_response->handle == m2_c_callsign_handle) {
-		memcpy(m2_c_callsign_result, p_response->data, SETTING_CALLSIGN_LENGTH);
-		m_callsign_read_ok = true;
-		m2_waiting = false;
-	}
-}
-
-
-
 bool transio_qso_callsign_get(void) {
 	m2_waiting = true;
 	m_callsign_read_ok = false;
@@ -240,6 +225,123 @@ bool transio_qso_callsign_get(void) {
 	}
 
 	return m_callsign_read_ok;
+}
+
+
+static void transio_qso_bragtape_get(int offset) {
+
+	// Older badges might have a callsign but no bragtape characteristic.
+	if (m2_c_bragtape_handle == BLE_CONN_HANDLE_INVALID) {
+		return;
+	}
+
+	m2_waiting = true;
+	m_bragtape_read_ok = false;
+
+	//Fire off a read request
+	sd_ble_gattc_read(m2_c_conn_handle, m2_c_bragtape_handle, offset);
+
+	uint32_t end_time = util_millis() + 5000;
+	while (m2_waiting && !timer_state.abort_requested) {
+		APP_ERROR_CHECK(sd_app_evt_wait());
+		if (util_millis() > end_time) {
+			m2_waiting = false;
+		}
+	}
+
+	return;
+}
+
+
+static void __on_read_response(const ble_evt_t *p_ble_evt) {
+	const ble_gattc_evt_read_rsp_t * p_response;
+
+	// Check if the event is on the link for this instance
+	if (m2_c_conn_handle != p_ble_evt->evt.gattc_evt.conn_handle) {
+		return;
+	}
+
+	// Check if the status is good
+	if (p_ble_evt->evt.gattc_evt.gatt_status != BLE_GATT_STATUS_SUCCESS) {
+		return;
+		// if status is bad, we fall back on the timeout to catch the error.
+		// does it retry? If not, maybe we should retry here.
+	}
+
+	p_response = &p_ble_evt->evt.gattc_evt.params.read_rsp;
+
+	// This may be a response to a callsign read, a bragtape read, or
+	// something unexpected. Match up the handle to see which.
+
+	// The callsign characteristic fits in the first MTU so it's simple.
+	if (p_response->handle == m2_c_callsign_handle) {
+		SEGGER_RTT_printf(0, "GATT: callsign response\n");
+		memcpy(m2_c_callsign_result, p_response->data, SETTING_CALLSIGN_LENGTH);
+		m_callsign_read_ok = true;
+		m2_waiting = false;
+
+		// next, read the bragtape if available
+		transio_qso_bragtape_get(0);
+	}
+	// The bragtape characteristic is long, many segments. But its actual
+	// content may be shorter. It's a text string, so we look for a null
+	// character within any segment to indicate the end. If the string
+	// takes up the whole characteristic, then we detect the end by looking
+	// for a shorter (including zero-length) segment.
+	else if (p_response->handle == m2_c_bragtape_handle) {
+		SEGGER_RTT_printf(0, "GATT: bragtape response, offset=%d\n", m2_c_bragtape_count);
+		// if the length of the first segment is 0, the message is empty.
+		// Also, if the first segment starts with a null, the message is empty.
+		// We treat an empty message as no message received.
+		if (m2_c_bragtape_count == 0 &&
+			(p_response->len == 0 || p_response->data[0] == '\0')) {
+			m2_waiting = false;
+			return;
+		}
+
+		// If this isn't the segment we expected, bail out
+		if (p_response->offset != m2_c_bragtape_count) {
+			m2_waiting = false;
+			SEGGER_RTT_printf(0, "Offset mismatch\n");
+			return;
+		}
+
+		// if this is the first segment, allocate a buffer and note the segment size
+		if (m2_c_bragtape_count == 0) {
+			m2_c_bragtape_result = calloc(TRANSIO_QSO_BRAG_MAX+1, 1);
+			if (m2_c_bragtape_result == NULL) {
+				m2_waiting = false;
+				return;
+			}
+			m2_c_segment_size = p_response->len;
+		}
+
+		// discard the whole mess if it's too big for the buffer; shenanigans!
+		if (p_response->len > TRANSIO_QSO_BRAG_MAX - m2_c_bragtape_count) {
+			m2_waiting = false;
+			return;
+		}
+
+		// copy the segment into the buffer
+		memcpy(m2_c_bragtape_result+m2_c_bragtape_count, p_response->data, p_response->len);
+		m2_c_bragtape_count += p_response->len;
+
+		// if this segment wasn't full size, or if we've copied a null character,
+		// that's the end of the transfer, success!
+		SEGGER_RTT_printf(0, "len = %d, ss = %d\n", p_response->len, m2_c_segment_size);
+		if (p_response->len < m2_c_segment_size ||
+			strlen((const char *)m2_c_bragtape_result) < m2_c_bragtape_count) {
+				// strlen is safe here because we calloc'd the buffer (at max+1 length)
+				SEGGER_RTT_printf(0, "Done.\n");
+			m2_waiting = false;
+			m_bragtape_read_ok = true;
+			return;
+		}
+
+		// We've copied a full-length segment not containing a null, so we
+		// need to ask for the next segment and keep waiting.
+		transio_qso_bragtape_get(m2_c_bragtape_count);
+	}
 }
 
 
@@ -298,7 +400,8 @@ void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt) {
 			&& p_evt->params.discovered_db.srv_uuid.uuid == QSO_SVC_UUID
 			&& p_evt->params.discovered_db.srv_uuid.type == BLE_UUID_TYPE_BLE) {
 
-		m2_c_conn_handle = p_evt->conn_handle;
+		m2_c_callsign_handle = BLE_CONN_HANDLE_INVALID;
+		m2_c_bragtape_handle = BLE_CONN_HANDLE_INVALID;
 
 		for (uint8_t i = 0; i < p_evt->params.discovered_db.char_count; i++) {
 
@@ -306,9 +409,17 @@ void transio_qso_on_db_disc_evt(const ble_db_discovery_evt_t * p_evt) {
 				// Found callsign characteristic
 				m2_c_callsign_handle = p_evt->params.discovered_db.charateristics[i].characteristic.handle_value;
 			}
+			else if (p_evt->params.discovered_db.charateristics[i].characteristic.uuid.uuid == QSO_CHAR_BRAGTAPE_UUID) {
+				// Found bragtape characteristic
+				m2_c_bragtape_handle = p_evt->params.discovered_db.charateristics[i].characteristic.handle_value;
+			}
 		}
 
-		APP_ERROR_CHECK(pm_conn_secure(m2_c_conn_handle, false));
+		// Only proceed with this badge if it has a callsign characteristic
+		if (m2_c_callsign_handle != BLE_CONN_HANDLE_INVALID) {
+			m2_c_conn_handle = p_evt->conn_handle;
+			APP_ERROR_CHECK(pm_conn_secure(m2_c_conn_handle, false));
+		}
 
 		//all done
 		m2_connecting = false;
@@ -419,7 +530,7 @@ void transio_qso_attempt(uint8_t index) {
 	uint32_t timenow = util_millis()/1000;	// Log time in seconds since powerup
 											// Unfortunately we don't have real time!
 
-	//Connect to the selected badge
+	// Let the user know we're connecting to the selected badge
 	mbp_ui_cls();
 	util_gfx_cursor_area_reset();
 	util_gfx_set_cursor(0, 0);
@@ -429,7 +540,7 @@ void transio_qso_attempt(uint8_t index) {
 	util_gfx_print(ble_addr_string);
 	util_gfx_print("come in, please!\n");
 
-	//Connect
+	// Now actually connect to the badge and get the QSO info from it
 	if (transio_qso_connect_blocking(&address)) {
 		util_gfx_print("*** CONNECTED\n");
 
@@ -439,11 +550,16 @@ void transio_qso_attempt(uint8_t index) {
 			mbp_state_qso_count_increment();
 			mbp_state_save();
 			good_qso = true;
-		}
 
-		//!!! attempt a message retrieval too
+			if (m_bragtape_read_ok) {
+				util_gfx_set_color(COLOR_GREEN);
+				util_gfx_print("Message received!\n");
+				util_gfx_set_color(COLOR_WHITE);
+			}
+		}
 	} else {
 		add_to_score(POINTS_4_QSO_ATTEMPT, "QSO attempted");
+		mbp_state_save();
 	}
 
 	util_ble_disconnect();
@@ -454,7 +570,7 @@ void transio_qso_attempt(uint8_t index) {
 		sprintf(buf, "Good QSO with %s\n", m2_c_callsign_result);
 		util_gfx_print(buf);
 
-		sprintf(buf, "QSO at T=%ld\nSignal %d dBm\n%s%s op %s\n\n",
+		sprintf(buf, "QSO at T=%ld\nSignal %d dBm\n%s%s op %s\n",
 						timenow,
 						ble_lists_get_neighbor_rssi(index),
 						ble_addr_string,
@@ -470,6 +586,18 @@ void transio_qso_attempt(uint8_t index) {
 	}
 	gamefile_add_record(address.addr, buf);
 	logfile_add_record(buf);
+
+	if (m_bragtape_read_ok) {
+		sprintf(buf, "Message from %s:\n", m2_c_callsign_result);
+		logfile_add_record(buf);
+		logfile_add_record((char *) m2_c_bragtape_result);
+		
+		//!!! also display it here
+
+		free(m2_c_bragtape_result);
+		m2_c_bragtape_result = NULL;
+	}
+	logfile_add_record("\n");
 
 	app_timer_stop(m_qso_connect_timer);
 	util_led_clear();
