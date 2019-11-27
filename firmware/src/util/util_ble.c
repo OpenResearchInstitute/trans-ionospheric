@@ -110,6 +110,7 @@ typedef struct {
 	uint8_t flags;                     // 1
 	int8_t rssi;                       // 1
 	uint8_t special;                   // 1
+	uint8_t msd_length;				   // 1
 } ble_badge_t;
 
 //Declare these early
@@ -319,7 +320,8 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 
 		else if (field_type == GAP_TYPE_COMPANY_DATA) {
 			badge.company_id = field_data[0] | (field_data[1] << 8);
-			memcpy(mfg_specific_data, field_data+2, field_length-2);
+			badge.msd_length = field_length-3;
+			memcpy(mfg_specific_data, field_data+2, field_length-2);	//!!! -3 I think??
 		}
 
 		//Advance the index
@@ -329,6 +331,18 @@ static void __handle_advertisement(ble_gap_evt_adv_report_t *p_report) {
 	//************************************************************
 	// Now we're done parsing all the BLE data
 	//************************************************************
+
+	// It's a Phase 4 Ground radio if the company ID and appearance match.
+
+	if (badge.company_id == COMPANY_ID_ORI && badge.appearance == APPEARANCE_ID_ORI_P4GRADIO) {
+		SEGGER_RTT_printf(0, "Radio %s %d\n", badge.name, badge.rssi);
+		transio_radio_process_advertisement(badge.address,
+											badge.name,
+											badge.appearance,
+											badge.msd_length,
+											mfg_specific_data,
+											badge.rssi);
+	}
 
 	// We will assume it to be a badge if it contains one of the standard
 	// appearance values. (DEFCON standard, not BLE standard!)

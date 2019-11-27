@@ -115,6 +115,7 @@ SRC_FILES += \
 	skifree.c \
 	transio_log.c \
 	transio_qso.c \
+	transio_radio.c \
 	version.c
 
 # Include folders common to all targets
@@ -261,6 +262,9 @@ CFLAGS += -DBLE_STACK_SUPPORT_REQD
 CFLAGS += -DNRF_SD_BLE_API_VERSION=3
 CFLAGS += -DSWI_DISABLE0
 CFLAGS += -DSOFTDEVICE_PRESENT
+# Enable logging over RTT via USB (see NRF_LOG())
+# Comment this out to disable logging in case that causes a performance hit.
+CFLAGS += -DNRF_LOG_USES_RTT
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs --std=gnu99
 CFLAGS +=  -Wall -Werror -O0 -g3

@@ -1,0 +1,45 @@
+{
+    "configurations": [
+        {
+            "name": "BadgeLife",
+            "includePath": [
+                "/usr/local/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/**",
+                "/usr/local/src/nRF5_SDK_12.3.0_d7731ad/components/**",
+                "/usr/local/src/nRF5_SDK_12.3.0_d7731ad/external/**",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "DEBUG",
+                "DEBUG_NRF",
+                "NRF52",
+                "BOARD_PCA10040",
+                "NRF52832",
+                "NRF52_PAN_12",
+                "NRF52_PAN_15",
+                "NRF52_PAN_20",
+                "NRF52_PAN_54",
+                "NRF52_PAN_58",
+                "NRF52_PAN_55",
+                "NRF52_PAN_62",
+                "NRF52_PAN_63",
+                "NRF52_PAN_64",
+                "NRF52_PAN_31",
+                "NRF52_PAN_30",
+                "NRF52_PAN_51",
+                "NRF52_PAN_36",
+                "NRF52_PAN_53",
+                "S132",
+                "BLE_STACK_SUPPORT_REQD",
+                "NRF_SD_BLE_API_VERSION=3",
+                "SWI_DISABLE0",
+                "SOFTDEVICE_PRESENT",
+                "NRF_LOG_USES_RTT"
+            ],
+            "compilerPath": "/usr/local/gcc-arm-none-eabi-6-2017-q2-update/bin/arm-none-eabi-gcc",
+            "cStandard": "c99",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

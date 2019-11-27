@@ -130,6 +130,9 @@
 #include "diskio.h"
 #include "ff.h"
 
+//JLink debug print capability
+#include "SEGGER_RTT.h"
+
 //Libraries
 #include "gfxfont.h"
 
@@ -160,6 +163,7 @@
 #include "skifree.h"
 #include "transio_log.h"
 #include "transio_qso.h"
+#include "transio_radio.h"
 #include "util.h"
 #include "util_ble.h"
 #include "util_ble_lists.h"
